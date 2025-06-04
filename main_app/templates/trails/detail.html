@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "css/trails/trail-detail.css" %}">
+{% endblock head %}
+
+{% block content %}
+<section class="container">
+    <div class="img-container">
+        <img src="" alt="">
+    </div>
+    <div class="trail-details">
+        <h1>{{trail.name}}</h1>
+        <h4>{{trail.start_date}} - {{trail.end_date}}</h4>
+        <p>{{trail.location}}</p>
+        <p>{{trail.distance}} miles</p>
+        <p>{{trail.elevation}}</p>
+
+        <div class="trail-actions">
+            <a href="{% url "trail-update" trail.id%}" class="btn warn">Edit</a>
+            <a href="{% url "trail-delete" trail.id%}" class="btn danger">Delete</a>
+        </div>
+    </div>
+</section>
+{% endblock content %}

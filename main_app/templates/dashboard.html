@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/dashboard.css" %}">
+{% endblock head %}
+
+{% block content %}
+<h1>Oh, the places you will go!</h1>
+<h4>This is your dashboard</h4>
+<p>Includes an overview of all your trips coming up as well
+    as general goals and notes 
+</p>
+{% endblock content %}

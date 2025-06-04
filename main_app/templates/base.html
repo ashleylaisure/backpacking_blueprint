@@ -18,7 +18,7 @@
     <body>
         <header>
             <div class="header-logo-container">
-                <a href="/">
+                <a href="{% url "home" %}">
                     <img src="" alt="">
                     Backpacking Blueprint
                 </a>
@@ -27,10 +27,10 @@
             <nav>
                 <ul>
                     <li><a href="{% url "discover" %}">Discover</a></li>
-                    <li><a href="">Dashboard</a></li>
-                    <li><a href="">Trips</a></li>
+                    <li><a href="{% url "dashboard" %}">Dashboard</a></li>
+                    <li><a href="{% url "trail-index" %}">Adventures</a></li>
                     <li><a href="">Gear</a></li>
-                    <li><a href="">Add New Hike</a></li>
+                    <li><a href="{% url "trail-create" %}">Add New Adventures</a></li>
                 </ul>
             </nav>
         </header>
