@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import timedelta
 
 cover_images = (
     ('1', ''),
@@ -18,7 +19,9 @@ cover_images = (
     ('14', '14'),
     ('15', '15'),
 )
+
 # Create your models here.
+
 class Trail(models.Model):
     name = models.CharField(max_length=200)
     start_date = models.DateField('Starting Date')
@@ -43,3 +46,17 @@ class Trail(models.Model):
     def get_absolute_url(self):
         return reverse("trail-detail", kwargs={"trail_id": self.id})
     
+class Day(models.Model):
+    day = models.IntegerField()
+    date = models.DateField()
+    
+    start_location = models.CharField(max_length=200)
+    finish_location = models.CharField(max_length=200)
+    distance = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
+    elevation = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
+    notes = models.TextField(max_length=250)
+    
+    trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Day {self.day} on {self.date}"

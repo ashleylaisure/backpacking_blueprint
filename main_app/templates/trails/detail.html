@@ -21,4 +21,35 @@
         </div>
     </div>
 </section>
+
+<section class="days-container">
+    <div class="subsection-title">
+        <h2>Itinerary</h2>
+        <img src="" alt="">
+        <img src="" alt="">
+        <img src="" alt="">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Staring Location</th>
+                <th>Finish Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for day in trail.day_set.all %}
+                <tr>
+                    <td>{{day.day}}</td>
+                    <td>{{day.date}}</td>
+                    <td>{{day.start_location}}</td>
+                    <td>{{day.finish_location}}</td>
+                </tr>
+                
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 {% endblock content %}
