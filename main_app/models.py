@@ -60,3 +60,10 @@ class Day(models.Model):
     
     def __str__(self):
         return f"Day {self.day} on {self.date}"
+    
+    class Meta:
+        ordering = ['date']
+        
+    # return to the trail-detail that the day belongs to
+    def get_absolute_url(self):
+        return reverse("trail-detail", kwargs={"trail_id": self.trail.id})

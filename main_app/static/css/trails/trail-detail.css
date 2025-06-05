@@ -1,0 +1,13 @@
+.day-container {
+    border: 2px solid aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.day-title {
+    display: flex;
+    flex-direction: row;
+}

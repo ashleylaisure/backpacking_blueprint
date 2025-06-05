@@ -13,4 +13,7 @@ urlpatterns = [
     path('trails/create/', views.TrailCreate.as_view(), name="trail-create"),
     path('trails/<int:pk>/update/', views.TrailUpdate.as_view(), name='trail-update'),
     path('trails/<int:pk>/delete/', views.TrailDelete.as_view(), name='trail-delete'),
+    
+    # Day
+    path('days/<int:pk>/update/', views.DayUpdate.as_view(), name ="update_day"),
 ]

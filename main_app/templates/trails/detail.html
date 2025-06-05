@@ -30,26 +30,20 @@
         <img src="" alt="">
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Day</th>
-                <th>Date</th>
-                <th>Staring Location</th>
-                <th>Finish Location</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for day in trail.day_set.all %}
-                <tr>
-                    <td>{{day.day}}</td>
-                    <td>{{day.date}}</td>
-                    <td>{{day.start_location}}</td>
-                    <td>{{day.finish_location}}</td>
-                </tr>
-                
-            {% endfor %}
-        </tbody>
-    </table>
+    {% for day in trail.day_set.all %}
+    <div class="day-container">
+        <div class="day-title">
+            <h2>Day: {{day.day}} Date: {{day.date}}</h2>
+            <p>{{day.start_location}} To {{day.finish_location}}</p>
+        </div>
+        <div class="day-details">
+            <p>Distance: {{day.distance}} Elevation Gain: {{day.elevation}}</p>
+            <p>Notes: {{day.notes}}</p>
+        </div>
+
+        <a href="{% url "update_day" day.id %}" class="btn warn">Edit</a>
+    </div>
+    {% endfor %}
+
 </section>
 {% endblock content %}

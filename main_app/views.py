@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Trail
-from .forms import TrailForm
+from .forms import TrailForm, Day
 
 # Create your views here.
 def home(request):
@@ -20,7 +20,11 @@ def trail_index(request):
 
 def trail_detail(request, trail_id):
     trail = Trail.objects.get(id=trail_id)
-    return render(request, 'trails/detail.html', {'trail' : trail})
+    
+    return render(request, 'trails/detail.html', {
+        'trail' : trail,
+
+        })
 
 class TrailCreate(CreateView):
     model = Trail
@@ -36,3 +40,9 @@ class TrailUpdate(UpdateView):
 class TrailDelete(DeleteView):
     model = Trail
     success_url = '/trails/'
+    
+# days
+class DayUpdate(UpdateView):
+    model = Day
+    fields = ['start_location', 'finish_location', 'distance', 'elevation', 'notes']
+    
