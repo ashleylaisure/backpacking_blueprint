@@ -1,6 +1,5 @@
 from django import forms
-from .models import Trail, Day
-from django.forms import inlineformset_factory
+from .models import Trail
 
 class TrailForm(forms.ModelForm):
     class Meta:
