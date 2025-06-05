@@ -30,7 +30,7 @@
     <tbody>
         {% for gear in gear_list %}
         <tr>
-            <td>{{gear.name}}</td>
+            <td><a href="{% url "gear-detail" gear.id%}">{{gear.name}}</a></td>
             <td>{{gear.brand}}</td>
             <td><a href="">link</a></td>
             <td>{{gear.price}}</td>

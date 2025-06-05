@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/gear/gear-index.css" %}">
+{% endblock head %}
+
+{% block content %}
+<section class="page-header">
+    <h1>All Gear</h1>
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <li><a href="{% url "gear-create" %}">Add Gear</a></li>
+</section>
+
+<section class="gear-section">
+    {% for key, value in categories %}
+    <h3> {{value}}</h3>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>brand</th>
+                    <th>link</th>
+                    <th>price</th>
+                    <th>own</th>
+                    <th colspan="2">weight</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for gear in gear %}
+                    {% if gear.category == key %}
+                        <tr>
+                            <td><a href="{% url "gear-detail" gear.id%}">{{gear.name}}</a></td>
+                            <td>{{gear.brand}}</td>
+                            <td><a href="">link</a></td>
+                            <td>{{gear.price}}</td>
+                            <td>{{gear.own}}</td>
+                            <td>{{gear.weight}}</td>
+                            <td>
+                                {{gear.weight_m}}
+                                <a href="{% url "gear-update" gear.id %}" class="btn warn">E</a>
+                                <a href="{% url "gear-delete" gear.id %}" class="btn danger">D</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                
+                {% endfor %}
+            </tbody>
+        </table>
+{% endfor %}
+</section>
+
+
+{% endblock content %}

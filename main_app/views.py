@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Trail, Day, Gear
+from django.urls import reverse_lazy
+from .models import Trail, Day, Gear, category_choices
 from .forms import TrailForm
 
 # Create your views here.
@@ -48,8 +49,12 @@ class DayUpdate(UpdateView):
     fields = ['start_location', 'finish_location', 'distance', 'elevation', 'notes']
     
 # --------------------------------- GEAR
-class GearList(ListView):
-    model = Gear
+def gear_index(request):
+    gear = Gear.objects.all()
+    return render(request, 'gear/index.html', {
+        'gear' : gear,
+        'categories' : category_choices,
+    })
     
 class GearDetail(DetailView):
     model = Gear
@@ -58,11 +63,13 @@ class GearCreate(CreateView):
     model = Gear
     fields = '__all__'
     success_url = '/gear/'
+
     
 class GearUpdate(UpdateView):
     model = Gear
     fields = '__all__'
     success_url = '/gear/'
+
     
 class GearDelete(DeleteView):
     model = Gear
