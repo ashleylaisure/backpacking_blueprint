@@ -19,9 +19,14 @@ urlpatterns = [
     
     # GEAR
     path('gear/', views.gear_index, name='gear-index'),
-    path('gear/<int:pk>/', views.GearDetail.as_view(), name='gear-detail'),
     path('gear/create/', views.GearCreate.as_view(), name='gear-create'),
-    path('gear/<int:pk>/update/', views.GearUpdate.as_view(), name='gear-update'), 
-    path('gear/<int:pk>/delete/', views.GearDelete.as_view(), name='gear-delete'), 
+    path('gear/<int:pk>/update/', views.GearUpdate.as_view(), name='gear-update'),
+    # path('gear/<int:pk>/packed/', views.packed_gear, name='packed'),
+    path('gear/<int:pk>/delete/', views.GearDelete.as_view(), name='gear-delete'),
     
+    # M:M TRAIL:GEAR
+    path('trails/<int:trail_id>/associate-gear/', views.available_gear, name='available-gear-index'), 
+    path('trails/<int:trail_id>/gear-details/', views.trail_gear_details, name='trail-gear-details'), 
+    path('trails/<int:trail_id>/associate-gear/<int:gear_id>/', views.associate_gear, name='associate-gear'),
+    path('trails/<int:trail_id>/remove-gear/<int:gear_id>/', views.remove_gear, name='remove-gear'), 
 ]

@@ -46,4 +46,42 @@
     {% endfor %}
 
 </section>
+
+<section class="gear">
+    <div class="subsection-title">
+        <h2>Gear</h2>
+        <img src="" alt="">
+        <img src="" alt="">
+        <img src="" alt="">
+    </div>
+    <a href="{% url "available-gear-index" trail.id%}">
+        <h3>Available Gear</h3>
+    </a>
+    <a href="{% url "trail-gear-details" trail.id%}">
+        <h3>Gear Details</h3>
+    </a>
+    <div>
+        <h2>Packing List</h2>
+        <div class="subsection-content">
+            {% if trail.gear.count %}
+
+                {% for gear in trail.gear.all %}
+
+                    {% if gear.packed == False %}
+
+                        <form action="" method="post" autocomplete="off">
+                            {% csrf_token %}
+                            {{packed}}
+                            <label for="packed">{{gear.name}}</label>
+                        </form>
+                    {% endif %}
+                
+                {% endfor %}
+            {% else %}
+            <p>No items on your packing list</p>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
 {% endblock content %}

@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from django.urls import reverse_lazy
 from .models import Trail, Day, Gear, category_choices
-from .forms import TrailForm
+from .forms import TrailForm, PackedForm
 
 # Create your views here.
 def home(request):
@@ -22,10 +21,12 @@ def trail_index(request):
 
 def trail_detail(request, trail_id):
     trail = Trail.objects.get(id=trail_id)
-    
+    gear = Gear.objects.all()
+    packed_form = PackedForm()
     return render(request, 'trails/detail.html', {
         'trail' : trail,
-
+        'gear': gear,
+        'packed' : packed_form,
         })
 
 class TrailCreate(CreateView):
@@ -51,13 +52,13 @@ class DayUpdate(UpdateView):
 # --------------------------------- GEAR
 def gear_index(request):
     gear = Gear.objects.all()
+    trails = Trail.objects.all()
+    
     return render(request, 'gear/index.html', {
         'gear' : gear,
+        'trails' : trails,
         'categories' : category_choices,
     })
-    
-class GearDetail(DetailView):
-    model = Gear
     
 class GearCreate(CreateView):
     model = Gear
@@ -78,3 +79,31 @@ class GearDelete(DeleteView):
     # overriding get() to Directly delete
     def get(self, request, *args, **kwargs):
         return self.delete(request, *args, **kwargs)
+    
+# --------------------------------- M:M TRAIL:GEAR
+def available_gear(request, trail_id):
+    trail = Trail.objects.get(id=trail_id)
+    gear = Gear.objects.exclude(id__in = trail.gear.all().values_list('id'))
+    
+    return render(request, 'gear/show.html', {
+        'trail' : trail,
+        'gear' : gear,
+    })
+    
+def trail_gear_details(request, trail_id):
+    trail = Trail.objects.get(id=trail_id)
+    gear = Gear.objects.all()
+
+    return render(request, 'gear/trail_gear_details.html', {
+        'trail' : trail,
+        'gear': gear,
+        'categories' : category_choices,
+        })
+    
+def associate_gear(request, trail_id, gear_id):
+    Trail.objects.get(id=trail_id).gear.add(gear_id)
+    return redirect('trail-gear-details', trail_id=trail_id)
+
+def remove_gear(request, trail_id, gear_id):
+    Trail.objects.get(id=trail_id).gear.remove(gear_id)
+    return redirect('trail-gear-details', trail_id=trail_id)

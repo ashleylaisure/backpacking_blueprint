@@ -1,5 +1,5 @@
 from django import forms
-from .models import Trail
+from .models import Trail, Gear
 
 class TrailForm(forms.ModelForm):
     class Meta:
@@ -21,4 +21,12 @@ class TrailForm(forms.ModelForm):
                     'type': 'date'
                 }
             ),
+        }
+
+class PackedForm(forms.ModelForm):
+    class Meta:
+        model = Gear
+        fields = ['packed']
+        labels = {
+            'packed' : '',
         }

@@ -6,7 +6,7 @@
 
 {% block content %}
 <section class="page-header">
-    <h1>All Gear</h1>
+    <h1>GEAR for <a href="{% url "trail-detail" trail.id%}">{{trail.name}}</a> </h1>
     <img src="" alt="">
     <img src="" alt="">
     <img src="" alt="">
@@ -15,10 +15,9 @@
 </section>
 
 <section>
-    <h1>View Gear for:</h1>
-    {% for trail in trails %}
-    <a href="{% url "trail-gear-details" trail.id %}">{{trail.name}}</a>
-    {% endfor %}
+    
+    <a href="{% url "gear-index" %}"><h1>See all Gear</h1></a>
+    <a href="{% url "available-gear-index" trail.id%}"><h3>Available Gear</h3></a>
 </section>
 
 <section class="gear-section">
@@ -38,7 +37,7 @@
             </thead>
 
             <tbody>
-                {% for gear in gear %}
+                {% for gear in trail.gear.all %}
                     {% if gear.category == key %}
                         <tr>
                             <td>{{gear.name}}</td>
@@ -51,6 +50,10 @@
                                 {{gear.weight_m}}
                                 <a href="{% url "gear-update" gear.id %}" class="btn warn">E</a>
                                 <a href="{% url "gear-delete" gear.id %}" class="btn danger">D</a>
+                                <form action="{% url "remove-gear" trail.id gear.id%}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                </form>
                             </td>
                         </tr>
                     {% endif %}

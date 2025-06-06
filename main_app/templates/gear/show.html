@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/gear/gear-show.css" %}">
+{% endblock head %}
+
+{% block content %}
+<section>
+    <div class="subsection-content">
+        <h2>Available Gear for <a href="{% url "trail-detail" trail.id %}">{{trail.name}}</a></h2>
+        {% if gear.count %}
+            {% for gear in gear %}
+                <div class="gear-container">
+                    <p>{{gear.name}}</p>
+                    <form action="{% url "associate-gear" trail.id gear.id%}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn submit">+</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>already assigned available gear <a href="{% url "gear-create" %}">Add New Gear</a></p>
+        {% endif %}
+        
+
+    </div>
+</section>
+
+{% endblock content %}

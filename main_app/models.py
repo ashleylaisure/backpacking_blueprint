@@ -40,6 +40,23 @@ weight_choices = (
 )
 
 # Create your models here.
+class Gear(models.Model):
+    category = models.CharField(max_length=20, choices=category_choices)
+    name = models.CharField(("Item name"), max_length=200)
+    brand = models.CharField(max_length=200, blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    own = models.BooleanField(default=False)
+    weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    weight_m = models.CharField(("Weight Measurment"), max_length=2, choices=weight_choices, blank=True, null=True)
+    packed = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ['name']
+        
 
 class Trail(models.Model):
     name = models.CharField(max_length=200)
@@ -57,6 +74,9 @@ class Trail(models.Model):
         if self.start_date and self.end_date:
             self.duration = self.end_date - self.start_date
         super().save(*args, **kwargs)
+    
+    # M:M relationship with Gear
+    gear = models.ManyToManyField(Gear)
         
     def __str__(self):
         return self.name
@@ -87,18 +107,3 @@ class Day(models.Model):
     def get_absolute_url(self):
         return reverse("trail-detail", kwargs={"trail_id": self.trail.id})
     
-class Gear(models.Model):
-    category = models.CharField(max_length=20, choices=category_choices)
-    name = models.CharField(("Item name"), max_length=200)
-    brand = models.CharField(max_length=200, blank=True, null=True)
-    link = models.URLField(blank=True, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    own = models.BooleanField(default=False)
-    weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    weight_m = models.CharField(("Weight Measurment"), max_length=2, choices=weight_choices, blank=True, null=True)
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        ordering = ['name']
