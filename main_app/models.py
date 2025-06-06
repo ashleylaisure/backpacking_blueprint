@@ -39,6 +39,14 @@ weight_choices = (
     ('kg', 'kg'),
 )
 
+meal_category = (
+    ('breakfast', 'Breakfast'),
+    ('lunch', 'Lunch'),
+    ('snack', 'Snack'),
+    ('dinner', 'Dinner'),
+    ('drinks', 'Drinks'),
+)
+
 # Create your models here.
 class Gear(models.Model):
     category = models.CharField(max_length=20, choices=category_choices)
@@ -84,6 +92,11 @@ class Trail(models.Model):
     # method to get the url for this particular instance
     def get_absolute_url(self):
         return reverse("trail-detail", kwargs={"trail_id": self.id})
+
+class Meal(models.Model):
+    name = models.CharField(max_length=200)
+    calories = models.IntegerField(blank=True, null=True)
+    weight = models.DecimalField(("Weight(g)"), max_digits=10, decimal_places=2,  blank=True, null=True)
     
 class Day(models.Model):
     day = models.IntegerField()
@@ -97,6 +110,8 @@ class Day(models.Model):
     
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
     
+    meal = models.ManyToManyField(Meal, through='MealPlan')
+    
     def __str__(self):
         return f"Day {self.day} on {self.date}"
     
@@ -107,3 +122,9 @@ class Day(models.Model):
     def get_absolute_url(self):
         return reverse("trail-detail", kwargs={"trail_id": self.trail.id})
     
+class MealPlan(models.Model):
+    #realte to both day & meal
+    day = models.ForeignKey(Day, on_delete=models.CASCADE)
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    
+    category = models.CharField(max_length=20, choices=meal_category)
