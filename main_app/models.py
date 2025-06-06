@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.db.models.functions import Lower
 
 cover_images = (
     ('1', ''),
@@ -63,7 +64,7 @@ class Gear(models.Model):
         return self.name
     
     class Meta:
-        ordering = ['name']
+        ordering = [Lower('name')]
         
 
 class Trail(models.Model):
@@ -98,6 +99,12 @@ class Meal(models.Model):
     calories = models.IntegerField(blank=True, null=True)
     weight = models.DecimalField(("Weight(g)"), max_digits=10, decimal_places=2,  blank=True, null=True)
     
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = [Lower('name')]
+    
 class Day(models.Model):
     day = models.IntegerField()
     date = models.DateField()
@@ -128,3 +135,6 @@ class MealPlan(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     
     category = models.CharField(max_length=20, choices=meal_category)
+    
+    def __str__(self):
+        return f"{self.meal} for {self.category} on {self.day}"

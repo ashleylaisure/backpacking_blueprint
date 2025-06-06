@@ -29,4 +29,10 @@ urlpatterns = [
     path('trails/<int:trail_id>/gear-details/', views.trail_gear_details, name='trail-gear-details'), 
     path('trails/<int:trail_id>/associate-gear/<int:gear_id>/', views.associate_gear, name='associate-gear'),
     path('trails/<int:trail_id>/remove-gear/<int:gear_id>/', views.remove_gear, name='remove-gear'), 
+    
+    #MEALS
+    path('meals/', views.meal_index, name="meal-index"),
+    path('meals/create/', views.MealCreate.as_view(), name='meal-create'), 
+    path('meals/<int:pk>/update', views.MealUpdate.as_view(), name='meal-update'), 
+    path('meals/<int:pk>/delete', views.MealDelete.as_view(), name='meal-delete'),
 ]

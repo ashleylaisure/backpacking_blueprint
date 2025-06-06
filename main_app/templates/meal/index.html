@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/meal/meal-index.css" %}">
+{% endblock head %}
+
+{% block content %}
+<section class="page-header">
+    <h1>All Food in Your Pantry</h1>
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+    <li><a href="{% url "meal-create" %}">Add Food</a></li>
+</section>
+
+{% comment %} <section>
+    <h1>See Your Meal Plans For:</h1>
+    {% for trail in trails %}
+    <a href="{% url "trail-gear-details" trail.id %}">{{trail.name}}</a>
+    {% endfor %}
+</section> {% endcomment %}
+
+<section class="description">
+
+</section>
+
+<section class="table-container">
+    <h2>Food list Inventory</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Calories</th>
+                <th>Weight</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for meal in meal %}
+                    <tr>
+                        <td>{{meal.name}}</td>
+                        <td>{{meal.calories}}</td>
+                        <td>{{meal.weight}}</td>
+                        <td>
+                            <a href="{% url "meal-update" meal.id %}" class="btn warn">E</a>
+                            <a href="{% url "meal-delete" meal.id %}" class="btn danger">D</a>
+                        </td>
+                    </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+
+{% endblock content %}
