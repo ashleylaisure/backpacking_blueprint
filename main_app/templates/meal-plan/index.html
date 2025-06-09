@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+<h1>Meal Plan for {{trail.name}}</h1>
+
+{% for day in days %}
+    <h2>{{day.date}}</h2>
+
+{% for category, label in form.fields.category.choices %}
+      <h3>{{ label }}</h3>
+      <ul class="ml-4 list-disc">
+        {% for meal in day.meal_set.all %}
+          {% if meal.category == category %}
+            <li>{{ meal.food.name }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endfor %}
+
+    <!-- Add Meal Form -->
+    <form method="POST" class="mt-4">
+      {% csrf_token %}
+      {{ form.food.label_tag }} {{ form.food }}
+      {{ form.category.label_tag }} {{ form.category }}
+      <input type="hidden" name="day_id" value="{{ day.id }}">
+      <button type="submit" class="bg-green-600 text-white px-2 py-1 rounded ml-2">Add Meal</button>
+    </form>
+  </div>
+{% endfor %}
+{% endblock content %}

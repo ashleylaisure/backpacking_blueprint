@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+import geocoder
 from django.urls import reverse
 from django.db.models.functions import Lower
 
@@ -78,10 +80,25 @@ class Trail(models.Model):
     duration = models.DurationField(blank=True, null=True)
     image = models.CharField(max_length=2, choices=cover_images)
     
-    # automatically calculate and save the duration based on the date inputs before submitting
+    # MAP FEATURE
+    lat = models.FloatField(blank=True, null=True)
+    long = models.FloatField(blank=True, null=True)
+    
+    # when the instance is saved convert the location into lat/long
     def save(self, *args, **kwargs):
+        if self.location:
+            # API call
+            g = geocoder.mapbox(self.location, key=settings.MAPBOX_ACCESS_TOKEN)
+            # return the lat/long of the location in a list
+            g = g.latlng
+            # assign lat/long to model
+            self.lat = g[0]
+            self.long = g[1]
+
+    # automatically calculate and save the duration based on the date inputs before submitting
         if self.start_date and self.end_date:
             self.duration = self.end_date - self.start_date
+            
         super().save(*args, **kwargs)
     
     # M:M relationship with Gear
@@ -138,3 +155,24 @@ class MealPlan(models.Model):
     
     def __str__(self):
         return f"{self.meal} for {self.category} on {self.day}"
+
+# MAPBOX_ACCESS_TOKEN= 'pk.eyJ1IjoiYWxhaXN1cmUiLCJhIjoiY21icDVieDE1MDB3bjJrcHNoN3Nzb29yMCJ9.hceQzzHohgyvFqNFNTPGWw'
+
+# class Location(models.Model):
+#     location = models.CharField(max_length=200)
+#     lat = models.FloatField(blank=True, null=True)
+#     long = models.FloatField(blank=True, null=True)
+    
+#     # when the instance is saved convert the location into lat/long
+#     def save(self, *args, **kwargs):
+#         # API call
+#         g = geocoder.mapbox(self.location, key=settings.MAPBOX_ACCESS_TOKEN)
+#         # return the lat/long of the location in a list
+#         g = g.latlng
+#         # assign lat/long to model
+#         self.lat = g[0]
+#         self.long = g[1]
+#         return super(Location, self).save(*args, **kwargs)
+    
+#     def __str__(self):
+#         return self.location

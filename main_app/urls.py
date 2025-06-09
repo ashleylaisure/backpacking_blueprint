@@ -15,7 +15,7 @@ urlpatterns = [
     path('trails/<int:pk>/delete/', views.TrailDelete.as_view(), name='trail-delete'),
     
     # DAY
-    path('days/<int:pk>/update/', views.DayUpdate.as_view(), name ="update_day"),
+    path('days/<int:pk>/update/', views.DayUpdate.as_view(), name ="update-day"),
     
     # GEAR
     path('gear/', views.gear_index, name='gear-index'),
@@ -35,4 +35,8 @@ urlpatterns = [
     path('meals/create/', views.MealCreate.as_view(), name='meal-create'), 
     path('meals/<int:pk>/update', views.MealUpdate.as_view(), name='meal-update'), 
     path('meals/<int:pk>/delete', views.MealDelete.as_view(), name='meal-delete'),
+    
+    # M:M DAY:MEALS
+    path('trails/<int:trail_id>/meal-plan', views.meal_plan, name="meal-plan"), 
+
 ]

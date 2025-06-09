@@ -1,6 +1,9 @@
 {% extends "base.html" %} {% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static "css/trails/trail-detail.css" %}">
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css' rel='stylesheet' />
 {% endblock head %}
 
 {% block content %}
@@ -22,9 +25,36 @@
     </div>
 </section>
 
+
+    <div id='map' style='width: 100%; height: 300px;'></div>
+    <script>
+        mapboxgl.accessToken = '{{ mapbox_access_token }}';
+        
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/outdoors-v12', // style URL
+            {% if trail.lat and trail.long %}
+                center: [{{trail.long}}, {{trail.lat}}], // starting position [lng, lat]
+            {% else %}
+                center: [-98.35, 39.5] //center of us?
+            {% endif %}
+            zoom: 13, // starting zoom
+        });
+
+        const marker = new mapboxgl.Marker()
+                .setLngLat([ {{trail.long}}, {{trail.lat}} ])
+                .setPopup(new mapboxgl.Popup().setHTML('<p> {{trail.location}} </p>'))
+                .addTo(map);
+
+        const nav = new mapboxgl.NavigationControl();
+        map.addControl(nav);
+    </script>
+
+
 <section class="days-container">
     <div class="subsection-title">
         <h2>Itinerary</h2>
+        <a href="{% url "meal-plan" trail.id%}"><h2>Meal Plan</h2></a>
         <img src="" alt="">
         <img src="" alt="">
         <img src="" alt="">
@@ -40,8 +70,7 @@
             <p>Distance: {{day.distance}} Elevation Gain: {{day.elevation}}</p>
             <p>Notes: {{day.notes}}</p>
         </div>
-
-        <a href="{% url "update_day" day.id %}" class="btn warn">Edit</a>
+        <a href="{% url "update-day" day.id %}" class="btn warn">Edit</a>
     </div>
     {% endfor %}
 
@@ -78,7 +107,7 @@
                 
                 {% endfor %}
             {% else %}
-            <p>No items on your packing list</p>
+            <p>No Gear assigned </p>
             {% endif %}
         </div>
     </div>

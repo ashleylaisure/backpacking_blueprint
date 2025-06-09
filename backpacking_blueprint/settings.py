@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-bfv#ejx5-$5oqy1ca8+cpamme&e12l$y^q)p9&eunrdb70%pca'
 
+MAPBOX_ACCESS_TOKEN='pk.eyJ1IjoiYWxhaXN1cmUiLCJhIjoiY21icDVieDE1MDB3bjJrcHNoN3Nzb29yMCJ9.hceQzzHohgyvFqNFNTPGWw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

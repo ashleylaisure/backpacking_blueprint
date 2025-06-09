@@ -1,5 +1,5 @@
 from django import forms
-from .models import Trail, Gear
+from .models import Trail, Gear, MealPlan
 
 class TrailForm(forms.ModelForm):
     class Meta:
@@ -21,6 +21,15 @@ class TrailForm(forms.ModelForm):
                     'type': 'date'
                 }
             ),
+        }
+
+class MealPlanForm(forms.ModelForm):
+    class Meta:
+        model = MealPlan
+        fields = ['meal', 'category']
+        widgets = {
+            'category': forms.Select(attrs={'class': 'border px-2 py-1 rounded'}),
+            'food': forms.Select(attrs={'class': 'border px-2 py-1 rounded'}),
         }
 
 class PackedForm(forms.ModelForm):

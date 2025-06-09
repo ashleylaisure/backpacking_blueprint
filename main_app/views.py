@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Trail, Day, Gear, category_choices, Meal
-from .forms import TrailForm, PackedForm
+from .forms import TrailForm, PackedForm, MealPlanForm
+from django.conf import settings
 
 # Create your views here.
 def home(request):
@@ -23,10 +24,12 @@ def trail_detail(request, trail_id):
     trail = Trail.objects.get(id=trail_id)
     gear = Gear.objects.all()
     packed_form = PackedForm()
+
     return render(request, 'trails/detail.html', {
         'trail' : trail,
         'gear': gear,
         'packed' : packed_form,
+        'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN
         })
 
 class TrailCreate(CreateView):
@@ -34,6 +37,8 @@ class TrailCreate(CreateView):
     form_class = TrailForm
     # fields = ['name', 'start_date', 'end_date', 'location', 'distance', 'elevation', 'image']
     # automatically calls get_absolutle_url if success_url is not set
+
+    
 
 class TrailUpdate(UpdateView):
     model = Trail
@@ -132,3 +137,27 @@ class MealUpdate(UpdateView):
 class MealDelete(DeleteView):
     model = Meal
     success_url = '/meals/'
+    
+# --------------------------------- MEAL PLAN
+def meal_plan(request, trail_id):
+    trail = Trail.objects.get(id=trail_id)
+    # get all days related to this trail
+    days = trail.day_set.all()
+    
+    if request.method == "POST":
+        day_id = request.POST.get('day_id')
+        form = MealPlanForm(request.POST)
+        if form.is_valid():
+            # before saving the form make sure that day has saved to mealplan
+            mealplan = form.save(commit=False)
+            mealplan.day_id = day_id
+            mealplan.save()
+            return redirect('meal-plan', trail_id=trail_id)
+    else:
+        form = MealPlanForm()
+            
+    return render(request, 'meal-plan/index.html', {
+        'trail':trail,
+        'days': days,
+        'form': form,
+    })
