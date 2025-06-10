@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'backpacking_blueprint.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'backpackingBlue',
+        'NAME': 'blueprint',
     }
 }
 

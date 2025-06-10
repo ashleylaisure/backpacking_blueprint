@@ -5,7 +5,7 @@ from datetime import timedelta
 
 # function is triggered after trail has been saved
 @receiver(post_save, sender=Trail)
-# the function create_days is the reciver listing for the signal
+# the function create_days is the reciver listening for the signal
 # and the signal is loaded in apps.py
 def create_days(sender, instance, created, **kwargs):
     start_date = instance.start_date
@@ -25,11 +25,9 @@ def create_days(sender, instance, created, **kwargs):
         #filter out days that are outside the new date range
         Day.objects.filter(trail=instance).exclude(date__range=(start_date, end_date)).delete()
         
-        # fetch all the existing day.date for that trail in the date range as a set
+        # fetch all the existing day.date for that trail in the date range
         overlap_dates = set(
-            Day.objects.filter(trail=instance)
-            .values_list('date', flat=True)
-        )
+            Day.objects.filter(trail=instance).values_list('date', flat=True))
         
         # add any missing days
         current_date = start_date
