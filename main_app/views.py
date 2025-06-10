@@ -56,6 +56,15 @@ class TrailDelete(DeleteView):
     success_url = '/trails/'
     
 # --------------------------------- DAY
+
+def day_detail(request, day_id):
+    day = Day.objects.get(id=day_id)
+
+    return render(request, 'days/detail.html', {
+        'day' : day,
+        'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN
+        })
+
 class DayUpdate(UpdateView):
     model = Day
     fields = ['start_location', 'finish_location', 'distance', 'elevation', 'notes']

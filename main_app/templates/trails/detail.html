@@ -63,14 +63,23 @@
     {% for day in trail.day_set.all %}
     <div class="day-container">
         <div class="day-title">
-            <h2>Day: {{day.day}} Date: {{day.date}}</h2>
-            <p>{{day.start_location}} To {{day.finish_location}}</p>
+            <a href="{% url "day-detail" day.id%}">
+
+                <h2>Day: {{day.day}}</h2>
+                {% if day.start_location or day.finish_location %}
+                    <h5>{{day.start_location}} ➤ {{day.finish_location}}</h5>
+                {% else %}
+                    <h5> Edit Day to Set Location</h5>
+                {% endif %}
+            </a>
+            
+            
         </div>
-        <div class="day-details">
+        {% comment %} <div class="day-details">
             <p>Distance: {{day.distance}} Elevation Gain: {{day.elevation}}</p>
             <p>Notes: {{day.notes}}</p>
         </div>
-        <a href="{% url "update-day" day.id %}" class="btn warn">Edit</a>
+        <a href="{% url "update-day" day.id %}" class="btn warn">Edit</a> {% endcomment %}
     </div>
     {% endfor %}
 

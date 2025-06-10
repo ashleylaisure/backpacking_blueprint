@@ -18,6 +18,7 @@ urlpatterns = [
     
     
     # DAY
+    path('days/<int:day_id>/', views.day_detail, name="day-detail"), 
     path('days/<int:pk>/update/', views.DayUpdate.as_view(), name ="update-day"),
     
     # GEAR

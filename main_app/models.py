@@ -114,14 +114,37 @@ class Day(models.Model):
     day = models.IntegerField()
     date = models.DateField()
     
-    start_location = models.CharField(max_length=200)
-    finish_location = models.CharField(max_length=200)
+    start_location = models.CharField(max_length=200, blank=True, null=True)
+    finish_location = models.CharField(max_length=200, blank=True, null=True)
     distance = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     notes = models.TextField(max_length=250)
     
-    trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
+    # MAP FEATURE
+    start_lat = models.FloatField(blank=True, null=True)
+    start_long = models.FloatField(blank=True, null=True)
     
+    finish_lat = models.FloatField(blank=True, null=True)
+    finish_long = models.FloatField(blank=True, null=True)
+    
+    def save(self, *args, **kwargs):
+        if self.start_location:
+            g = geocoder.mapbox(self.start_location, key=settings.MAPBOX_ACCESS_TOKEN)
+            g = g.latlng
+            self.start_lat = g[0]
+            self.start_long = g[1]
+            
+        if self.finish_location:
+            g = geocoder.mapbox(self.finish_location, key=settings.MAPBOX_ACCESS_TOKEN)
+            g = g.latlng
+            self.finish_lat = g[0]
+            self.finish_long = g[1]
+            
+        super().save(*args, **kwargs)
+
+
+    # relationships
+    trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
     food = models.ManyToManyField(Food)
     
     def __str__(self):
@@ -130,6 +153,5 @@ class Day(models.Model):
     class Meta:
         ordering = ['date']
         
-    # return to the trail-detail that the day belongs to
     def get_absolute_url(self):
-        return reverse("trail-detail", kwargs={"trail_id": self.trail.id})
+        return reverse("day-detail", kwargs={"day_id": self.id})
