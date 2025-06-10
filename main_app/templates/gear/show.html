@@ -14,7 +14,7 @@
                     <p>{{gear.name}}</p>
                     <form action="{% url "associate-gear" trail.id gear.id%}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn submit">+</button>
+                        <button type="submit" class="btn submit">+ Add to packing list</button>
                     </form>
                 </div>
             {% endfor %}

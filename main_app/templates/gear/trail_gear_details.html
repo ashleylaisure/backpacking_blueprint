@@ -7,17 +7,28 @@
 {% block content %}
 <section class="page-header">
     <h1>GEAR for <a href="{% url "trail-detail" trail.id%}">{{trail.name}}</a> </h1>
+    <img src="{% static "images/c8c7378bc23e53ac10b54fb9453999d2.jpg" %}" alt="Gear Wall">
     <img src="" alt="">
     <img src="" alt="">
-    <img src="" alt="">
-    <li><a href="{% url "gear-create" %}">Add Custom Gear</a></li>
-    <li><a href="{% url "gear-create" %}">Select Gear from Suggested list</a></li>
+    <li><a href="{% url "gear-create" %}">Add New Gear</a></li>
+
 </section>
 
 <section>
-    
-    <a href="{% url "gear-index" %}"><h1>See all Gear</h1></a>
-    <a href="{% url "available-gear-index" trail.id%}"><h3>Available Gear</h3></a>
+    <a href="{% url "gear-index" %}"><h1>Go to Gear Storage</h1></a>
+    <a href="{% url "available-gear-index" trail.id%}"><h3>Available Gear To Add</h3></a>
+</section>
+
+<section>
+    <div class="gear-info">
+        <p>A typical base weight for a non-ultrlight backpacker is around 26-27 pounds, with ultralight hikers aming for around 10-15 pounds.
+            Food and water typically accounts for an additional 30 pounds. 
+        </p>
+    </div>
+
+    <div class="gear-total">
+        {% for gear in totals %}{% endfor %}
+    </div>
 </section>
 
 <section class="gear-section">
@@ -27,12 +38,15 @@
         <table>
             <thead>
                 <tr>
+                    <th>packed</th>
                     <th>name</th>
                     <th>brand</th>
                     <th>link</th>
                     <th>price</th>
                     <th>own</th>
-                    <th colspan="2">weight</th>
+                    <th colspan="2" >weight</th>
+                    <th colspan="2"></th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -40,20 +54,40 @@
                 {% for gear in trail.gear.all %}
                     {% if gear.category == key %}
                         <tr>
+                            <td>
+                                {% if gear.packed %}
+                                <p>☑</p>
+                                {% else %}
+                                <p>➖</p>
+                                {% endif %}
+                            </td>
                             <td>{{gear.name}}</td>
                             <td>{{gear.brand}}</td>
-                            <td><a href="">link</a></td>
-                            <td>{{gear.price}}</td>
-                            <td>{{gear.own}}</td>
-                            <td>{{gear.weight}}</td>
                             <td>
-                                {{gear.weight_m}}
-                                <a href="{% url "gear-update" gear.id %}" class="btn warn">E</a>
-                                <a href="{% url "gear-delete" gear.id %}" class="btn danger">D</a>
+                                {% if gear.link %}
+                                <a href="">🔗</a>
+                                {% endif %}
+
+                            </td>
+                            <td>{{gear.price}}</td>
+                            <td>
+                                {% if gear.own %}
+                                <p>☑</p>
+                                {% else %}
+                                <p>➖</p>
+                                {% endif %}
+                            </td>
+                            <td>{{gear.weight}}</td>
+                            <td>{{gear.weight_m}}</td>
+                            <td><a href="{% url "gear-update" gear.id %}" class="btn warn">✎</a></td>
+                            <td><a href="{% url "gear-delete" gear.id %}" class="btn danger">Ⓧ</a></td>
+                            <td>
                                 <form action="{% url "remove-gear" trail.id gear.id%}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                    <button type="submit" class="btn btn-danger">Remove From Packing List</button>
                                 </form>
+                            </td>
+                            
                             </td>
                         </tr>
                     {% endif %}

@@ -6,12 +6,12 @@
 
 {% block content %}
 <section class="page-header">
-    <h1>All Gear</h1>
+    <h1>All Your Gear</h1>
+    <img src="{% static "images/2d90c03a0000bdda8d6e5f8df8c18c36.jpg" %}" alt="Gear Storage Inspo">
     <img src="" alt="">
     <img src="" alt="">
-    <img src="" alt="">
-    <li><a href="{% url "gear-create" %}">Add Custom Gear</a></li>
-    <li><a href="{% url "gear-create" %}">Select Gear from Suggested list</a></li>
+    <li><a href="{% url "gear-create" %}">Add Gear For Storgae</a></li>
+    {% comment %} <li><a href="{% url "gear-create" %}">Select Gear from Suggested list</a></li> {% endcomment %}
 </section>
 
 <section>
@@ -33,7 +33,8 @@
                     <th>link</th>
                     <th>price</th>
                     <th>own</th>
-                    <th colspan="2">weight</th>
+                    <th colspan="2" >weight</th>
+                    <th colspan="2"></th>
                 </tr>
             </thead>
 
@@ -43,15 +44,23 @@
                         <tr>
                             <td>{{gear.name}}</td>
                             <td>{{gear.brand}}</td>
-                            <td><a href="">link</a></td>
-                            <td>{{gear.price}}</td>
-                            <td>{{gear.own}}</td>
-                            <td>{{gear.weight}}</td>
                             <td>
-                                {{gear.weight_m}}
-                                <a href="{% url "gear-update" gear.id %}" class="btn warn">E</a>
-                                <a href="{% url "gear-delete" gear.id %}" class="btn danger">D</a>
+                                {% if gear.link %}
+                                <a href="">🔗</a>
+                                {% endif %}
                             </td>
+                            <td>{{gear.price}}</td>
+                            <td>
+                                {% if gear.own %}
+                                <p>☑</p>
+                                {% else %}
+                                <p>➖</p>
+                                {% endif %}
+                            </td>
+                            <td>{{gear.weight}}</td>
+                            <td>{{gear.weight_m}}</td>
+                            <td><a href="{% url "gear-update" gear.id %}" class="btn warn">✎</a></td>
+                            <td><a href="{% url "gear-delete" gear.id %}" class="btn danger">Ⓧ</a></td>
                         </tr>
                     {% endif %}
                 

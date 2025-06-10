@@ -5,6 +5,7 @@ from .models import Trail, Day, Gear, category_choices, Food
 from .forms import TrailForm, PackedForm
 from django.conf import settings
 from django.utils import timezone
+from django.db.models import Sum
 
 # Create your views here.
 def home(request):
@@ -82,13 +83,13 @@ def gear_index(request):
     
 class GearCreate(CreateView):
     model = Gear
-    fields = '__all__'
+    fields = ['category', 'name', 'brand', 'link', 'price', 'own', 'weight', 'weight_m', 'packed']
     success_url = '/gear/'
 
     
 class GearUpdate(UpdateView):
     model = Gear
-    fields = '__all__'
+    fields = ['category', 'name', 'brand', 'link', 'price', 'own', 'weight', 'weight_m', 'packed']
     success_url = '/gear/'
 
     
@@ -113,11 +114,14 @@ def available_gear(request, trail_id):
 def trail_gear_details(request, trail_id):
     trail = Trail.objects.get(id=trail_id)
     gear = Gear.objects.all()
+    
+    category_totals = Gear.objects.filter().values('category').aggregate(total_amount=Sum('weight_lb'))
 
     return render(request, 'gear/trail_gear_details.html', {
         'trail' : trail,
         'gear': gear,
         'categories' : category_choices,
+        'totals' : category_totals,
         })
     
 def associate_gear(request, trail_id, gear_id):

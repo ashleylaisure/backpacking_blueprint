@@ -3,6 +3,7 @@ from django.conf import settings
 import geocoder
 from django.urls import reverse
 from django.db.models.functions import Lower
+from django.db.models import Sum
 
 category_choices = (
     ('big_three', 'Big Three (Backpack, Tent, Sleeping Bag)'),
@@ -20,8 +21,6 @@ category_choices = (
 weight_choices = (
     ('oz', 'oz'),
     ('lb', 'lb'),
-    ('g', 'g'),
-    ('kg', 'kg'),
 )
 
 meal_category = (
@@ -43,6 +42,16 @@ class Gear(models.Model):
     weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     weight_m = models.CharField(("Weight Measurment"), max_length=2, choices=weight_choices, blank=True, null=True)
     packed = models.BooleanField(default=False)
+
+    weight_lb = models.FloatField(blank=True, null=True)
+    
+    def save(self, *args, **kwargs):
+        if self.weight_m == 'oz':
+            self.weight_lb = self.weight * 0.0625
+        else:
+            self.weight_lb = self.weight
+            
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return self.name
