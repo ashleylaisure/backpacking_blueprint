@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% load static %}
-
+{% load widget_tweaks %}
 {% block head %}
     <link rel="stylesheet" href="{% static "ccs/form.css" %}">
     
@@ -16,8 +16,9 @@
     
     <img src="" alt="">
 </div>
-<form action="" method="post" class="form-container">
+<form action="" method="post" enctype="multipart/form-data" class="form-container">
     {% csrf_token %}
+    
     <table>
         {{form.as_table}}
     </table>

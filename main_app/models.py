@@ -4,24 +4,6 @@ import geocoder
 from django.urls import reverse
 from django.db.models.functions import Lower
 
-cover_images = (
-    ('1', ''),
-    ('2', '2'),
-    ('3', '3'),
-    ('4', '4'),
-    ('5', '5'),
-    ('6', '6'),
-    ('7', '7'),
-    ('8', '8'),
-    ('9', '9'),
-    ('10', '10'),
-    ('11', '11'),
-    ('12', '12'),
-    ('13', '13'),
-    ('14', '14'),
-    ('15', '15'),
-)
-
 category_choices = (
     ('big_three', 'Big Three (Backpack, Tent, Sleeping Bag)'),
     ('water', 'Water'),
@@ -78,7 +60,7 @@ class Trail(models.Model):
     distance = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
-    image = models.CharField(max_length=2, choices=cover_images)
+    image = models.ImageField(upload_to='cover_image/', default='cover_image_1.jpg', blank=True, null=True)
     
     # MAP FEATURE
     lat = models.FloatField(blank=True, null=True)
@@ -101,6 +83,11 @@ class Trail(models.Model):
             
         super().save(*args, **kwargs)
     
+    # when instance is deleted, delete image file
+    def delete(self):
+        self.image.delete()
+        super().delete()
+        
     # M:M relationship with Gear
     gear = models.ManyToManyField(Gear)
         

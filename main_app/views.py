@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 from .models import Trail, Day, Gear, category_choices, Food
 from .forms import TrailForm, PackedForm
 from django.conf import settings
+from django.utils import timezone
 
 # Create your views here.
 def home(request):
@@ -15,10 +16,15 @@ def discover(request):
 def dashboard(request):
     return render(request, 'dashboard.html')
 
+
 # --------------------------------- TRAIL
 def trail_index(request):
-    trails = Trail.objects.all()
+    trails = Trail.objects.filter(start_date__gte=timezone.now())
     return render(request, 'trails/index.html', {'trails' : trails})
+
+def trail_archive(request):
+    past_trails = Trail.objects.filter(end_date__lt=timezone.now())
+    return render(request, 'trails/archive.html', {'past_trails' : past_trails})
 
 def trail_detail(request, trail_id):
     trail = Trail.objects.get(id=trail_id)

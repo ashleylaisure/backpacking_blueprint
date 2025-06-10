@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('', views.home, name = 'home'),
     
@@ -9,10 +10,12 @@ urlpatterns = [
     
     # TRAIL
     path('trails/', views.trail_index, name="trail-index"),
+    path('trails/archive/', views.trail_archive, name="trail-archive"),
     path('trails/<int:trail_id>/', views.trail_detail, name="trail-detail"),
     path('trails/create/', views.TrailCreate.as_view(), name="trail-create"),
     path('trails/<int:pk>/update/', views.TrailUpdate.as_view(), name='trail-update'),
     path('trails/<int:pk>/delete/', views.TrailDelete.as_view(), name='trail-delete'),
+    
     
     # DAY
     path('days/<int:pk>/update/', views.DayUpdate.as_view(), name ="update-day"),
