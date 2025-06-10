@@ -111,10 +111,11 @@ class Trail(models.Model):
     def get_absolute_url(self):
         return reverse("trail-detail", kwargs={"trail_id": self.id})
 
-class Meal(models.Model):
+class Food(models.Model):
     name = models.CharField(max_length=200)
     calories = models.IntegerField(blank=True, null=True)
     weight = models.DecimalField(("Weight(g)"), max_digits=10, decimal_places=2,  blank=True, null=True)
+    category = models.CharField(max_length=20, choices=meal_category, blank=True, null=True)
     
     def __str__(self):
         return self.name
@@ -122,7 +123,7 @@ class Meal(models.Model):
     class Meta:
         ordering = [Lower('name')]
     
-class Day(models.Model):
+class Day(models.Model): 
     day = models.IntegerField()
     date = models.DateField()
     
@@ -134,7 +135,7 @@ class Day(models.Model):
     
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
     
-    meal = models.ManyToManyField(Meal, through='MealPlan')
+    food = models.ManyToManyField(Food)
     
     def __str__(self):
         return f"Day {self.day} on {self.date}"
@@ -145,34 +146,3 @@ class Day(models.Model):
     # return to the trail-detail that the day belongs to
     def get_absolute_url(self):
         return reverse("trail-detail", kwargs={"trail_id": self.trail.id})
-    
-class MealPlan(models.Model):
-    #realte to both day & meal
-    day = models.ForeignKey(Day, on_delete=models.CASCADE)
-    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
-    
-    category = models.CharField(max_length=20, choices=meal_category)
-    
-    def __str__(self):
-        return f"{self.meal} for {self.category} on {self.day}"
-
-# MAPBOX_ACCESS_TOKEN= 'pk.eyJ1IjoiYWxhaXN1cmUiLCJhIjoiY21icDVieDE1MDB3bjJrcHNoN3Nzb29yMCJ9.hceQzzHohgyvFqNFNTPGWw'
-
-# class Location(models.Model):
-#     location = models.CharField(max_length=200)
-#     lat = models.FloatField(blank=True, null=True)
-#     long = models.FloatField(blank=True, null=True)
-    
-#     # when the instance is saved convert the location into lat/long
-#     def save(self, *args, **kwargs):
-#         # API call
-#         g = geocoder.mapbox(self.location, key=settings.MAPBOX_ACCESS_TOKEN)
-#         # return the lat/long of the location in a list
-#         g = g.latlng
-#         # assign lat/long to model
-#         self.lat = g[0]
-#         self.long = g[1]
-#         return super(Location, self).save(*args, **kwargs)
-    
-#     def __str__(self):
-#         return self.location

@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+<h1>Meal Plan for {{trail.name}}</h1>
+
+{% for day in days %}
+    <h2>{{day.day}} - {{day.date}}</h2>
+    <a href="{% url "available-food" day.id%}">Add Food</a>
+
+    {% for food in day.food.all %}
+      <p>{{food.name}}</p>
+    {% endfor %}
+
+{% endfor %}
+
+{% endblock content %}

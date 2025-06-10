@@ -30,13 +30,15 @@ urlpatterns = [
     path('trails/<int:trail_id>/associate-gear/<int:gear_id>/', views.associate_gear, name='associate-gear'),
     path('trails/<int:trail_id>/remove-gear/<int:gear_id>/', views.remove_gear, name='remove-gear'), 
     
-    #MEALS
-    path('meals/', views.meal_index, name="meal-index"),
-    path('meals/create/', views.MealCreate.as_view(), name='meal-create'), 
-    path('meals/<int:pk>/update', views.MealUpdate.as_view(), name='meal-update'), 
-    path('meals/<int:pk>/delete', views.MealDelete.as_view(), name='meal-delete'),
+    #FOOD
+    path('food/', views.food_index, name="food-index"), 
+    path('food/create/', views.FoodCreate.as_view(), name='food-create'), 
+    path('food/<int:pk>/update', views.FoodUpdate.as_view(), name='food-update'), 
+    path('food/<int:pk>/delete', views.FoodDelete.as_view(), name='food-delete'),
     
     # M:M DAY:MEALS
-    path('trails/<int:trail_id>/meal-plan', views.meal_plan, name="meal-plan"), 
+    path('trails/<int:trail_id>/mealplan', views.meal_plan, name='meal-plan'), 
+    path('days/<int:day_id>/mealplan', views.available_food, name='available-food'),
+    path('days/<int:day_id>/add-food/<int:food_id>/', views.add_food, name='add-food'), 
 
 ]

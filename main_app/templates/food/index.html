@@ -10,7 +10,7 @@
     <img src="" alt="">
     <img src="" alt="">
     <img src="" alt="">
-    <li><a href="{% url "meal-create" %}">Add Food</a></li>
+    <li><a href="{% url "food-create" %}">Add Food</a></li>
 </section>
 
 {% comment %} <section>
@@ -37,14 +37,14 @@
         </thead>
 
         <tbody>
-            {% for meal in meal %}
+            {% for food in food %}
                     <tr>
-                        <td>{{meal.name}}</td>
-                        <td>{{meal.calories}}</td>
-                        <td>{{meal.weight}}</td>
+                        <td>{{food.name}}</td>
+                        <td>{{food.calories}}</td>
+                        <td>{{food.weight}}</td>
                         <td>
-                            <a href="{% url "meal-update" meal.id %}" class="btn warn">E</a>
-                            <a href="{% url "meal-delete" meal.id %}" class="btn danger">D</a>
+                            <a href="{% url "food-update" food.id %}" class="btn warn">E</a>
+                            <a href="{% url "food-delete" food.id %}" class="btn danger">D</a>
                         </td>
                     </tr>
             

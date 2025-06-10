@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "css/gear/gear-show.css" %}">
+{% endblock head %}
+
+{% block content %}
+<section>
+    <div class="subsection-content">
+        <h2>Available Food for <a href="{% url "trail-detail" day.trail.id %}">{{day.date}}</a></h2>
+        
+            {% for food in food %}
+                <div class="food-container">
+                    <p>{{food.name}}</p>
+
+                    <form action="{% url "add-food" day.id food.id%}" method="post">
+                        {% csrf_token %}
+                        {% comment %} {{mealplan_form.as_p}} {% endcomment %}
+                        <button type="submit" class="btn submit">Add to Meal Plan</button>
+                    </form>
+
+
+            {% endfor %}
+
+            <p>already assigned available gear <a href="{% url "gear-create" %}">Add New Gear</a></p>
+
+        
+
+    </div>
+</section>
+
+{% endblock content %}

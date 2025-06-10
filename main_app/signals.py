@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Trail, Day
+from .models import Trail, Day 
 from datetime import timedelta
 
 # function is triggered after trail has been saved

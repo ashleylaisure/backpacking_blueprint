@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Trail, Day, Gear, category_choices, Meal
-from .forms import TrailForm, PackedForm, MealPlanForm
+from .models import Trail, Day, Gear, category_choices, Food
+from .forms import TrailForm, PackedForm
 from django.conf import settings
 
 # Create your views here.
@@ -113,30 +113,30 @@ def remove_gear(request, trail_id, gear_id):
     Trail.objects.get(id=trail_id).gear.remove(gear_id)
     return redirect('trail-gear-details', trail_id=trail_id)
 
-# --------------------------------- MEAL
-class MealCreate(CreateView):
-    model = Meal
+# --------------------------------- FOOD
+class FoodCreate(CreateView):
+    model = Food
     fields = '__all__'
-    success_url = '/meals/'
+    success_url = '/food/'
     
-def meal_index(request):
-    meal = Meal.objects.all()
+def food_index(request):
+    food = Food.objects.all()
     # trails = Trail.objects.all()
     
-    return render(request, 'meal/index.html', {
-        'meal' : meal,
+    return render(request, 'food/index.html', {
+        'food' : food,
         # 'trails' : trails,
         # 'categories' : category_choices,
     })
     
-class MealUpdate(UpdateView):
-    model = Meal
+class FoodUpdate(UpdateView):
+    model = Food
     fields = '__all__'
-    success_url = '/meals/'
+    success_url = '/food/'
     
-class MealDelete(DeleteView):
-    model = Meal
-    success_url = '/meals/'
+class FoodDelete(DeleteView):
+    model = Food
+    success_url = '/food/'
     
 # --------------------------------- MEAL PLAN
 def meal_plan(request, trail_id):
@@ -144,20 +144,21 @@ def meal_plan(request, trail_id):
     # get all days related to this trail
     days = trail.day_set.all()
     
-    if request.method == "POST":
-        day_id = request.POST.get('day_id')
-        form = MealPlanForm(request.POST)
-        if form.is_valid():
-            # before saving the form make sure that day has saved to mealplan
-            mealplan = form.save(commit=False)
-            mealplan.day_id = day_id
-            mealplan.save()
-            return redirect('meal-plan', trail_id=trail_id)
-    else:
-        form = MealPlanForm()
-            
-    return render(request, 'meal-plan/index.html', {
-        'trail':trail,
-        'days': days,
-        'form': form,
+    return render(request, 'mealplan/index.html', {
+        'trail' : trail,
+        'days' : days,
     })
+
+def available_food(request, day_id):
+    day = Day.objects.get(id=day_id)
+    food = Food.objects.all()
+    return render(request, 'food/show.html', {
+        'day' : day,
+        'food' : food,
+    })
+    
+def add_food(request, day_id, food_id):
+    day = Day.objects.get(id=day_id)
+    day.food.add(food_id)
+    
+    return redirect('meal-plan', trail_id=day.trail_id)

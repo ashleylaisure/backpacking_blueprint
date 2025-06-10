@@ -10,11 +10,11 @@
     <img src="" alt="">
 </div>
 
-<h2>Are you sure you want to delete {{meal.name}}, Doing so will remove this item from all records including Your pantry?</h2>
+<h2>Are you sure you want to delete {{food.name}}, Doing so will remove this item from all records including Your pantry?</h2>
 
 <form action="" method="post" class="form">
     {% csrf_token %}
-    <a href="{% url "meal-index" %}" class="btn secondary">Cancel</a>
+    <a href="{% url "food-index" %}" class="btn secondary">Cancel</a>
     <button type="submit" class="btn danger">Yes, Delete!</button>
 </form>
 {% endblock content %}
