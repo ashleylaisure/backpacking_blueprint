@@ -45,9 +45,8 @@ urlpatterns = [
     path('days/<int:day_id>/mealplan', views.available_food, name='available-food'),
     path('days/<int:day_id>/add-food/<int:food_id>/', views.add_food, name='add-food'), 
     path('days/<int:day_id>/remove-food/<int:food_id>/', views.remove_food, name='remove-food'), 
-    
-    # O2M TRAILS:todo
-    # path('trails/<int:trail_id>/add-todo', views.add_todo, name="add-todo"),
-    # path('todos/<int:pk>/update/', views.update_todo, name ="update-todo"),
-    
+
+    # O:M DAY:NOTES
+    path('days/<int:day_id>/add-note', views.add_note, name='add-note'),
+    path('days/<int:day_id>/delete-note/<int:note_id>/', views.note_delete, name='note-delete'), 
 ]

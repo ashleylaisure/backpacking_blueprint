@@ -113,11 +113,32 @@
             {% if day.elevation %}
                 <p>Elevation Gain: {{day.elevation}}</p>
             {% endif %}
+        </div>
+    </section>
 
-            {% if day.notes %}
-                <p>Notes for Today: {{day.notes}}</p>
+    <section class="notes-container">
+        <div class="add-note">
+            <h3>Add A Note:</h3>
+            <form action="{% url "add-note" day.id %}" method="post" class="subsection-content" autocomplete="off">
+                {% csrf_token %}
+                {{note_form.as_p}}
+                <button type="submit" class="btn submit">Add</button>
+            </form>
+        </div>
+
+        <div class="current-notes">
+            {% if day.note_set.all.count %}
+                    <h1>Notes:</h1>
+                    {% for note in day.note_set.all %}
+                        <p>{{note.note}}</p>
+                        <p>{{note.created}}</p>
+                        <a href="{% url "note-delete" day.id note.id %}" class="btn danger">Ⓧ</a>
+                    {% endfor %}
+            {% else %}
+            <p>No notes added</p>
             {% endif %}
         </div>
+
     </section>
 
     <section class="meal-plan-container">

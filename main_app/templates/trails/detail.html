@@ -50,37 +50,6 @@
         map.addControl(nav);
     </script>
 
-{% comment %} <section class="todo-container">
-    <div class="subsection-title">
-        <h2>TODO List</h2>
-    </div>
-    <div class="add-todo">
-        <h3>Add Todo</h3>
-        <form action="{% url "add-todo" trail.id %}" method="post" class="subsection-content" autocomplete="off">
-            {% csrf_token %}
-            {{todo_form.as_p}}
-            <button type="submit" class="btn submit">Add</button>
-        </form>
-    </div>
-    <div class="todo-list">
-        <ul>
-            {% for todo in trail.todo_set.all %}
-            <li>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <input type="checkbox" name='completed' value="True"
-                        {%if todo.completed %} checked {% endif %}
-                        onchange = "this.form.submit()"
-                        >
-                        {{todo.todo}}
-                    <input type="hidden" name="todo_id" value={{todo.id}}>
-                </form>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-</section> {% endcomment %}
-
 
 <section class="days-container">
     <div class="subsection-title">
@@ -102,15 +71,13 @@
                 {% else %}
                     <h5> Edit Day to Set Location</h5>
                 {% endif %}
+
+                <p>{{day.note.count}}</p>
             </a>
             
             
         </div>
-        {% comment %} <div class="day-details">
-            <p>Distance: {{day.distance}} Elevation Gain: {{day.elevation}}</p>
-            <p>Notes: {{day.notes}}</p>
-        </div>
-        <a href="{% url "update-day" day.id %}" class="btn warn">Edit</a> {% endcomment %}
+
     </div>
     {% endfor %}
 

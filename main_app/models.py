@@ -3,6 +3,7 @@ from django.conf import settings
 import geocoder
 from django.urls import reverse
 from django.db.models.functions import Lower
+from django.utils import timezone
 from django.db.models import Sum
 
 category_choices = (
@@ -127,7 +128,7 @@ class Day(models.Model):
     finish_location = models.CharField(max_length=200, blank=True, null=True)
     distance = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
-    notes = models.TextField(max_length=250, blank=True, null=True)
+    # notes = models.TextField(max_length=250, blank=True, null=True)
     
     # MAP FEATURE
     start_lat = models.FloatField(blank=True, null=True)
@@ -165,12 +166,15 @@ class Day(models.Model):
     def get_absolute_url(self):
         return reverse("day-detail", kwargs={"day_id": self.id})
     
-class Todo(models.Model):
-    todo = models.CharField(max_length=250)
-    completed = models.BooleanField(default=False)
+class Note(models.Model):
+    note = models.CharField(max_length=250)
+    created = models.DateField(default=timezone.now())
     
     # Trail Foreign Key
-    trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
+    day = models.ForeignKey(Day, on_delete=models.CASCADE)
+    
+    class Meta:
+        ordering = ['created']
     
     def __str__(self):
-        return self.todo
+        return f'Note created on {self.created}'

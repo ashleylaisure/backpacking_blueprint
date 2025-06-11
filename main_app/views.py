@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Trail, Day, Gear, category_choices, Food, meal_category, Todo
-from .forms import TrailForm
+from .models import Trail, Day, Gear, category_choices, Food, meal_category, Note
+from .forms import TrailForm, NoteForm
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Sum
@@ -74,11 +74,13 @@ class TrailDelete(DeleteView):
 def day_detail(request, day_id):
     day = Day.objects.get(id=day_id)
     food = Food.objects.all()
+    note_form = NoteForm()
 
     return render(request, 'days/detail.html', {
         'day' : day,
         'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN,
-        'category' : meal_category
+        'category' : meal_category,
+        'note_form' : note_form,
         })
 
 class DayUpdate(UpdateView):
@@ -112,7 +114,7 @@ class GearDelete(DeleteView):
     model = Gear
     success_url = '/gear/'
     
-    # overriding get() to Directly delete
+    # overriding get()
     # def get(self, request, *args, **kwargs):
     #     return self.delete(request, *args, **kwargs)
     
@@ -208,13 +210,18 @@ def remove_food(request, day_id, food_id):
     
     return redirect('meal-plan', trail_id=day.trail_id)
 
-# --------------------------------- todo
-
-# def add_todo(request, trail_id):
-#     form = TodoForm(request.POST)
+# --------------------------------- note
+def add_note(request, day_id):
+    form = NoteForm(request.POST)
     
-#     if form.is_valid():
-#         new_todo = form.save(commit=False)
-#         new_todo.trail_id = trail_id
-#         new_todo.save()
-#     return redirect('trail-detail', trail_id=trail_id)
+    if form.is_valid():
+        new_note = form.save(commit=False)
+        new_note.day_id = day_id
+        new_note.save()
+        
+    return redirect('day-detail', day_id=day_id)
+
+def note_delete(request, day_id, note_id):
+    note = Note.objects.get(id=note_id, day=day_id).delete()
+    
+    return redirect('day-detail', day_id=day_id)

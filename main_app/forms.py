@@ -1,5 +1,5 @@
 from django import forms
-from .models import Trail, Gear, Todo
+from .models import Trail, Note
 
 class TrailForm(forms.ModelForm):
     class Meta:
@@ -22,18 +22,8 @@ class TrailForm(forms.ModelForm):
                 }
             ),
         }
-
-
-# class PackedForm(forms.ModelForm):
-#     class Meta:
-#         model = Gear
-#         fields = ['name', 'packed']
-#         labels = {
-#             'name' : '',
-#             'packed' : '',
-#         }
-
-# class TodoForm(forms.ModelForm):
-#     class Meta:
-#         model = Todo
-#         fields = ['todo']
+        
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = ['note']
