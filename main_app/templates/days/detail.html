@@ -34,16 +34,16 @@
             });
 
             const start_marker = new mapboxgl.Marker()
-                    .setLngLat( {{day.start_long}}, {{day.start_lat}} )
+                    .setLngLat( [{{day.start_long}}, {{day.start_lat}}] )
                     .setPopup(new mapboxgl.Popup().setHTML('<p> {{day.start_location}} </p>'))
                     .addTo(map);
 
             const finish_marker = new mapboxgl.Marker()
-                    .setLngLat( {{day.finish_long}}, {{day.finish_lat}} )
+                    .setLngLat( [{{day.finish_long}}, {{day.finish_lat}} ])
                     .setPopup(new mapboxgl.Popup().setHTML('<p> {{day.start_location}} </p>'))
                     .addTo(map);
 
-            // create a function to make a directions request and update the destination
+            {% comment %} // create a function to make a directions request and update the destination
             async function getRoute() {
             // make a directions request using cycling profile
             const query = await fetch(
@@ -83,11 +83,12 @@
                 }
                 });
             }
-            }
+            } {% endcomment %}
 
             const nav = new mapboxgl.NavigationControl();
             map.addControl(nav);
         </script>
+
     </section>
 
     <section class="days-container">
@@ -117,6 +118,24 @@
                 <p>Notes for Today: {{day.notes}}</p>
             {% endif %}
         </div>
+    </section>
+
+    <section class="meal-plan-container">
+        <div class="header">
+            <h4>Daily Meal Plan:</h4>
+            <a href="{% url "meal-plan" day.trail.id%}">See Hike Meal Plan</a>
+            <a href="{% url "available-food" day.id %}">Add More Food</a>
+        </div>
+
+        {% for key, value in category %}
+            <h3>{{value}}</h3>
+                {% for food in day.food.all %}
+                    {% if food.category == key %}
+                    <p>{{food.name}}</p>
+                    <p>{{food.calories}}</p>
+                    {% endif %}
+                {% endfor %}
+        {% endfor %}
     </section>
 </div>
 

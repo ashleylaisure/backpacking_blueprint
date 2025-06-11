@@ -7,7 +7,8 @@
 {% block content %}
 <section>
     <div class="subsection-content">
-        <h2>Available Food for <a href="{% url "trail-detail" day.trail.id %}">{{day.date}}</a></h2>
+        <h2>Available Food for <a href="{% url "meal-plan" day.trail.id %}">{{day.date}}</a></h2>
+        {% if food.count %}
         
             {% for food in food %}
                 <div class="food-container">
@@ -18,13 +19,12 @@
                         {% comment %} {{mealplan_form.as_p}} {% endcomment %}
                         <button type="submit" class="btn submit">Add to Meal Plan</button>
                     </form>
-
-
             {% endfor %}
 
-            <p>already assigned available gear <a href="{% url "gear-create" %}">Add New Gear</a></p>
+        {% else %}
+            <p>No more food left in your Pantry <a href="{% url "food-create" %}">Add More Food</a></p>
 
-        
+        {% endif %}
 
     </div>
 </section>

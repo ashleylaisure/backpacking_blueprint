@@ -127,7 +127,7 @@ class Day(models.Model):
     finish_location = models.CharField(max_length=200, blank=True, null=True)
     distance = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
-    notes = models.TextField(max_length=250)
+    notes = models.TextField(max_length=250, blank=True, null=True)
     
     # MAP FEATURE
     start_lat = models.FloatField(blank=True, null=True)

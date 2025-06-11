@@ -41,8 +41,8 @@ urlpatterns = [
     path('food/<int:pk>/delete', views.FoodDelete.as_view(), name='food-delete'),
     
     # M:M DAY:MEALS
-    path('trails/<int:trail_id>/mealplan', views.meal_plan, name='meal-plan'), 
+    path('trails/<int:trail_id>/mealplan', views.meal_plan, name='meal-plan'),
     path('days/<int:day_id>/mealplan', views.available_food, name='available-food'),
     path('days/<int:day_id>/add-food/<int:food_id>/', views.add_food, name='add-food'), 
-
+    path('days/<int:day_id>/remove-food/<int:food_id>/', views.remove_food, name='remove-food'), 
 ]

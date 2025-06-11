@@ -4,15 +4,47 @@
 {% endblock head %}
 
 {% block content %}
-<h1>Meal Plan for {{trail.name}}</h1>
+<h1>Meal Plan for <a href="{% url "trail-detail" trail.id%}">{{trail.name}}</a></h1>
 
 {% for day in days %}
-    <h2>{{day.day}} - {{day.date}}</h2>
-    <a href="{% url "available-food" day.id%}">Add Food</a>
+    <a href="{% url "day-detail" day.id%}"><h2>{{day.day}} - {{day.date}}</h2></a>
+    <a href="{% url "available-food" day.id%}">Add Food To Day</a>
+    {% if day.food.count %}
+      <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Calories</th>
+                <th>Weight</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
 
-    {% for food in day.food.all %}
-      <p>{{food.name}}</p>
-    {% endfor %}
+        <tbody>
+        {% for food in day.food.all %}
+          <tr>
+            <td>{{food.name}}</td>
+            <td>{{food.calories}}</td>
+            <td>{{food.weight}}</td>
+            <td><a href="{% url "food-update" food.id %}" class="btn warn">✎</a></td>
+            <td><a href="{% url "food-delete" food.id %}" class="btn danger">Ⓧ</a></td>
+            <td>
+              <form action="{% url "remove-food" day.id food.id%}" method="post" >
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Remove from meal Plan</button>
+              </form>
+            </td>
+          </tr>
+
+      {% endfor %}
+        </tbody>
+      </table> 
+    {% else %}
+      <p>No Meals Planned for this Day</p>
+    {% endif %}
+    
 
 {% endfor %}
 

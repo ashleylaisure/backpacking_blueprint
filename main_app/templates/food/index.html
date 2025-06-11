@@ -13,12 +13,12 @@
     <li><a href="{% url "food-create" %}">Add Food</a></li>
 </section>
 
-{% comment %} <section>
+<section>
     <h1>See Your Meal Plans For:</h1>
     {% for trail in trails %}
-    <a href="{% url "trail-gear-details" trail.id %}">{{trail.name}}</a>
+    <a href="{% url "meal-plan" trail.id %}">{{trail.name}}</a>
     {% endfor %}
-</section> {% endcomment %}
+</section>
 
 <section class="description">
 
@@ -29,7 +29,7 @@
     <table>
         <thead>
             <tr>
-                <th>Product Name</th>
+                <th>Name</th>
                 <th>Calories</th>
                 <th>Weight</th>
                 <th></th>
@@ -43,8 +43,9 @@
                         <td>{{food.calories}}</td>
                         <td>{{food.weight}}</td>
                         <td>
-                            <a href="{% url "food-update" food.id %}" class="btn warn">E</a>
-                            <a href="{% url "food-delete" food.id %}" class="btn danger">D</a>
+                            <a href="{% url "food-update" food.id %}" class="btn warn">✎</a>
+                            <a href="{% url "food-delete" food.id %}" class="btn danger">Ⓧ</a>
+
                         </td>
                     </tr>
             

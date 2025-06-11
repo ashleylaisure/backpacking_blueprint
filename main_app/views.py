@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Trail, Day, Gear, category_choices, Food
+from .models import Trail, Day, Gear, category_choices, Food, meal_category
 from .forms import TrailForm, PackedForm
 from django.conf import settings
 from django.utils import timezone
@@ -60,10 +60,12 @@ class TrailDelete(DeleteView):
 
 def day_detail(request, day_id):
     day = Day.objects.get(id=day_id)
+    food = Food.objects.all()
 
     return render(request, 'days/detail.html', {
         'day' : day,
-        'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN
+        'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN,
+        'category' : meal_category
         })
 
 class DayUpdate(UpdateView):
@@ -140,11 +142,11 @@ class FoodCreate(CreateView):
     
 def food_index(request):
     food = Food.objects.all()
-    # trails = Trail.objects.all()
+    trails = Trail.objects.all()
     
     return render(request, 'food/index.html', {
         'food' : food,
-        # 'trails' : trails,
+        'trails' : trails,
         # 'categories' : category_choices,
     })
     
@@ -170,14 +172,22 @@ def meal_plan(request, trail_id):
 
 def available_food(request, day_id):
     day = Day.objects.get(id=day_id)
-    food = Food.objects.all()
+    # food = Food.objects.all()
+    available_food = Food.objects.exclude(id__in = day.food.all().values_list('id'))
+    
     return render(request, 'food/show.html', {
         'day' : day,
-        'food' : food,
+        'food' : available_food,
     })
     
 def add_food(request, day_id, food_id):
     day = Day.objects.get(id=day_id)
     day.food.add(food_id)
+    
+    return redirect('meal-plan', trail_id=day.trail_id)
+
+def remove_food(request, day_id, food_id):
+    day = Day.objects.get(id=day_id)
+    day.food.remove(food_id)
     
     return redirect('meal-plan', trail_id=day.trail_id)
