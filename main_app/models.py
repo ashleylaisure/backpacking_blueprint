@@ -164,3 +164,13 @@ class Day(models.Model):
         
     def get_absolute_url(self):
         return reverse("day-detail", kwargs={"day_id": self.id})
+    
+class Todo(models.Model):
+    todo = models.CharField(max_length=250)
+    completed = models.BooleanField(default=False)
+    
+    # Trail Foreign Key
+    trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.todo

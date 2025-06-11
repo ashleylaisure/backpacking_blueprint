@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
-from .models import Trail, Day, Gear, category_choices, Food, meal_category
-from .forms import TrailForm, PackedForm
+from .models import Trail, Day, Gear, category_choices, Food, meal_category, Todo
+from .forms import TrailForm
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Sum
@@ -30,13 +30,26 @@ def trail_archive(request):
 def trail_detail(request, trail_id):
     trail = Trail.objects.get(id=trail_id)
     gear = Gear.objects.all()
-    packed_form = PackedForm()
+    
+    # Packed Gear Form - checkbox submission
+    if request.method =="POST":
+        # get the requesting gear item 
+        gear_id = request.POST.get('gear_id')
+        #get the input checkbox and store at True/checked
+        packed = request.POST.get('packed') == 'True'
+        
+        # save the change to the database
+        # get the gear id
+        gear = Gear.objects.get(id=gear_id)
+        gear.packed = packed
+        gear.save()
+        
+        return redirect(request.path_info)
 
     return render(request, 'trails/detail.html', {
         'trail' : trail,
         'gear': gear,
-        'packed' : packed_form,
-        'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN
+        'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN,
         })
 
 class TrailCreate(CreateView):
@@ -103,6 +116,7 @@ class GearDelete(DeleteView):
     # def get(self, request, *args, **kwargs):
     #     return self.delete(request, *args, **kwargs)
     
+
 # --------------------------------- M:M TRAIL:GEAR
 def available_gear(request, trail_id):
     trail = Trail.objects.get(id=trail_id)
@@ -134,6 +148,8 @@ def remove_gear(request, trail_id, gear_id):
     Trail.objects.get(id=trail_id).gear.remove(gear_id)
     return redirect('trail-gear-details', trail_id=trail_id)
 
+# def packed_gear(request):
+    
 # --------------------------------- FOOD
 class FoodCreate(CreateView):
     model = Food
@@ -191,3 +207,14 @@ def remove_food(request, day_id, food_id):
     day.food.remove(food_id)
     
     return redirect('meal-plan', trail_id=day.trail_id)
+
+# --------------------------------- todo
+
+# def add_todo(request, trail_id):
+#     form = TodoForm(request.POST)
+    
+#     if form.is_valid():
+#         new_todo = form.save(commit=False)
+#         new_todo.trail_id = trail_id
+#         new_todo.save()
+#     return redirect('trail-detail', trail_id=trail_id)
