@@ -26,13 +26,26 @@
 
             
             <nav>
+                
                 <ul>
-                    <li><a href="{% url "discover" %}">Discover</a></li>
-                    <li><a href="{% url "dashboard" %}">Dashboard</a></li>
-                    <li><a href="{% url "trail-index" %}">Adventures</a></li>
-                    <li><a href="{% url "gear-index" %}">Gear Storage</a></li>
-                    <li><a href="{% url "food-index" %}">Pantry</a></li>
-                    <li><a href="{% url "trail-create" %}">Add New Adventures</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url "discover" %}">Discover</a></li>
+                        <li><a href="{% url "dashboard" %}">Dashboard</a></li>
+                        <li><a href="{% url "trail-index" %}">Adventures</a></li>
+                        <li><a href="{% url "gear-index" %}">Gear Storage</a></li>
+                        <li><a href="{% url "food-index" %}">Pantry</a></li>
+                        <li><a href="{% url "trail-create" %}">Add New Adventures</a></li>
+                        <li>
+                            <form id="logout-form" method="post" action="{% url "logout" %}">
+                                {% csrf_token %}
+                                <button type="submit">Log out</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url "home" %}">Login</a></li>
+                        <li><a href="{% url "signup" %}">Sign Up</a></li>
+                    {% endif %}
+                    
                 </ul>
             </nav>
         </header>

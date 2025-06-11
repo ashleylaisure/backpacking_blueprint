@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.db.models.functions import Lower
 from django.utils import timezone
 from django.db.models import Sum
+from django.contrib.auth.models import User
 
 category_choices = (
     ('big_three', 'Big Three (Backpack, Tent, Sleeping Bag)'),
@@ -46,6 +47,9 @@ class Gear(models.Model):
 
     weight_lb = models.FloatField(blank=True, null=True)
     
+    # foreign key linking to a user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
     def save(self, *args, **kwargs):
         if self.weight_m == 'oz':
             self.weight_lb = self.weight * 0.0625
@@ -66,11 +70,14 @@ class Trail(models.Model):
     start_date = models.DateField('Starting Date')
     end_date = models.DateField('End Date')
     # how to check that the end date entered is after start date???
-    location = models.CharField(max_length=200)
+    location = models.CharField(max_length=200, blank=True, null=True)
     distance = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
     image = models.ImageField(upload_to='cover_image/', default='cover_image_1.jpg', blank=True, null=True)
+    
+    # foreign key linking to a user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     # MAP FEATURE
     lat = models.FloatField(blank=True, null=True)
@@ -100,6 +107,8 @@ class Trail(models.Model):
         
     # M:M relationship with Gear
     gear = models.ManyToManyField(Gear)
+    
+    
         
     def __str__(self):
         return self.name
@@ -116,6 +125,9 @@ class Food(models.Model):
     
     def __str__(self):
         return self.name
+    
+    # foreign key linking to a user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     class Meta:
         ordering = [Lower('name')]
@@ -152,10 +164,11 @@ class Day(models.Model):
             
         super().save(*args, **kwargs)
 
-
     # relationships
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
     food = models.ManyToManyField(Food)
+    # foreign key linking to a user instance
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return f"Day {self.day} on {self.date}"
@@ -168,10 +181,12 @@ class Day(models.Model):
     
 class Note(models.Model):
     note = models.CharField(max_length=250)
-    created = models.DateField(default=timezone.now())
+    created = models.DateField(auto_now_add=True)
     
     # Trail Foreign Key
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
+    # foreign key linking to a user instance
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     class Meta:
         ordering = ['created']
