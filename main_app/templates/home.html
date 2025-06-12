@@ -13,19 +13,13 @@
 				</div>
 
 				<div class="subheader-content">
-					<h2>Discover Your Next Adventure</h2>
+					<h4>Design Your Next Adventure</h4>
 				</div>
 
 				<div class="search">
-					<p>Search by location or trail name</p>
+					<img src="{% static "images/search (2).svg" %}" alt="search icon">
+					<h6>Search by location or trail name</h6>
 				</div>
-
-				<div>
-					<p>The discover trails tool is your gateway to a world of thru-hiking adventures. Easily browse 
-						and filter trails by location or name to find the perfect path for your next adventure.
-					</p>
-				</div>
-			</div>
 			
 		{% else %}
 			<div class="text-container">
@@ -34,13 +28,18 @@
 				</div>
 
 				<div class="subheader-content">
-					<h3>Your Ultimate Companion for Thru-Hiking Adventures</h3>
-					<p>Unleash your hiking potential with our all-in-one planning tool that 
-						empowers you to focus on what truly matters: the journey
-					</p>
+					<h4>Your Ultimate Companion for Thru-Hiking Adventures</h4>
 				</div>
 				
-				<a href="{% url "signin" %}">Start Planning</a>
+				
+				<a href="{% url "signin" %}" >
+					<div class="btn-link">
+							<h5>Start Planning</h5>
+							<img src="{% static "images/arrow-right.svg" %}" alt="right arrow">
+					</div>
+				</a>
+				
+				
 			</div>
 		{% endif %}
 	</div>

@@ -1,0 +1,86 @@
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/static/images/nathan-dumlao-pLoMDKtl-JY-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    /* filter: blur(3px); */
+    z-index: -1;
+}
+
+.container {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.text-container {
+    position: absolute;
+    top: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+
+    width: 47.5rem;
+    gap: 1.5rem;
+    margin-left: 6rem;
+}
+
+.page-header {
+    color: var(--secondary-color);
+}
+
+.subheader-content h4{
+    color: var(--secondary-light);
+    margin-bottom: .5rem;
+}
+
+/* Button */
+.btn-link {
+    height: 3.5rem;
+    width: 14.875rem;
+    padding: 1rem;
+    background: var(--gray-pink, #F2E8E9);
+    border-radius: var(--btn-border-radius);
+    color: var(--black-300);
+    cursor: pointer;
+    transition: all .3s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.btn-link:hover {
+    gap: 18px;
+}
+
+/* Search */
+
+.search {
+    background-color: #FFF4F5;
+    display: flex;
+    align-items: center;
+    padding: 1.12rem 2.38rem;
+    border-radius: 3.75rem;
+    width: 52.375rem;
+    height: 4.5rem;
+    gap: 1.69rem;
+}

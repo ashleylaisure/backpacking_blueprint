@@ -12,7 +12,11 @@
 
     /* colors */
     --primary-color: #2C3930;
+    --primary-light: #4C554D; 
     --secondary-color: #EAD1B3;
+    --secondary-light: #fff5e9;
+    --gray-pink: #F2E8E9;
+    --dark-pink: #eaced1; 
 
     --black-200: #020202;
     --black-300: #333333;
@@ -23,7 +27,9 @@
     --warning-color: #D54000; 
 
     --color-white: #fff;
-    --color-creamson: #fff0de;
+    --color-creamson: #FFF4F5;
+
+    --btn-border-radius: 0.4rem;
 }
 
 /* reset auto settings */
@@ -43,11 +49,19 @@ body {
 }
 
 a {
+    font-family: inherit;
     text-decoration: none;
     color: inherit
 }
 
 h1 {
+    font-size: 3.375rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%; /* 3.7125rem */
+}
+
+h2 {
     font-size: 2.625rem;
     font-style: normal;
     font-weight: 700;
@@ -83,7 +97,7 @@ p{
 .btn {
     border: none;
     border-radius: 0.5rem;
-    background: #F5F5F5;
+    background-color: #ffffff;
     font-family: inherit;
     font-size: 1rem;
     font-style: normal;
@@ -91,10 +105,12 @@ p{
     line-height: 1.5rem; /* 150% */
     letter-spacing:0.00938rem; 
     color: var(--black-300);
+    cursor: pointer;
+    transition: all .3s;
 }
 
 .btn:hover {
-    cursor: pointer;
-    background-color:  var(--black-500);
+    background: var(--primary-light);
     color: var(--color-creamson);
+    font-size: 1.15rem;
 }
