@@ -128,7 +128,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 # Add this variable to specify where decorators and mixins should redirect to
-LOGIN_URL = 'home'
+LOGIN_URL = 'signin'
 
 # Add this variable to specify where successful logins should redirect to
 LOGIN_REDIRECT_URL = 'trail-index'

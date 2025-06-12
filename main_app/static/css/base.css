@@ -1,0 +1,100 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*  CSS variables  */
+:root {
+    /* fonts */
+    --playfair-display: "Playfair Display", serif;
+    --plus-jakarta-sans: "Plus Jakarta Sans", sans-serif;
+    --roboto: "Roboto", sans-serif;
+
+    /* colors */
+    --primary-color: #2C3930;
+    --secondary-color: #EAD1B3;
+
+    --black-200: #020202;
+    --black-300: #333333;
+    --black-400: #1f1e31;
+    --black-500: #a8a8a8;
+    --CoolGray-90: #21272A;
+
+    --warning-color: #D54000; 
+
+    --color-white: #fff;
+    --color-creamson: #fff0de;
+}
+
+/* reset auto settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/* center and background color */
+body {
+    /* max-width: 1280px; */
+    /* margin: 0 auto; */
+    font-family: var(--roboto)
+
+}
+
+a {
+    text-decoration: none;
+    color: inherit
+}
+
+h1 {
+    font-size: 2.625rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%; /* 2.8875rem */
+}
+
+h5 {
+    color: #434343;
+    font-size:  0.875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.25rem;
+    letter-spacing: 0.00625rem;
+}
+
+h6 {
+    color: #818181;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem; /* 142.857% */
+    letter-spacing: 0.00625rem;
+}
+
+p{
+    color: var(--CoolGray-90);
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 1.575rem */
+}
+
+.btn {
+    border: none;
+    border-radius: 0.5rem;
+    background: #F5F5F5;
+    font-family: inherit;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5rem; /* 150% */
+    letter-spacing:0.00938rem; 
+    color: var(--black-300);
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color:  var(--black-500);
+    color: var(--color-creamson);
+}

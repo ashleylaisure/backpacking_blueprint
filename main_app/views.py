@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Trail, Day, Gear, category_choices, Food, meal_category, Note
-from .forms import TrailForm, NoteForm
+from .forms import TrailForm, NoteForm, UserForm, LoginForm
 from django.conf import settings
 from django.utils import timezone
 from django.db.models import Sum
@@ -14,8 +14,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
-class Home(LoginView):
-    template_name = 'home.html'
+class Signin(LoginView):
+    template_name = 'signin.html'
+    authentication_form = LoginForm
+    
+def home(request):
+    return render(request, 'home.html',)
 
 def discover(request):
     return render(request, 'discover.html')
@@ -27,7 +31,7 @@ def dashboard(request):
 def signup(request):
     error_message = ''
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             # add user to the database
             user = form.save()
@@ -37,7 +41,7 @@ def signup(request):
         else:
             error_message = 'Invalid sign up - try again'
     # if Post or Get request is bad render empty form
-    form = UserCreationForm()
+    form = UserForm()
 
     return render(request, 'signup.html', {
         'form' : form,

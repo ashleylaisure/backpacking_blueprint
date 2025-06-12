@@ -5,23 +5,44 @@
 {% endblock head %}
 
 {% block content %}
-<section class="home-container">
-    <div class="logo-container">
-        <img src="" alt="">
-    </div>
-    <h1>Backpacking Blueprint</h1>
-</section>
+	<div class="container">
+		{% if user.is_authenticated %}
+			<div class="text-container">
+				<div class="page-header">
+					<h1>WELOME, {{user.username}} </h1>
+				</div>
 
-{% if not user.is_authenticated %}
-<section>
-    <form action="{% url "home" %}" method="post" class="login">
-        <h1>Login</h1>
-        {% csrf_token %}
-        {{ form.as_p}}
-        <input type="hidden" name="next" value="{{next}}">
-        <button type="submit" class="btn submit">Login</button>
-    </form>
-</section>
-{% endif %}
+				<div class="subheader-content">
+					<h2>Discover Your Next Adventure</h2>
+				</div>
+
+				<div class="search">
+					<p>Search by location or trail name</p>
+				</div>
+
+				<div>
+					<p>The discover trails tool is your gateway to a world of thru-hiking adventures. Easily browse 
+						and filter trails by location or name to find the perfect path for your next adventure.
+					</p>
+				</div>
+			</div>
+			
+		{% else %}
+			<div class="text-container">
+				<div class="page-header">
+					<h1>Backpacking Blueprint</h1>
+				</div>
+
+				<div class="subheader-content">
+					<h3>Your Ultimate Companion for Thru-Hiking Adventures</h3>
+					<p>Unleash your hiking potential with our all-in-one planning tool that 
+						empowers you to focus on what truly matters: the journey
+					</p>
+				</div>
+				
+				<a href="{% url "signin" %}">Start Planning</a>
+			</div>
+		{% endif %}
+	</div>
 
 {% endblock content %}

@@ -29,8 +29,8 @@
                 
                 <ul>
                     {% if user.is_authenticated %}
-                        <li><a href="{% url "discover" %}">Discover</a></li>
-                        <li><a href="{% url "dashboard" %}">Dashboard</a></li>
+                        {% comment %} <li><a href="{% url "discover" %}">Discover</a></li> {% endcomment %}
+                        {% comment %} <li><a href="{% url "dashboard" %}">Dashboard</a></li> {% endcomment %}
                         <li><a href="{% url "trail-index" %}">Adventures</a></li>
                         <li><a href="{% url "gear-index" %}">Gear Storage</a></li>
                         <li><a href="{% url "food-index" %}">Pantry</a></li>
@@ -42,7 +42,7 @@
                             </form>
                         </li>
                     {% else %}
-                        <li><a href="{% url "home" %}">Login</a></li>
+                        <li><a href="{% url "signin" %}">Log In</a></li>
                         <li><a href="{% url "signup" %}">Sign Up</a></li>
                     {% endif %}
                     

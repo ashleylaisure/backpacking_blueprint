@@ -5,22 +5,26 @@
 {% endblock head %}
 
 {% block content %}
+
+{% if not user.is_authenticated %}
 <section>
+
 
     <div class="container">
 		<div class="form-container">
 			<div class="form-card">
 
 				<div class="form-text">
-					<h1>Sign Up</h1>
-					{% if error_message %}
-                        <p class="error">{{error_message}}</p>
+					<h1>Welcome Back</h1>
+                    <p>Please log in to continue</p>
+                    {% if error_message %}
+                    <p class="error">{{error_message}}</p>
                     {% endif %}
 				</div>
 
 				<div class="form-input">
 
-					<form action="" method="post" autocomplete="off">
+					<form action="{% url "signin" %}" method="post" class="login">
 						{% csrf_token %}
                         <div class="input-group">
 							<div class="input-group-icon">
@@ -34,24 +38,21 @@
 							<div class="input-group-icon">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							{{form.password1}}
+							{{form.password}}
 						</div>
 
-						<div class="input-group">
-							<div class="input-group-icon">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
-							{{form.password2}}
-						</div>
-                        
-						<div class="lower-container">
-							<button type="submit" class="btn submit">Sign Up</button>
-							<div class="lower-text">
-								<h6>Already have an account?</h6><a href="{% url 'signin' %}" class="links"><h5>Log In</h5></a>
-							</div>
-						</div>
-                        
-					</form>
+                        <input type="hidden" name="next" value="{{next}}">
+
+                        <div class="lower-container">
+                            <button type="submit" class="btn submit">Log In</button>
+                            <div class="lower-text">
+                                <h6>Don't have an account? </h6><a href="{% url 'signup' %}" class="links"><h5>Sign Up</h5></a>
+                            </div>
+                            
+                        </div>
+
+					
+                    </form>
 				
                 </div>
 		
@@ -61,4 +62,6 @@
 		</div>
 	</div>
 </section>
+{% endif %}
+
 {% endblock content %}
