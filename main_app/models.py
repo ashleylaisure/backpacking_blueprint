@@ -66,10 +66,10 @@ class Gear(models.Model):
         
 
 class Trail(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(('Adventure Name'),max_length=200)
     start_date = models.DateField('Start Date')
     end_date = models.DateField('End Date')
-    location = models.CharField(max_length=200, blank=True, null=True)
+    location = models.CharField(('Starting Location'), max_length=200, blank=True, null=True)
     distance = models.DecimalField( ('Distance(mi)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(('Elevation Gain(ft)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)

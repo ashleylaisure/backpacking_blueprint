@@ -17,6 +17,7 @@ body::before {
     justify-content: center;
 }
 
+
 .container {
     position: fixed;
     top: 70px;
@@ -30,11 +31,6 @@ body::before {
 
 }
 
-/* NAV */
-
-.signin-links-container {
-    display: none
-}
 
 /* Form */
 .form-container {

@@ -7,79 +7,98 @@
     <!-- MCDatepicker JS -->
     <script src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"></script>
     <script defer src="{% static 'js/trail-form.js' %}"></script>
-    <!-- Existing CSS -->
-    {% comment %} <link rel="stylesheet" href="{% static "ccs/form.css" %}"> {% endcomment %}
+    <!--  CSS -->
+    <link rel="stylesheet" href="{% static "css/trails/trail-form.css" %}">
     
 {% endblock head %}
 
 {% block content %}
-<div class="page-header">
-    
-    {% if trail %}
-        <h1>Edit {{trail.name}}</h1>
-    {% else %}
-        <h1><h1>Add a new Hike</h1></h1>
-    {% endif %}
-    
-    <img src="" alt="">
-</div>
-<form action="" method="post" enctype="multipart/form-data" class="form-container">
-    {% csrf_token %}
+<div class="container">
 
-    <div class="form-input">
-        <div class="field-label">{{form.name.label}}</div>
-        <div class="field-input">{{form.name}}</div>
+    <div class="page-header">
+        {% if trail %}
+            <h1>Edit {{trail.name}}</h1>
+        {% else %}
+            <h1>Design Your Next Adventure</h1>
+        {% endif %}
     </div>
 
-    <div class="form-input">
-        <div class="field-label">{{form.start_date.label}}</div>
+    <form action="" method="post" enctype="multipart/form-data" class="form-container">
+        {% csrf_token %}
+
+        <div class="form-input">
+            <div class="field-label"><h5>{{form.name.label}}</h5></div>
+            <div class="field-input">{{form.name}}</div>
+        </div>
+
         {% if trail %}
-            <div class="field-error">
-                <p>Warning: by changing dates, you will lose itinerary action 
-                    items on days that are removed from the adventure date range</p>
+        <div class="form-input">
+            <div class="field-label"></div>
+            <div class="field-input field-error">
+                <h6>Warning: by changing dates, you will lose 
+                    itinerary days that are removed from the adventure date range</h6>
             </div>
-        {% endif %}
-        <div class="field-input">{{form.start_date}}</div>
-    </div>
 
-    <div class="form-input">
-        <div class="field-label">{{form.end_date.label}}</div>
-        <div class="field-error">{{form.end_date.errors}}</div>
-        <div class="field-input">{{form.end_date}}</div>
-    </div>
-        
-    <div class="form-input">
-        <div class="field-label">{{form.location.label}}</div>
-        <div class="field-input">{{form.location}}</div>
-    </div>
+        </div>
+        {% endif %} 
 
-    <div class="form-input">
-        <div class="field-label">{{form.distance.label}}</div>
-        <div class="field-input">{{form.distance}}</div>
-    </div>
+        <div class="form-input">
+            <div class="field-label"><h5>{{form.start_date.label}}</h5></div>
+            <div class="field-input">{{form.start_date}}</div>
+        </div>
+                
 
-    <div class="form-input">
-        <div class="field-label">{{form.elevation.label}}</div>
-        <div class="field-input">{{form.elevation}}</div>
-    </div>
+        <div class="form-input">
+            <div class="field-label"><h5>{{form.end_date.label}}</h5>
+                <div class="field-error"><h6>{{form.end_date.errors}}</h6></div>
+            </div>
+            
+            <div class="field-input">{{form.end_date}}</div>
+        </div>
+            
+        <div class="form-input">
+            <div class="field-label"><h5>{{form.location.label}}</h5></div>
+            <div class="field-input">{{form.location}}</div>
+        </div>
 
-    <div class="form-input">
-        <div class="field-label">{{form.image.label}}</div>
-        {% if trail %}
-            <img class="field-image" style="width: 150px; height: 100px;" src="{{trail.image.url}}" alt="{{trail.name}}">
-        {% endif %}
-        <div class="field-input">{{form.image}}</div>
-    </div>
+        <div class="form-input">
+            <div class="field-label"><h5>{{form.distance.label}}</h5></div>
+            <div class="field-input">{{form.distance}}</div>
+        </div>
 
-    
-        <button type="submit" class="btn submit">
-            {% if trail %}
-            <h6>Save</h6>
-            {% else %}
-            <h6>Add Trail!</h6>
-            {% endif %}
-        </button>
-    
-    
-</form>
+        <div class="form-input">
+            <div class="field-label"><h5>{{form.elevation.label}}</h5></div>
+            <div class="field-input">{{form.elevation}}</div>
+        </div>
+
+        <div class="form-input img">
+            <div class="field-label"><h5>{{form.image.label}}</h5></div>
+
+            <div class="field-input-img">
+                {% if trail %}
+                    <img class="field-image" src="{{trail.image.url}}" alt="{{trail.name}}">
+                    <label for="id_image" class="custom-file-label btn-warning ">Change Image</label>
+                {% else %}
+                    <label for="id_image" class="custom-file-label btn-warning ">Choose Image</label>
+                {% endif %}
+
+                
+                {{form.image}}
+            </div>
+        </div>
+
+        <div class="form-links ">
+            <a href="{% url "trail-index" %}" class="btn-warning submit">
+                Cancel
+            </a>
+
+            <button type="submit" class="btn-warning submit">
+                {% if trail %}Save{% else %}Add Trail!{% endif %}
+            </button>
+
+        </div>
+            
+    </form>
+
+</div>
 {% endblock content %}

@@ -24,6 +24,10 @@ class TrailForm(forms.ModelForm):
                     'id' : 'end-date'
                 }
             ),
+            
+            'image': forms.FileInput(attrs={
+                'class': 'custom-file-input'
+            })
         }
         
     def clean(self):
