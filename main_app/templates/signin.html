@@ -26,17 +26,10 @@
 					<form action="{% url "signin" %}" method="post" class="login">
 						{% csrf_token %}
                         <div class="input-group">
-							<div class="input-group-icon">
-								<span class="input-group-text"><i class="fas fa-user"></i></span>
-                                
-							</div>
 							{{form.username}}
 						</div>
 
 						<div class="input-group">
-							<div class="input-group-icon">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
 							{{form.password}}
 						</div>
 

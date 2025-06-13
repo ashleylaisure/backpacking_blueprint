@@ -1,7 +1,14 @@
 {% extends "base.html" %} {% load static %}
-{% load widget_tweaks %}
+
 {% block head %}
-    <link rel="stylesheet" href="{% static "ccs/form.css" %}">
+    <!-- New MCDatepicker CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/mcdp.css' %}">
+    <!-- MCDatepicker JS -->
+    <script src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"></script>
+    <script defer src="{% static 'js/trail-form.js' %}"></script>
+    <!-- Existing CSS -->
+    {% comment %} <link rel="stylesheet" href="{% static "ccs/form.css" %}"> {% endcomment %}
     
 {% endblock head %}
 
@@ -18,10 +25,61 @@
 </div>
 <form action="" method="post" enctype="multipart/form-data" class="form-container">
     {% csrf_token %}
+
+    <div class="form-input">
+        <div class="field-label">{{form.name.label}}</div>
+        <div class="field-input">{{form.name}}</div>
+    </div>
+
+    <div class="form-input">
+        <div class="field-label">{{form.start_date.label}}</div>
+        {% if trail %}
+            <div class="field-error">
+                <p>Warning: by changing dates, you will lose itinerary action 
+                    items on days that are removed from the adventure date range</p>
+            </div>
+        {% endif %}
+        <div class="field-input">{{form.start_date}}</div>
+    </div>
+
+    <div class="form-input">
+        <div class="field-label">{{form.end_date.label}}</div>
+        <div class="field-error">{{form.end_date.errors}}</div>
+        <div class="field-input">{{form.end_date}}</div>
+    </div>
+        
+    <div class="form-input">
+        <div class="field-label">{{form.location.label}}</div>
+        <div class="field-input">{{form.location}}</div>
+    </div>
+
+    <div class="form-input">
+        <div class="field-label">{{form.distance.label}}</div>
+        <div class="field-input">{{form.distance}}</div>
+    </div>
+
+    <div class="form-input">
+        <div class="field-label">{{form.elevation.label}}</div>
+        <div class="field-input">{{form.elevation}}</div>
+    </div>
+
+    <div class="form-input">
+        <div class="field-label">{{form.image.label}}</div>
+        {% if trail %}
+            <img class="field-image" style="width: 150px; height: 100px;" src="{{trail.image.url}}" alt="{{trail.name}}">
+        {% endif %}
+        <div class="field-input">{{form.image}}</div>
+    </div>
+
     
-    <table>
-        {{form.as_table}}
-    </table>
-    <button type="submit" class="btn submit">Submit!</button>
+        <button type="submit" class="btn submit">
+            {% if trail %}
+            <h6>Save</h6>
+            {% else %}
+            <h6>Add Trail!</h6>
+            {% endif %}
+        </button>
+    
+    
 </form>
 {% endblock content %}

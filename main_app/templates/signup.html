@@ -24,24 +24,14 @@
 					<form action="" method="post" autocomplete="off">
 						{% csrf_token %}
                         <div class="input-group">
-							<div class="input-group-icon">
-								<span class="input-group-text"><i class="fas fa-user"></i></span>
-                                
-							</div>
 							{{form.username}}
 						</div>
 
 						<div class="input-group">
-							<div class="input-group-icon">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
 							{{form.password1}}
 						</div>
 
 						<div class="input-group">
-							<div class="input-group-icon">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
 							{{form.password2}}
 						</div>
                         

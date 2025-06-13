@@ -67,12 +67,11 @@ class Gear(models.Model):
 
 class Trail(models.Model):
     name = models.CharField(max_length=200)
-    start_date = models.DateField('Starting Date')
+    start_date = models.DateField('Start Date')
     end_date = models.DateField('End Date')
-    # how to check that the end date entered is after start date???
     location = models.CharField(max_length=200, blank=True, null=True)
-    distance = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
-    elevation = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
+    distance = models.DecimalField( ('Distance(mi)'), max_digits=10, decimal_places=2,  blank=True, null=True)
+    elevation = models.DecimalField(('Elevation Gain(ft)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
     image = models.ImageField(upload_to='cover_image/', default='cover_image_1.jpg', blank=True, null=True)
     
@@ -82,6 +81,7 @@ class Trail(models.Model):
     # MAP FEATURE
     lat = models.FloatField(blank=True, null=True)
     long = models.FloatField(blank=True, null=True)
+    
     
     # when the instance is saved convert the location into lat/long
     def save(self, *args, **kwargs):
@@ -107,8 +107,6 @@ class Trail(models.Model):
         
     # M:M relationship with Gear
     gear = models.ManyToManyField(Gear)
-    
-    
         
     def __str__(self):
         return self.name

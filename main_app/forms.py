@@ -12,18 +12,28 @@ class TrailForm(forms.ModelForm):
                 format=('%Y-%m-%d'),
                 attrs= {
                     'placeholder': "Select a date",
-                    'type': 'date'
-                    # customize further with Flatpickr or jQuery UI Datepicker?
+                    'type': 'text',
+                    'id' : 'start-date'
                 }
             ),
             'end_date' : forms.DateInput(
                 format=('%Y-%m-%d'),
                 attrs= {
                     'placeholder': "Select a date",
-                    'type': 'date'
+                    'type': 'text',
+                    'id' : 'end-date'
                 }
             ),
         }
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        start = cleaned_data.get('start_date')
+        end = cleaned_data.get('end_date')
+        
+        if start and end and end < start:
+            self.add_error('end_date', 'End date cannot be before start date')
+        
         
 class NoteForm(forms.ModelForm):
     class Meta:
