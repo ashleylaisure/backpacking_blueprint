@@ -4,6 +4,7 @@ import geocoder
 from django.urls import reverse
 from django.db.models.functions import Lower
 from django.utils import timezone
+from datetime import timedelta
 from django.db.models import Sum
 from django.contrib.auth.models import User
 
@@ -96,7 +97,7 @@ class Trail(models.Model):
 
     # automatically calculate and save the duration based on the date inputs before submitting
         if self.start_date and self.end_date:
-            self.duration = self.end_date - self.start_date
+            self.duration = self.end_date - self.start_date + timedelta(days=1)
             
         super().save(*args, **kwargs)
     
@@ -104,6 +105,9 @@ class Trail(models.Model):
     def delete(self):
         self.image.delete()
         super().delete()
+        
+    class Meta:
+        ordering = ['start_date']
         
     # M:M relationship with Gear
     gear = models.ManyToManyField(Gear)

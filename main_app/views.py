@@ -71,6 +71,7 @@ def trail_index(request):
 def trail_detail(request, trail_id):
     trail = Trail.objects.get(id=trail_id)
     gear = Gear.objects.all()
+    all_packed = all(item.packed for item in trail.gear.all())
     
     # Packed Gear Form - checkbox submission
     if request.method =="POST":
@@ -90,6 +91,7 @@ def trail_detail(request, trail_id):
     return render(request, 'trails/detail.html', {
         'trail' : trail,
         'gear': gear,
+        'all_packed' : all_packed,
         'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN,
         })
 

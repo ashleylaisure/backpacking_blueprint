@@ -36,7 +36,7 @@ body::before {
 
 .page-header h1 {
     text-align: center;
-    color: var(--warning-color);
+    color: var(--primary-light);
     margin: 1.5rem 0 1.3rem 0;
     text-shadow: 0px 4px 4px rgba(255, 244, 245, 0.3);
 
@@ -47,7 +47,8 @@ body::before {
     min-height: 30rem;
     height: auto;
     border-radius: var(--card-border-radius);
-    background: rgba(227, 161, 105, 0.84);
+
+    background-color: var(--color-creamson-light);
     box-shadow: 2px 6px 35.8px 0px #626262;
     padding: 1.5rem;
 
@@ -72,6 +73,7 @@ body::before {
 input {
     width: 20rem;
     height: 3rem;
+    background-color: #EEE;
     border-radius: var(--card-border-radius);
     border: none;
     padding: 0 1rem;

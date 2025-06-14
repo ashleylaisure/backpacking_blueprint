@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startPicker = MCDatepicker.create({
         el: '#start-date',
         dateFormat: 'yyyy-mm-dd', // Set the desired date format
-        closeOnBlur: true, // Close picker when clicking outside
+        // closeOnBlur: true, // Close picker when clicking outside
         autoClose: true,
         selectedDate: startDate 
     });
@@ -24,14 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const endPicker = MCDatepicker.create({
         el: '#end-date',
         dateFormat: 'yyyy-mm-dd', // Set the desired date format
-        closeOnBlur: true, // Close picker when clicking outside
+        // closeOnBlur: true, // Close picker when clicking outside
         autoClose: true,
         selectedDate: endDate
     });
 
 
     // Open the date picker when the input is clicked
-    startInput.addEventListener("click", () => {startPicker.open();});
-    endInput.addEventListener("click", () => {endPicker.open();});
+    // startInput.addEventListener("click", () => {startPicker.open();});
+    // endInput.addEventListener("click", () => {endPicker.open();});
 
 });

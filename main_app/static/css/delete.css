@@ -8,7 +8,7 @@ body::before {
     background-image: url('/static/images/cover_image_3.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: top;
+    background-position: center;
     /* filter: blur(1.2px); */
     /* background-color: var(--secondary-light); */
     z-index: -1;

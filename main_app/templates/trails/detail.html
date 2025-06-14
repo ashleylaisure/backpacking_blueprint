@@ -7,121 +7,140 @@
 {% endblock head %}
 
 {% block content %}
-<section class="container">
-    <div class="img-container">
-        <img class="w-full" style="width: 150px; height: 100px;" src="{{trail.image.url}}" alt="{{trail.name}}">
-    </div>
-    <div class="trail-details">
-        <h1>{{trail.name}}</h1>
-        <h4>{{trail.start_date}} - {{trail.end_date}}</h4>
-        <p>{{trail.location}}</p>
-        <p>{{trail.distance}} miles</p>
-        <p>{{trail.elevation}}</p>
+<div class="container">
+    <div class="details-grid">
 
-        <div class="trail-actions">
-            <a href="{% url "trail-update" trail.id%}" class="btn warn">Edit</a>
-            <a href="{% url "trail-delete" trail.id%}" class="btn danger">Delete</a>
+        <div class="img-container top" style="background-image: url('{{trail.image.url}}');">
+            <div class="img-header">
+                <h5 class="success">Hi {{user.username}}</h5>
+                <h3 class="success">Welcome To Your {{trail.name}} Adventure!</h3>
+                <h5 class="success">{{trail.start_date}} - {{trail.end_date}}</h5>
+            </div>
         </div>
-    </div>
-</section>
 
-
-    <div id='map' style='width: 100%; height: 300px;'></div>
-    <script>
-        mapboxgl.accessToken = '{{ mapbox_access_token }}';
-        
-        const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/outdoors-v12', // style URL
-            {% if trail.lat and trail.long %}
-                center: [{{trail.long}}, {{trail.lat}}], // starting position [lng, lat]
-            {% else %}
-                center: [-98.35, 39.5] //center of us?
+        <div class="trail-details top">
+            <h4>Trail Details:</h4>
+            {% if trail.location %}
+            <h5>Starting Location: {{trail.location}}</h5>
             {% endif %}
-            zoom: 13, // starting zoom
-        });
 
-        const marker = new mapboxgl.Marker()
-                .setLngLat([ {{trail.long}}, {{trail.lat}} ])
-                .setPopup(new mapboxgl.Popup().setHTML('<p> {{trail.location}} </p>'))
-                .addTo(map);
-
-        const nav = new mapboxgl.NavigationControl();
-        map.addControl(nav);
-    </script>
-
-
-<section class="days-container">
-    <div class="subsection-title">
-        <h2>Itinerary</h2>
-        <a href="{% url "meal-plan" trail.id%}"><h2>Meal Plan</h2></a>
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-    </div>
-
-    {% for day in trail.day_set.all %}
-    <div class="day-container">
-        <div class="day-title">
-            <a href="{% url "day-detail" day.id%}">
-
-                <h2>Day: {{day.day}}</h2>
-                {% if day.start_location or day.finish_location %}
-                    <h5>{{day.start_location}} ➤ {{day.finish_location}}</h5>
-                {% else %}
-                    <h5> Edit Day to Set Location</h5>
-                {% endif %}
-
-                <p>{{day.note.count}}</p>
-            </a>
+            {% if trail.distance %}
+            <h5>Distance: {{trail.distance}} miles</h5>
+            {% endif %}
             
+            {% if trail.elevation %}
+            <h5>Elevation: {{trail.elevation}} ft</h5>
+            {% endif %}
             
+            <h5>Duration: {{trail.duration.days}} days</h5>
+
         </div>
 
-    </div>
-    {% endfor %}
+        <div class="trail-action-links top">
+            <div class="trail-actions">
+                <a href="{% url "trail-update" trail.id%}" class=""><h5>Edit</h5></a>
+                <a href="{% url "trail-delete" trail.id%}" class=""><h5>Delete</h5></a>
+            </div>
 
-</section>
+            <a href="{% url "trail-gear-details" trail.id%}" class="btn-warning primary "><h5>Gear Details</h5></a>
+            <a href="{% url "meal-plan" trail.id%}" class="btn-warning primary"><h5>Meal Plan</h5></a>
+        </div>
 
-<section class="gear">
-    <div class="subsection-title">
-        <h2>Gear</h2>
-        <img src="" alt="">
-        <img src="" alt="">
-        <img src="" alt="">
-    </div>
-    <a href="{% url "available-gear-index" trail.id%}">
-        <h3>Available Gear</h3>
-    </a>
-    <a href="{% url "trail-gear-details" trail.id%}">
-        <h3>Gear Details</h3>
-    </a>
-    <div>
-        <h2>Packing List</h2>
-        <div class="subsection-content">
-            {% if trail.gear.count %}
 
-                {% for gear in trail.gear.all %}
-
-                    {% if gear.packed == False %}
-
-                        <form action="" method="post" autocomplete="off">
-                            {% csrf_token %}
-                            <input type="checkbox" name="packed" value="True"
-                                {% if gear.packed%} checked {% endif %}
-                                onchange="this.form.submit()"
-                            >
-                            {{gear.name}}
-                            <input type="hidden" name="gear_id" value="{{gear.id}}">
-                        </form>
-                    {% endif %}
+        <div class="trail-map">
+            <div id='map'></div>
+            <script>
+                mapboxgl.accessToken = '{{ mapbox_access_token }}';
                 
-                {% endfor %}
-            {% else %}
-            <p>No Gear assigned </p>
-            {% endif %}
+                const map = new mapboxgl.Map({
+                    container: 'map', // container ID
+                    style: 'mapbox://styles/mapbox/outdoors-v12', // style URL
+                    {% if trail.lat and trail.long %}
+                        center: [{{trail.long}}, {{trail.lat}}], // starting position [lng, lat]
+                    {% else %}
+                        center: [-110.4, 44.5], //Yellowstone National Park
+                    {% endif %}
+                    zoom: 10, // starting zoom
+                });
+
+                const marker = new mapboxgl.Marker()
+                        .setLngLat([ {{trail.long}}, {{trail.lat}} ])
+                        .setPopup(new mapboxgl.Popup().setHTML('<p> {{trail.location}} </p>'))
+                        .addTo(map);
+
+                const nav = new mapboxgl.NavigationControl();
+                map.addControl(nav);
+            </script>
         </div>
+
+        <div class="days-container">
+            <div class="subsection-title">
+                <h2 class="subsection-title-text">Itinerary</h2>
+            </div>
+
+            {% for day in trail.day_set.all %}
+            <div class="day-container">
+                
+                    <a href="{% url "day-detail" day.id%}" class="day-title">
+                            <h3>Day: {{day.day}}</h3>
+                            <h4>{{day.date}}</h4>
+                            {% comment %} {% if day.start_location or day.finish_location %}
+                                <h5>{{day.start_location}} ➤ {{day.finish_location}}</h5>
+                            {% else %}
+                                <h5> Edit Day to Set Location</h5>
+                            {% endif %} {% endcomment %}
+                            <h6>Notes: {{day.note_set.count }}</h6>
+                            <img  class="icon-img" src="{% static "images/write.svg" %}" alt="edit icon">
+                        
+                    </a>
+                    
+                    
+                
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="gear">
+            <div class="subsection-title">
+                <h2 class="subsection-title-text">Packing List</h2>
+            </div>
+            {% comment %} <a href="{% url "available-gear-index" trail.id%}">
+                <h3>Available Gear</h3>
+            </a> {% endcomment %}
+            
+            <div class="subsection-img" style="background-image: url('{% static "/images/tristan-pineda-LFGGCsj41Bc-unsplash.jpg" %}');">
+                <div class="gear-container">
+                {% if trail.gear.count %}
+
+                    {% if all_packed %}
+                    <h5>You're all set — no gear to pack right now!</h5>
+                    {% endif %}
+
+                    {% for gear in trail.gear.all %}
+                    
+                        {% if gear.packed == False %}
+
+                            <form action="" method="post" autocomplete="off" class="packed-item">
+                                {% csrf_token %}
+                                <input type="checkbox" name="packed" value="True" 
+                                    {% if gear.packed%} checked {% endif %}
+                                    onchange="this.form.submit()"
+                                >
+                                <p >{{gear.name}}</p>
+                                <input type="hidden" name="gear_id" value="{{gear.id}}">
+                            </form>
+                        {% endif %}
+                    
+                    {% endfor %}
+                {% else %}
+                <h5>To add Gear - click the gear details button above.</h5>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
     </div>
 
-</section>
+</div>
 {% endblock content %}

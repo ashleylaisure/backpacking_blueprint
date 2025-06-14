@@ -77,9 +77,9 @@
             <div class="field-input-img">
                 {% if trail %}
                     <img class="field-image" src="{{trail.image.url}}" alt="{{trail.name}}">
-                    <label for="id_image" class="custom-file-label btn-warning warning">Change Image</label>
+                    <label for="id_image" class="custom-file-label btn-warning primary">Change Image</label>
                 {% else %}
-                    <label for="id_image" class="custom-file-label btn-warning warning">Choose Image</label>
+                    <label for="id_image" class="custom-file-label btn-warning primary">Choose Image</label>
                 {% endif %}
 
                 
@@ -88,11 +88,11 @@
         </div>
 
         <div class="form-links ">
-            <a href="{% url "trail-index" %}" class="btn-warning warning">
+            <a href="{% url "trail-index" %}" class="btn-warning secondary">
                 Cancel
             </a>
 
-            <button type="submit" class="btn-warning warning">
+            <button type="submit" class="btn-warning primary">
                 {% if trail %}Save{% else %}Add Trail!{% endif %}
             </button>
 

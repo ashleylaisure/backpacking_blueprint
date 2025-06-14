@@ -27,7 +27,7 @@
     --CoolGray-90: #21272A;
     --CoolGray-80: #21272A; 
 
-    --warning-color: #D54000; 
+    --warning-color: rgb(213, 64, 0); 
     --warning-color-dark: #a53100; 
 
     --color-white: #fff;
@@ -123,18 +123,23 @@ h6 {
     letter-spacing: 0.00625rem;
 }
 
-p{
-    color: var(--CoolGray-90);
-    font-size: 1.125rem;
+p {
+    color: var(--color-creamson-light);
+    font-size: 1rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 140%; /* 1.575rem */
+    letter-spacing: 0.00625rem;
 }
 
 ul {
     margin: 0;
     list-style: none;
     padding: none;
+}
+
+.success {
+    color: var(--color-white)
 }
 
 .btn-warning {
@@ -185,6 +190,16 @@ ul {
 
 .secondary:hover {
     background-color: var(--CoolGray-70);
+}
+
+.icon-img {
+    width: 24px;
+    aspect-ratio: 1/1;
+}
+
+.icon-img:hover {
+    background-color: rgba(201, 60, 0, 0.8);
+    border-radius: 6px;
 }
 /* ----------- NAV ----------- */
 .nav-header {
@@ -247,6 +262,7 @@ ul {
     justify-content: center;
     align-items: center;
     border: 2px solid var(--Primary, #2C3930);
+    border-radius: 0.5rem;
 
     color: var(--Primary, #2C3930);
     font-size: 1rem;
@@ -270,6 +286,7 @@ ul {
     justify-content: center;
     align-items: center;
     background: var(--Primary, #2C3930);
+    border-radius: 0.5rem;
 
     color: var(--Default-White, #FFF);
     font-size: 1rem;
