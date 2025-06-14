@@ -93,33 +93,7 @@ input #file-upload-button {
     justify-content: space-between;
 }
 
-.btn-warning {
-    border: none;
-    border-radius: 0.5rem;
-    background-color: var(--warning-color);
 
-    font-family: inherit;
-    font-size:  0.875rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.5rem; /* 150% */
-    letter-spacing:0.00938rem; 
-    color: var(--secondary-light);
-
-    cursor: pointer;
-    transition: all .3s;
-    height:3.5rem;
-    min-width: 6rem;
-    padding: 0 .5rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-warning:hover {
-    background-color: var(--warning-color-dark);
-}
 
 .field-error h6{
     font-size: 0.675rem;;

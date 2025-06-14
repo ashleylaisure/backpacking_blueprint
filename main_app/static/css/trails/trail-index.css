@@ -18,6 +18,7 @@ body::before {
     justify-content: center;
 }
 
+
 .nav-header {
     opacity: 1;
 }
@@ -35,6 +36,9 @@ body::before {
 
 }
 
+.header h1 {
+    color: var(--primary-light)
+}
 .section-header {
     width: 100%;
     display: flex;

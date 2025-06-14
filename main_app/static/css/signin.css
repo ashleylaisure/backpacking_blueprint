@@ -105,3 +105,24 @@ input::placeholder {
     color: var(--warning-color);
     text-decoration: underline;
 }
+
+.btn {
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5rem; /* 150% */
+    letter-spacing:0.00938rem; 
+    color: var(--black-300);
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.btn:hover {
+    background: var(--primary-light);
+    color: var(--color-creamson);
+    font-size: 1.15rem;
+}

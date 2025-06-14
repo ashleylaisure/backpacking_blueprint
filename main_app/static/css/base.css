@@ -22,6 +22,8 @@
     --black-300: #333333;
     --black-400: #1f1e31;
     --black-500: #a8a8a8;
+    --CoolGray-60: #6c828d;
+    --CoolGray-70: #576972;
     --CoolGray-90: #21272A;
     --CoolGray-80: #21272A; 
 
@@ -71,7 +73,7 @@ input {
 }
 
 h1 {
-    color: var(--CoolGray-90);
+    /* color: var(--CoolGray-90); */
     font-size: 3.375rem;
     font-style: normal;
     font-weight: 700;
@@ -83,7 +85,7 @@ h2 {
     font-style: normal;
     font-weight: 700;
     line-height: 110%; /* 2.8875rem */
-    color: var(--black-400);
+    color: var(--primary-color);
 }
 
 h3 {
@@ -129,33 +131,61 @@ p{
     line-height: 140%; /* 1.575rem */
 }
 
-.btn {
-    border: none;
-    border-radius: 0.5rem;
-    background-color: #ffffff;
-    font-family: inherit;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.5rem; /* 150% */
-    letter-spacing:0.00938rem; 
-    color: var(--black-300);
-    cursor: pointer;
-    transition: all .3s;
-}
-
-.btn:hover {
-    background: var(--primary-light);
-    color: var(--color-creamson);
-    font-size: 1.15rem;
-}
-
 ul {
     margin: 0;
     list-style: none;
     padding: none;
 }
 
+.btn-warning {
+    border: none;
+    border-radius: 0.5rem;
+    /* background-color: var(--warning-color); */
+    font-family: inherit;
+    font-size:  0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5rem; /* 150% */
+    letter-spacing:0.00938rem; 
+    color: var(--secondary-light);
+
+    cursor: pointer;
+    
+    height:3.5rem;
+    min-width: 6rem;
+    padding: 0 .5rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.primary {
+    background-color: var(--primary-light);
+    transition: all .3s;
+}
+
+.primary:hover {
+    background-color: var(--primary-color);
+}
+
+.warning {
+    background-color: var(--warning-color);
+    transition: all .3s;
+}
+
+.warning:hover {
+    background-color: var(--warning-color-dark);
+}
+
+.secondary {
+    background-color: var(--CoolGray-60);
+    transition: all .3s;
+}
+
+.secondary:hover {
+    background-color: var(--CoolGray-70);
+}
 /* ----------- NAV ----------- */
 .nav-header {
     position: fixed;
