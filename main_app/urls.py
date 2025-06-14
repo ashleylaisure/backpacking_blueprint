@@ -12,7 +12,7 @@ urlpatterns = [
     
     # TRAIL
     path('trails/', views.trail_index, name="trail-index"),
-    path('trails/archive/', views.trail_archive, name="trail-archive"),
+    # path('trails/archive/', views.trail_archive, name="trail-archive"),
     path('trails/<int:trail_id>/', views.trail_detail, name="trail-detail"),
     path('trails/create/', views.TrailCreate.as_view(), name="trail-create"),
     path('trails/<int:pk>/update/', views.TrailUpdate.as_view(), name='trail-update'),

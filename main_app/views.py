@@ -52,14 +52,20 @@ def signup(request):
 @login_required
 def trail_index(request):
     today = timezone.now().date()
-    trails = request.user.trail_set.filter(end_date__gte=today)
-    return render(request, 'trails/index.html', {'trails' : trails})
+    view_type = request.GET.get('view', 'upcoming')
+    
+    if view_type == 'archive':
+        trails = request.user.trail_set.filter(end_date__lt=today)
+        is_archive = True
+    else:
+        trails = request.user.trail_set.filter(end_date__gte=today)
+        is_archive = False
+        
+    return render(request, 'trails/index.html', {
+        'trails' : trails,
+        'is_archive' : is_archive,
+        })
 
-@login_required
-def trail_archive(request):
-    today = timezone.now().date()
-    past_trails = request.user.trail_set.filter(end_date__lt=today)
-    return render(request, 'trails/archive.html', {'past_trails' : past_trails})
 
 @login_required
 def trail_detail(request, trail_id):

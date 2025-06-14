@@ -13,7 +13,7 @@
     /* colors */
     --primary-color: #2C3930;
     --primary-light: #4C554D; 
-    --secondary-color: rgb(234, 209, 179);
+    --secondary-color: #ead1b3;
     --secondary-light: #fff5e9;
     --gray-pink: #F2E8E9;
     --dark-pink: #eaced1; 
@@ -23,6 +23,7 @@
     --black-400: #1f1e31;
     --black-500: #a8a8a8;
     --CoolGray-90: #21272A;
+    --CoolGray-80: #21272A; 
 
     --warning-color: #D54000; 
     --warning-color-dark: #a53100; 
@@ -70,6 +71,7 @@ input {
 }
 
 h1 {
+    color: var(--CoolGray-90);
     font-size: 3.375rem;
     font-style: normal;
     font-weight: 700;
@@ -81,12 +83,21 @@ h2 {
     font-style: normal;
     font-weight: 700;
     line-height: 110%; /* 2.8875rem */
+    color: var(--black-400);
 }
 
 h3 {
-    color: var(--Primary, #2C3930);
+    color: var(--primary-color);
     font-family: var(--plus-jakarta-sans);
     font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%; /* 1.65rem */
+}
+
+h4 {
+    color: var(--black-400);
+    font-size: 1.3rem;
     font-style: normal;
     font-weight: 700;
     line-height: 110%; /* 1.65rem */
@@ -145,8 +156,6 @@ ul {
     padding: none;
 }
 
-
-
 /* ----------- NAV ----------- */
 .nav-header {
     position: fixed;
@@ -181,6 +190,10 @@ ul {
     min-width: 218px;
     padding: 0 1.2rem;
     transition: all .2s
+}
+
+.logo-text {
+    min-width: 260px;
 }
 
 .logo-text:hover {
@@ -240,4 +253,10 @@ ul {
     background-color: transparent;
     border: 2px solid var(--Primary, #2C3930);
     color: var(--Primary, #2C3930);
+}
+
+#logout-form {
+    min-width: 260px;
+    display: flex;
+    justify-content: flex-end;
 }
