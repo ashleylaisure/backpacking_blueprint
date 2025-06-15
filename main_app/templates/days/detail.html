@@ -26,9 +26,9 @@
         <div class="details-container">
             <h4>Day Details:</h4>
                 {% if day.start_campsite or day.finish_campsite %}
-                    <h5>Start At: {{day.start_campsite}} </h5>
+                    <h5>Start: {{day.start_campsite}} </h5>
                         
-                    <h5>Finish At: {{day.finish_campsite}}</h5>
+                    <h5>Finish: {{day.finish_campsite}}</h5>
                 {% endif %}
 
                 {% if day.distance %}
@@ -65,15 +65,15 @@
                     {% else %}
                         center: [-110.4, 44.5], //Yellowstone National Park
                     {% endif %}
-                    zoom: 10, // starting zoom
+                    zoom: 7, // starting zoom
                 });
 
-                const start_marker = new mapboxgl.Marker()
+                const start_marker = new mapboxgl.Marker({color: "green"})
                         .setLngLat( [{{day.start_long}}, {{day.start_lat}}] )
                         .setPopup(new mapboxgl.Popup().setHTML('<h5> {{day.start_location}} </h5>'))
                         .addTo(map);
 
-                const finish_marker = new mapboxgl.Marker()
+                const finish_marker = new mapboxgl.Marker({color: "red"})
                         .setLngLat( [{{day.finish_long}}, {{day.finish_lat}} ])
                         .setPopup(new mapboxgl.Popup().setHTML('<h5> {{day.finish_location}} </h5>'))
                         .addTo(map);

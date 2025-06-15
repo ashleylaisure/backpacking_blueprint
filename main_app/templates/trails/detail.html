@@ -60,16 +60,35 @@
                     {% else %}
                         center: [-110.4, 44.5], //Yellowstone National Park
                     {% endif %}
-                    zoom: 10, // starting zoom
+                    zoom: 5, // starting zoom
                 });
 
-                const marker = new mapboxgl.Marker()
+                const nav = new mapboxgl.NavigationControl();
+                map.addControl(nav);
+
+                var marker = new mapboxgl.Marker()
                         .setLngLat([ {{trail.long}}, {{trail.lat}} ])
                         .setPopup(new mapboxgl.Popup().setHTML('<h5> {{trail.location}} </h5>'))
                         .addTo(map);
 
-                const nav = new mapboxgl.NavigationControl();
-                map.addControl(nav);
+                {% for day in trail.day_set.all %}
+                    {% if day.start_lat and day.start_long %}
+                        marker = new mapboxgl.Marker({color: "green"})
+                            .setLngLat([ {{day.start_long}}, {{day.start_lat}} ])
+                            .setPopup(new mapboxgl.Popup().setHTML('<h5> Day {{day.day}} Start: {{day.start_location}} </h5>'))
+                            .addTo(map);
+                    {%endif%}
+
+                    {% if day.finish_lat and day.finish_long %}
+                        marker = new mapboxgl.Marker({color: "red"})
+                            .setLngLat([ {{day.finish_long}}, {{day.finish_lat}} ])
+                            .setPopup(new mapboxgl.Popup().setHTML('<h5> Day {{day.day}} Finish: {{day.finish_location}} </h5>'))
+                            .addTo(map);
+                    {%endif%}
+
+                {% endfor %}
+
+                
             </script>
         </div>
 
@@ -82,15 +101,15 @@
             <div class="day-container">
                 
                     <a href="{% url "day-detail" day.id%}" class="day-title">
-                            <h3>Day: {{day.day}}</h3>
-                            <h4>{{day.date}}</h4>
+                            <h3 class="day-text">Day: {{day.day}}</h3>
+                            <h4 class="day-text">{{day.date}}</h4>
                             {% comment %} {% if day.start_location or day.finish_location %}
                                 <h5>{{day.start_location}} ➤ {{day.finish_location}}</h5>
                             {% else %}
                                 <h5> Edit Day to Set Location</h5>
                             {% endif %} {% endcomment %}
                             <h6>Notes: {{day.note_set.count }}</h6>
-                            <img  class="icon-img" src="{% static "images/write.svg" %}" alt="edit icon">
+                            {% comment %} <img  class="icon-img" src="{% static "images/write.svg" %}" alt="edit icon"> {% endcomment %}
                         
                     </a>
             </div>

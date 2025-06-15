@@ -73,6 +73,7 @@ def trail_detail(request, trail_id):
     gear = Gear.objects.all()
     all_packed = all(item.packed for item in trail.gear.all())
     
+    
     # Packed Gear Form - checkbox submission
     if request.method =="POST":
         # get the requesting gear item 
