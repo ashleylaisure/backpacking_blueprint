@@ -25,8 +25,8 @@ class TrailForm(forms.ModelForm):
                 }
             ),
             
-            'image': forms.FileInput(attrs={
-                'class': 'custom-file-input'
+            'image': forms.RadioSelect(attrs={
+                'class': 'custom-radio'
             })
         }
         

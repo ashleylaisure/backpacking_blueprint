@@ -1,6 +1,8 @@
 {% extends "base.html" %} {% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="{% static "css/trails/trail-detail.css" %}">
+<link rel="stylesheet" href="{% static "css/days/day-detail.css" %}">
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css' rel='stylesheet' />
@@ -8,117 +10,152 @@
 
 {% block content %}
 
-<div class="detail-container">
-    <section class="page-container">
-        <div class="img-container">
-            <img src="" alt="">
-        </div>
-    </section>
+<div class="container">
+    <div class="grid-container">
 
-    <section class="map">
-        <div id='map' style='width: 100%; height: 300px;'></div>
-        <script>
-            mapboxgl.accessToken = '{{ mapbox_access_token }}';
-            
-            const map = new mapboxgl.Map({
-                container: 'map', // container ID
-                style: 'mapbox://styles/mapbox/outdoors-v12', // style URL
-                {% if day.start_lat and day.start_long %}
-                    center: [{{day.start_long}}, {{day.start_lat}}], // starting position [lng, lat]
-                {% elif day.finish_lat and day.finish_long %}
-                    center: [{{day.finish_long}}, {{day.finish_lat}}],
-                {% else %}
-                    center: [-110.4, 44.5], //Yellowstone National Park
-                {% endif %}
-                zoom: 13, // starting zoom
-            });
-
-            const start_marker = new mapboxgl.Marker()
-                    .setLngLat( [{{day.start_long}}, {{day.start_lat}}] )
-                    .setPopup(new mapboxgl.Popup().setHTML('<p> {{day.start_location}} </p>'))
-                    .addTo(map);
-
-            const finish_marker = new mapboxgl.Marker()
-                    .setLngLat( [{{day.finish_long}}, {{day.finish_lat}} ])
-                    .setPopup(new mapboxgl.Popup().setHTML('<p> {{day.start_location}} </p>'))
-                    .addTo(map);
-
-            {% comment %} // create a function to make a directions request and update the destination
-            async function getRoute() {
-            // make a directions request using cycling profile
-            const query = await fetch(
-            f'https://api.mapbox.com/directions/v5/mapbox/walking/day.start_long,day.start_lat;day.finish_long,day.finish_lat?steps=true&geometries=geojson&access_token={{mapboxgl.accessToken}}''
-            );
-            const json = await query.json();
-            const data = json.routes[0];
-            const route = data.geometry;
-            const geojson = {
-                'type': 'Feature',
-                'properties': {},
-                'geometry': data.geometry
-            };
-
-            if (map.getSource('route')) {
-                // if the route already exists on the map, reset it using setData
-                map.getSource('route').setData(geojson);
-            }
-
-            // otherwise, add a new layer using this data
-            else {
-                map.addLayer({
-                id: 'route',
-                type: 'line',
-                source: {
-                    type: 'geojson',
-                    data: geojson
-                },
-                layout: {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                },
-                paint: {
-                    'line-color': '#3887be',
-                    'line-width': 5,
-                    'line-opacity': 0.75
-                }
-                });
-            }
-            } {% endcomment %}
-
-            const nav = new mapboxgl.NavigationControl();
-            map.addControl(nav);
-        </script>
-
-    </section>
-
-    <section class="days-container">
-        <div class="subsection-title">
-            <div class="header">
-                <h2>Day {{day.day}}</h2>
-                <a href="{% url "trail-detail" day.trail.id%}"><h4>on {{day.trail.name}}</h4></a>
-                <a href="{% url "update-day" day.id %}" class="btn warn">Edit</a>
-                
+        <div class="img-container top" style="background-image: url('{% static "images/" %}{{day.trail.image}}');">
+            <div class="img-header">
+                <h5 class="success">Your {{day.trail.name}} Adventure!</h5>
+                <h3 class="success">Day {{day.day}} </h3>
+                <h5 class="success">{{day.date}}</h5>
             </div>
-            
-            <h5>{{day.date}}</h5>
-            {% if day.start_location or day.finish_location %}
-                <h5>Start At: {{day.start_location}} ➤ Finish At: {{day.finish_location}}</h5>
-            {% endif %}
         </div>
-        <div class="day-details">
-            {% if day.distance %}
-                <p>{{day.distance}}</p>
-            {% endif %}
 
-            {% if day.elevation %}
-                <p>Elevation Gain: {{day.elevation}}</p>
-            {% endif %}
+        <div class="details-container">
+            <h4>Day Details:</h4>
+                {% if day.start_location or day.finish_location %}
+                    <h5>Start At: {{day.start_location}} </h5>
+                        
+                    <h5>Finish At: {{day.finish_location}}</h5>
+                {% endif %}
+
+                {% if day.distance %}
+                    <h5>{{day.distance}} miles</h5>
+                {% endif %}
+
+                {% if day.elevation %}
+                    <h5>Elevation Gain: {{day.elevation}} ft</h5>
+                {% endif %}
         </div>
-    </section>
 
-    <section class="notes-container">
-        <div class="add-note">
-            <h3>Add A Note:</h3>
+        <div class="action-links-container top">
+            <div class="form-action-links">
+                <a href="{% url "update-day" day.id %}" class=""><h5>Edit</h5></a>
+                <a href="{% url "trail-detail" day.trail.id%}"><h5>{{day.trail.name}} Details</h5></a>
+            </div>
+
+            <a href="{% url "trail-gear-details" day.trail.id%}" class="btn-warning primary"><h5>Gear Details</h5></a>
+            <a href="{% url "meal-plan" day.trail.id%}" class="btn-warning primary"><h5>Meal Plan</h5></a>
+        </div>
+
+        <div class="map-container">
+            <div id='map'></div>
+            <script>
+                mapboxgl.accessToken = '{{ mapbox_access_token }}';
+                
+                const map = new mapboxgl.Map({
+                    container: 'map', // container ID
+                    style: 'mapbox://styles/mapbox/outdoors-v12', // style URL
+                    {% if day.start_lat and day.start_long %}
+                        center: [{{day.start_long}}, {{day.start_lat}}], // starting position [lng, lat]
+                    {% elif day.finish_lat and day.finish_long %}
+                        center: [{{day.finish_long}}, {{day.finish_lat}}],
+                    {% else %}
+                        center: [-110.4, 44.5], //Yellowstone National Park
+                    {% endif %}
+                    zoom: 10, // starting zoom
+                });
+
+                const start_marker = new mapboxgl.Marker()
+                        .setLngLat( [{{day.start_long}}, {{day.start_lat}}] )
+                        .setPopup(new mapboxgl.Popup().setHTML('<p> {{day.start_location}} </p>'))
+                        .addTo(map);
+
+                const finish_marker = new mapboxgl.Marker()
+                        .setLngLat( [{{day.finish_long}}, {{day.finish_lat}} ])
+                        .setPopup(new mapboxgl.Popup().setHTML('<p> {{day.start_location}} </p>'))
+                        .addTo(map);
+
+                {% comment %} // create a function to make a directions request and update the destination
+                async function getRoute() {
+                // make a directions request using cycling profile
+                const query = await fetch(
+                f'https://api.mapbox.com/directions/v5/mapbox/walking/day.start_long,day.start_lat;day.finish_long,day.finish_lat?steps=true&geometries=geojson&access_token={{mapboxgl.accessToken}}''
+                );
+                const json = await query.json();
+                const data = json.routes[0];
+                const route = data.geometry;
+                const geojson = {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': data.geometry
+                };
+
+                if (map.getSource('route')) {
+                    // if the route already exists on the map, reset it using setData
+                    map.getSource('route').setData(geojson);
+                }
+
+                // otherwise, add a new layer using this data
+                else {
+                    map.addLayer({
+                    id: 'route',
+                    type: 'line',
+                    source: {
+                        type: 'geojson',
+                        data: geojson
+                    },
+                    layout: {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    paint: {
+                        'line-color': '#3887be',
+                        'line-width': 5,
+                        'line-opacity': 0.75
+                    }
+                    });
+                }
+                } {% endcomment %}
+
+                const nav = new mapboxgl.NavigationControl();
+                map.addControl(nav);
+            </script>
+        </div>
+
+        <div class="feature-container">
+            <div class="subsection-title">
+                <h2 class="subsection-title-text">Daily Meal Plan</h2>
+                <a href="{% url "available-food" day.id %}" class="btn-warning secondary">Add More Food</a>
+            </div>
+
+            <table class="subsection-table">
+                <thead>
+                    <caption><h4>Daily Total Calories: {{day.total_calories}}</h4></caption>
+                    <tr>
+                        <th><h5>Name</h5></th>
+                        <th><h5>Calories</h5></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for food in day.food.all %}
+                            <tr>
+                                <td><h5>{{food.name}}</h5></td>
+                                <td><h5>{{food.calories}}</h5></td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    <div class="feature-two-container">
+        <div class="subsection-title">
+            <h2 class="subsection-title-text">Notes:</h2>
+        </div>
+
+        <div class="notes-form">
             <form action="{% url "add-note" day.id %}" method="post" class="subsection-content" autocomplete="off">
                 {% csrf_token %}
                 {{note_form.as_p}}
@@ -139,25 +176,10 @@
             {% endif %}
         </div>
 
-    </section>
+    </div>
 
-    <section class="meal-plan-container">
-        <div class="header">
-            <h4>Daily Meal Plan:</h4>
-            <a href="{% url "meal-plan" day.trail.id%}">See Hike Meal Plan</a>
-            <a href="{% url "available-food" day.id %}">Add More Food</a>
-        </div>
-
-        {% for key, value in category %}
-            <h3>{{value}}</h3>
-                {% for food in day.food.all %}
-                    {% if food.category == key %}
-                    <p>{{food.name}}</p>
-                    <p>{{food.calories}}</p>
-                    {% endif %}
-                {% endfor %}
-        {% endfor %}
-    </section>
+   
+    </div>
 </div>
 
 {% endblock content %}

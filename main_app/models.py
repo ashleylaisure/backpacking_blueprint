@@ -34,6 +34,18 @@ meal_category = (
     ('drinks', 'Drinks'),
 )
 
+cover_image_choices = (
+    ('cover_image_1.jpg', 'Image 1'),
+    ('cover_image_2.jpg', 'Image 2'),
+    ('cover_image_3.jpg', 'Image 3'),
+    ('cover_image_4.jpg', 'Image 4'),
+    ('cover_image_5.jpg', 'Image 5'),
+    ('cover_image_6.jpg', 'Image 6'),
+    ('cover_image_7.jpg', 'Image 7'),
+    ('cover_image_8.jpg', 'Image 8'),
+    ('cover_image_10.jpg', 'Image 10'),
+)
+
 # Create your models here.
 class Gear(models.Model):
     category = models.CharField(max_length=20, choices=category_choices)
@@ -74,7 +86,8 @@ class Trail(models.Model):
     distance = models.DecimalField( ('Distance(mi)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(('Elevation Gain(ft)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
-    image = models.ImageField(upload_to='cover_image/', default='cover_image_1.jpg', blank=True, null=True)
+    # image = models.ImageField(('Cover Image'), upload_to='cover_image/', default='cover_image_1.jpg', blank=True, null=True)
+    image = models.CharField(('Cover Image'), max_length=100, choices=cover_image_choices)
     
     # foreign key linking to a user instance
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -102,9 +115,9 @@ class Trail(models.Model):
         super().save(*args, **kwargs)
     
     # when instance is deleted, delete image file
-    def delete(self):
-        self.image.delete()
-        super().delete()
+    # def delete(self):
+    #     self.image.delete()
+    #     super().delete()
         
     class Meta:
         ordering = ['start_date']
@@ -169,8 +182,9 @@ class Day(models.Model):
     # relationships
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
     food = models.ManyToManyField(Food)
-    # foreign key linking to a user instance
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def total_calories(self):
+        return sum(food.calories for food in self.food.all())
     
     def __str__(self):
         return f"Day {self.day} on {self.date}"

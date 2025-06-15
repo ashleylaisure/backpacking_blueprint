@@ -12,7 +12,7 @@
             <a href="{% url "trail-index" %}">Upcoming</a>
             <li><a href="{% url "trail-create" %}">Add New Adventures</a></li>
         </div>
-        <img src="" alt="">
+
     </section>
 
     <section class="card-container">
@@ -24,7 +24,7 @@
 
                         <div class="card-content">
                             <div class="card-img-container">
-                                <img style="width: 150px; height: 100px;"  src="{{trail.imgae.url}}" alt="{{trail.name}}">
+                                <img src="{% static "images/" %}{{trail.image}}" alt="{{trail.name}}">
                             </div>
                             <div class="card-details">
                                 <h2 class="card-title">{{trail.name}}</h2>

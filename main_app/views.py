@@ -124,13 +124,14 @@ def day_detail(request, day_id):
     return render(request, 'days/detail.html', {
         'day' : day,
         'mapbox_access_token' : settings.MAPBOX_ACCESS_TOKEN,
+        'food' : food,
         'category' : meal_category,
         'note_form' : note_form,
         })
 
 class DayUpdate(LoginRequiredMixin, UpdateView):
     model = Day
-    fields = ['start_location', 'finish_location', 'distance', 'elevation', 'notes']
+    fields = ['start_location', 'finish_location', 'distance', 'elevation']
     
 # --------------------------------- GEAR
 @login_required

@@ -18,7 +18,6 @@ body::before {
     justify-content: center;
 }
 
-
 .nav-header {
     opacity: 1;
 }
@@ -36,15 +35,48 @@ body::before {
 
 }
 
-.header h1 {
-    color: var(--primary-light)
+.header {
+    background-image: url('/static/images/nathan-dumlao-pLoMDKtl-JY-unsplash.jpg');
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: top;
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+}
+
+.header-text {
+    position: relative;
+    z-index: 5;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--color-creamson-light)
+}
+
+
 .section-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.2rem;
+    margin: 1.2rem 0;
 }
 
 .page-header-links {

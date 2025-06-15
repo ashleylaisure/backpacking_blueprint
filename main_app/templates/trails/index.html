@@ -7,8 +7,9 @@
 {% block content %}
 
 <div class="container">
-    <div class="header">
-        <h1>Oh, the Places You'll Go</h1>
+    
+    <div class="header" >
+        <h1 class="header-text">Oh, the Places You'll Go</h1>
     </div>
 
     <section class="section-header">
@@ -33,7 +34,7 @@
 
                         <div class="card-content">
                             <div class="card-img-container" >
-                                <img class="card-img" src="{{trail.image.url}}" alt="{{trail.name}}">
+                                <img class="card-img" src="{% static "images/" %}{{trail.image}}" alt="{{trail.name}}">
                             </div>
                             <div class="card-details">
                                 <h4 class="card-title">{{trail.name}}</h4>

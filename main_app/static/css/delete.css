@@ -5,7 +5,7 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('/static/images/cover_image_3.jpg');
+    background-image: url('/static/images/cover_image_10.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

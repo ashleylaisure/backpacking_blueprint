@@ -1,0 +1,35 @@
+.subsection-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    
+    
+}
+
+.subsection-table tr {
+    background-color: var(--CoolGray-60);
+    text-align: left;
+    border-radius: var(--card-border-radius);
+}
+
+.subsection-table tr h5 {
+    color: var(--color-creamson-light);
+}
+
+.subsection-table th,
+.subsection-table td {
+    padding: 12px 15px;
+}
+
+.subsection-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.subsection-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.subsection-table tbody tr:last-of-type {
+    border-bottom: 2px solid ;
+}
+

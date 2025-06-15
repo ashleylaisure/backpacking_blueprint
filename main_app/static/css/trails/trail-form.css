@@ -43,8 +43,8 @@ body::before {
 }
 
 .form-container {
-    width: 35rem;
-    min-height: 30rem;
+    width: 45rem;
+    /* min-height: 30rem; */
     height: auto;
     border-radius: var(--card-border-radius);
 
@@ -79,52 +79,52 @@ input {
     padding: 0 1rem;
 }
 
-#id_image {
-    padding-top: .9rem;
-    font-family: inherit;
-}
-
-input #file-upload-button {
-    font-family: inherit;
-    background-color: bisque;
-}
-
 .form-links {
+    margin-top: 1rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-
-
 
 .field-error h6{
     font-size: 0.675rem;;
     color: var(--warning-color-dark)
 }
 
-input[type="checkbox"][name$="-clear"] {
-    display: none;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.field-input-img {
-    display: flex;
-
-    align-items: center;
+/* Image grid */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: .5rem;
-    margin-top: .2rem;
-    width: 20rem;
 }
 
-.field-image {
-    /* width: 100%; */
-    width: auto;
-    height: 4rem;
-    border-radius: 0.5rem;
-    margin-bottom: 0.8rem;
+.image-container {
+    position: relative;
+    border: 3px solid transparent;
+    border-radius: .5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.image-container img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: block;
     object-fit: cover;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: .5rem;
+}
+
+.image-container input[type="radio"] {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 2;
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--primary-light);
+    cursor: pointer;
+}
+
+.image-container input[type="radio"]:checked + img {
+    border: 3px solid var(--primary-light);
 }

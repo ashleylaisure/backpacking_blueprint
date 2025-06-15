@@ -76,14 +76,36 @@
 
             <div class="field-input-img">
                 {% if trail %}
-                    <img class="field-image" src="{{trail.image.url}}" alt="{{trail.name}}">
-                    <label for="id_image" class="custom-file-label btn-warning primary">Change Image</label>
-                {% else %}
-                    <label for="id_image" class="custom-file-label btn-warning primary">Choose Image</label>
-                {% endif %}
+                    <div class="image-grid">
+                        {% for value, key in form.image.field.choices %}
+                            {% if value %}
+                            {% comment %} <h6>{{value}} {{key}}</h6> {% endcomment %}
+                            
+                            <label for="" class="image-container">
+                                <input type="radio" name="image" value="{{ value }}"
+                                    {% if form.image.value == value %} checked {% endif %}
+                                >
+                                <img src="{% static "images/" %}{{value}}" alt="Cover Options" class="field-image">
+                            </label>
+                            {% endif %}
 
-                
-                {{form.image}}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="image-grid">
+                        {% for value, key in form.image.field.choices %}
+                            {% if value %}
+                            {% comment %} <h6>{{value}} {{key}}</h6> {% endcomment %}
+                            
+                            <label for="" class="image-container">
+                                <input type="radio" name="image" value="{{ value }}">
+                                <img src="{% static "images/" %}{{value}}" alt="Cover Options" class="field-image">
+                            </label>
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         </div>
 

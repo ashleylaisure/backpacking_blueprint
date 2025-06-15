@@ -8,9 +8,9 @@
 
 {% block content %}
 <div class="container">
-    <div class="details-grid">
+    <div class="grid-container">
 
-        <div class="img-container top" style="background-image: url('{{trail.image.url}}');">
+        <div class="img-container top" style="background-image: url('{% static "images/" %}{{trail.image}}');">
             <div class="img-header">
                 <h5 class="success">Hi {{user.username}}</h5>
                 <h3 class="success">Welcome To Your {{trail.name}} Adventure!</h3>
@@ -18,7 +18,8 @@
             </div>
         </div>
 
-        <div class="trail-details top">
+
+        <div class="details-container top">
             <h4>Trail Details:</h4>
             {% if trail.location %}
             <h5>Starting Location: {{trail.location}}</h5>
@@ -33,11 +34,10 @@
             {% endif %}
             
             <h5>Duration: {{trail.duration.days}} days</h5>
-
         </div>
 
-        <div class="trail-action-links top">
-            <div class="trail-actions">
+        <div class="action-links-container top">
+            <div class="form-action-links">
                 <a href="{% url "trail-update" trail.id%}" class=""><h5>Edit</h5></a>
                 <a href="{% url "trail-delete" trail.id%}" class=""><h5>Delete</h5></a>
             </div>
@@ -47,7 +47,7 @@
         </div>
 
 
-        <div class="trail-map">
+        <div class="map-container">
             <div id='map'></div>
             <script>
                 mapboxgl.accessToken = '{{ mapbox_access_token }}';
@@ -73,7 +73,7 @@
             </script>
         </div>
 
-        <div class="days-container">
+        <div class="feature-container">
             <div class="subsection-title">
                 <h2 class="subsection-title-text">Itinerary</h2>
             </div>
@@ -93,15 +93,11 @@
                             <img  class="icon-img" src="{% static "images/write.svg" %}" alt="edit icon">
                         
                     </a>
-                    
-                    
-                
-
             </div>
             {% endfor %}
         </div>
 
-        <div class="gear">
+        <div class="feature-two-container">
             <div class="subsection-title">
                 <h2 class="subsection-title-text">Packing List</h2>
             </div>

@@ -1,5 +1,5 @@
 .mc-datepicker {
-    max-width: 320px;
+    max-width: 250px;
     margin: 0 auto;
     font-family: var(--roboto);
 }
@@ -37,9 +37,24 @@
     font-size: 0.9rem;
     padding: 0.4rem 0.8rem;
     border-radius: 0.4rem;
+
 }
 
 .mc-picker__footer {
     padding-top: 0.5rem;
     font-size: 0.9rem;
 }
+
+.mc-table__weekday,
+.mc-btn--success{
+    color: var(--CoolGray-60);
+}
+
+.mc-btn--danger {
+    color: var(--warning-color)
+}
+
+.mc-date--active.mc-date--picked{
+    background-color: var(--primary-light);
+}
+
