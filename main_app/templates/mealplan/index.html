@@ -1,51 +1,78 @@
 {% extends "base.html" %} {% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="{% static "css/food/food-index.css" %}">
 {% endblock head %}
 
 {% block content %}
-<h1>Meal Plan for <a href="{% url "trail-detail" trail.id%}">{{trail.name}}</a></h1>
+<div class="container">
 
-{% for day in days %}
-    <a href="{% url "day-detail" day.id%}"><h2>{{day.day}} - {{day.date}}</h2></a>
-    <a href="{% url "available-food" day.id%}">Add Food To Day</a>
-    {% if day.food.count %}
-      <table>
-        <thead>
+  <div class="header mealplan">
+    <h1 class="header-text">Meal Plan for</h1>
+    <h1 class="header-text">
+      <a href="{% url "trail-detail" trail.id%}" class="link">
+        {{trail.name}}</a>
+    </h1>
+  </div>
+
+  <div class="subsection-title">
+  </div>
+
+  
+  <div class="feature-container">
+  {% for day in days %}
+
+    <div class="table-header">
+      <h3 class="link"><a href="{% url "day-detail" day.id%}" class="link">
+        Day: {{day.day}} - {{day.date}}</a>
+      </h3>
+      <h5>Daily Total Calories: {{day.total_calories}}</h5>
+      <a href="{% url "available-food" day.id %}" class="login-btn"><h5>Add More Food</h5></a>
+    </div>
+
+  
+    <table class=subsection-table>
+      <thead>
+        <tr>
+            <th><h5>Name</h5></th>
+            <th><h5>Calories</h5></th>
+            <th><h5>Weight (grams)</h5></th>
+            <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% if day.food.count %}
+
+          {% for food in day.food.all %}
             <tr>
-                <th>Name</th>
-                <th>Calories</th>
-                <th>Weight</th>
-                <th></th>
-                <th></th>
-                <th></th>
+              <td><h5>{{food.name}}</h5></td>
+              <td><h5>{{food.calories}}</h5></td>
+              <td><h5>{{food.weight}}</h5></td>
+              <td class="td-btn-remove">
+                <form action="{% url "remove-food" day.id food.id%}" method="post" >
+                  {% csrf_token %}
+                  <button type="submit" class="btn-clear">
+                    <img src="{% static "/images/trash.svg" %}" alt="trash icon" class="small-icon secondary-icon">
+                  </button>
+
+                </form>
+              </td>
             </tr>
-        </thead>
 
-        <tbody>
-        {% for food in day.food.all %}
+          {% endfor %}
+
+        {% else %}
           <tr>
-            <td>{{food.name}}</td>
-            <td>{{food.calories}}</td>
-            <td>{{food.weight}}</td>
-            <td><a href="{% url "food-update" food.id %}" class="btn warn">✎</a></td>
-            <td><a href="{% url "food-delete" food.id %}" class="btn danger">Ⓧ</a></td>
-            <td>
-              <form action="{% url "remove-food" day.id food.id%}" method="post" >
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Remove from meal Plan</button>
-              </form>
-            </td>
+            <td colspan='5'><h5>No Meals Planned for this Day</h5></td>
           </tr>
-
-      {% endfor %}
-        </tbody>
-      </table> 
-    {% else %}
-      <p>No Meals Planned for this Day</p>
-    {% endif %}
-    
-
-{% endfor %}
+          
+        {% endif %}
+      </tbody>
+    </table> 
+  
+  {% endfor %}
+  </div>
+</div>
 
 {% endblock content %}

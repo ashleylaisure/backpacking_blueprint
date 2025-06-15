@@ -1,59 +1,74 @@
 {% extends "base.html" %} {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static "css/meal/meal-index.css" %}">
+<link rel="stylesheet" href="{% static "css/food/food-index.css" %}">
 {% endblock head %}
 
 {% block content %}
-<section class="page-header">
-    <h1>All Food in Your Pantry</h1>
-    <img src="" alt="">
-    <img src="" alt="">
-    <img src="" alt="">
-    <li><a href="{% url "food-create" %}">Add Food</a></li>
-</section>
 
-<section>
-    <h1>See Your Meal Plans For:</h1>
-    {% for trail in trails %}
-    <a href="{% url "meal-plan" trail.id %}">{{trail.name}}</a>
-    {% endfor %}
-</section>
+<div class="container">
+    
+    <div class="header" >
+        <h1 class="header-text">Your Pantry</h1>
+    </div>
 
-<section class="description">
+    <div class="section-header">
 
-</section>
-
-<section class="table-container">
-    <h2>Food list Inventory</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Calories</th>
-                <th>Weight</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for food in food %}
-                    <tr>
-                        <td>{{food.name}}</td>
-                        <td>{{food.calories}}</td>
-                        <td>{{food.weight}}</td>
-                        <td>
-                            <a href="{% url "food-update" food.id %}" class="btn warn">✎</a>
-                            <a href="{% url "food-delete" food.id %}" class="btn danger">Ⓧ</a>
-
-                        </td>
-                    </tr>
+        <div class="page-header-container">
+            
+            {% for trail in trails %}
+            <div class="btn-header-btn">
+                <a href="{% url "meal-plan" trail.id %}" >
+                    <h5 class="btn-warning primary">
+                        Meal Plan</br> {{trail.name}}</h5>
+                </a>
+            </div>
             
             {% endfor %}
-        </tbody>
-    </table>
+        </div>
+        <div class="page-header-links">
+            <a href="{% url "food-create" %}" class="page-links add"><h5>Add Food</h5></a>
+        </div>
 
-</section>
+    </div>
 
+    <div class="feature-container">
+        <div class="subsection-title">
+            <h2>Food Inventory</h2>
+        </div>
+        <table class="subsection-table">
+            <thead>
+                <tr>
+                    <th><h5>Name</h5></th>
+                    <th><h5>Calories</h5></th>
+                    <th><h5>Weight (grams)</h5></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for food in food %}
+                        <tr>
+                            <td><h5>{{food.name}}</h5></td>
+                            <td><h5>{{food.calories}}</h5></td>
+                            <td><h5>{{food.weight}}</h5></td>
+                            <td class="td-btn-container">
+                                <a href="{% url "food-update" food.id %}" class="btn warn">
+                                    <img src="{% static "/images/write.svg" %}" alt="trash icon" class="small-icon secondary-icon">
+                                </a>
+                                <a href="{% url "food-delete" food.id %}" class="btn danger">
+                                    <img src="{% static "/images/trash.svg" %}" alt="trash icon" class="small-icon secondary-icon">
+                                </a>
+
+                            </td>
+                        </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
 
 {% endblock content %}

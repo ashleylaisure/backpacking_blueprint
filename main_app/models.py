@@ -6,6 +6,8 @@ from django.db.models.functions import Lower
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Sum
+from decimal import Decimal
+from collections import defaultdict
 from django.contrib.auth.models import User
 
 category_choices = (
@@ -57,18 +59,20 @@ class Gear(models.Model):
     weight = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     weight_m = models.CharField(("Weight Measurment"), max_length=2, choices=weight_choices, blank=True, null=True)
     packed = models.BooleanField(default=False)
+    # is_suggested = models.BooleanField(default=False)
 
-    weight_lb = models.FloatField(blank=True, null=True)
+    weight_lb = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     
     # foreign key linking to a user instance
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def save(self, *args, **kwargs):
-        if self.weight_m == 'oz':
-            self.weight_lb = self.weight * 0.0625
-        else:
-            self.weight_lb = self.weight
-            
+        if self.weight and self.weight_m :
+            if self.weight_m == 'oz':
+                self.weight_lb = self.weight * Decimal('0.0625')
+            else:
+                self.weight_lb = self.weight
+                
         super().save(*args, **kwargs)
     
     def __str__(self):
@@ -125,7 +129,18 @@ class Trail(models.Model):
         
     # M:M relationship with Gear
     gear = models.ManyToManyField(Gear)
-        
+    
+    def total_weight(self):
+        return sum(gear.weight_lb for gear in self.gear.all() if gear.weight_lb)
+    
+    # defaultdict(float) initializes each new category with a default value of 0.0.
+    def weight_by_category(self):
+        category_totals = defaultdict(float)
+        for gear in self.gear.all():
+            if gear.weight_lb:
+                category_totals[gear.category] += gear.weight_lb
+        return dict(category_totals)
+    
     def __str__(self):
         return self.name
     
@@ -136,7 +151,7 @@ class Trail(models.Model):
 class Food(models.Model):
     name = models.CharField(max_length=200)
     calories = models.IntegerField(blank=True, null=True)
-    weight = models.DecimalField(("Weight(g)"), max_digits=10, decimal_places=2,  blank=True, null=True)
+    weight = models.DecimalField(("Weight (g)"), max_digits=10, decimal_places=2,  blank=True, null=True)
     category = models.CharField(max_length=20, choices=meal_category, blank=True, null=True)
     
     def __str__(self):
@@ -187,6 +202,12 @@ class Day(models.Model):
     
     def total_calories(self):
         return sum(food.calories for food in self.food.all())
+    
+    def total_weight_g(self):
+        return sum(food.weight for food in self.food.all())
+    
+    def total_weight_lb(self):
+        return self.total_weight_g() * 0.00220462
     
     def __str__(self):
         return f"Day {self.day} on {self.date}"

@@ -144,6 +144,16 @@ ul {
     color: var(--color-white)
 }
 
+.btn-clear {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
 .btn-warning {
     border: none;
     border-radius: 0.5rem;

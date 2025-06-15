@@ -3,7 +3,7 @@
 .subsection-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 25px 0;
+    margin: 15px 0;
 }
 
 .table-header {
@@ -17,10 +17,17 @@
     width: auto;
 }
 
+.subsection-table thead th:first-child {
+    border-top-left-radius: var(--card-border-radius)
+}
+.subsection-table thead th:last-child {
+    border-top-right-radius: var(--card-border-radius)
+}
+
 .subsection-table thead tr{
     background-color: var(--CoolGray-60);
     text-align: left;
-    border-radius: var(--card-border-radius);
+
 }
 
 .subsection-table thead h5 {
@@ -36,12 +43,22 @@
     border-bottom: 1px solid #ddd;
 }
 
-.subsection-table tbody tr:nth-of-type(even) {
-    background-color: rgba(243, 243, 243, 0.5);
+.subsection-table tbody tr:last-child {
+    border-bottom: 2px solid var(--primary-color);
 }
 
-.subsection-table tbody tr:last-of-type {
-    border-bottom: 3px solid var(--primary-light);
+.subsection-table tbody tr:nth-of-type(even) {
+    background-color: rgba(243, 243, 243, 0.7);
+}
+.subsection-table tbody tr:nth-of-type(odd) {
+    background-color: rgba(243, 243, 243, 0.4);
+}
+
+.subsection-table tbody tr:last-of-type td:first-child{
+    border-bottom-left-radius: var(--card-border-radius);
+}
+.subsection-table tbody tr:last-of-type td:last-child{
+    border-bottom-right-radius: var(--card-border-radius);
 }
 
 /* ROW 2 COL 3 - NOTES */
@@ -69,7 +86,6 @@
 }
 
 .login-btn {
-    
     padding: .05rem 0.5rem;
 }
 
