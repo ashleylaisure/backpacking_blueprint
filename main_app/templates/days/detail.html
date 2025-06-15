@@ -10,6 +10,8 @@
 
 {% block content %}
 
+
+
 <div class="container">
     <div class="grid-container">
 
@@ -23,10 +25,10 @@
 
         <div class="details-container">
             <h4>Day Details:</h4>
-                {% if day.start_location or day.finish_location %}
-                    <h5>Start At: {{day.start_location}} </h5>
+                {% if day.start_campsite or day.finish_campsite %}
+                    <h5>Start At: {{day.start_campsite}} </h5>
                         
-                    <h5>Finish At: {{day.finish_location}}</h5>
+                    <h5>Finish At: {{day.finish_campsite}}</h5>
                 {% endif %}
 
                 {% if day.distance %}
@@ -41,11 +43,11 @@
         <div class="action-links-container top">
             <div class="form-action-links">
                 <a href="{% url "update-day" day.id %}" class=""><h5>Edit</h5></a>
-                <a href="{% url "trail-detail" day.trail.id%}"><h5>{{day.trail.name}} Details</h5></a>
+                <a href="{% url "trail-detail" day.trail.id%}"><h5>{{day.trail.name}}</h5></a>
             </div>
 
             <a href="{% url "trail-gear-details" day.trail.id%}" class="btn-warning primary"><h5>Gear Details</h5></a>
-            <a href="{% url "meal-plan" day.trail.id%}" class="btn-warning primary"><h5>Meal Plan</h5></a>
+            <a href="{% url "meal-plan" day.trail.id%}" class="btn-warning primary"><h5>{{day.trail.name}} Meal Plan</h5></a>
         </div>
 
         <div class="map-container">
@@ -68,12 +70,12 @@
 
                 const start_marker = new mapboxgl.Marker()
                         .setLngLat( [{{day.start_long}}, {{day.start_lat}}] )
-                        .setPopup(new mapboxgl.Popup().setHTML('<p> {{day.start_location}} </p>'))
+                        .setPopup(new mapboxgl.Popup().setHTML('<h5> {{day.start_location}} </h5>'))
                         .addTo(map);
 
                 const finish_marker = new mapboxgl.Marker()
                         .setLngLat( [{{day.finish_long}}, {{day.finish_lat}} ])
-                        .setPopup(new mapboxgl.Popup().setHTML('<p> {{day.start_location}} </p>'))
+                        .setPopup(new mapboxgl.Popup().setHTML('<h5> {{day.finish_location}} </h5>'))
                         .addTo(map);
 
                 {% comment %} // create a function to make a directions request and update the destination
@@ -126,12 +128,14 @@
         <div class="feature-container">
             <div class="subsection-title">
                 <h2 class="subsection-title-text">Daily Meal Plan</h2>
-                <a href="{% url "available-food" day.id %}" class="btn-warning secondary">Add More Food</a>
+            </div>
+            <div class="table-header">
+                <h4>Daily Total Calories: {{day.total_calories}}</h4>
+                <a href="{% url "available-food" day.id %}" class="btn-warning secondary table-btn">Add More Food</a>
             </div>
 
             <table class="subsection-table">
                 <thead>
-                    <caption><h4>Daily Total Calories: {{day.total_calories}}</h4></caption>
                     <tr>
                         <th><h5>Name</h5></th>
                         <th><h5>Calories</h5></th>
@@ -155,30 +159,39 @@
             <h2 class="subsection-title-text">Notes:</h2>
         </div>
 
-        <div class="notes-form">
-            <form action="{% url "add-note" day.id %}" method="post" class="subsection-content" autocomplete="off">
+        <div class="notes-form section-card">
+            <form action="{% url "add-note" day.id %}" method="post" class="subsection-form" autocomplete="off">
                 {% csrf_token %}
-                {{note_form.as_p}}
-                <button type="submit" class="btn submit">Add</button>
+                {% comment %} <h5 class="note-subtitle">Add a Note</h5> {% endcomment %}
+                {{note_form.note}}
+                <button type="submit" class="login-btn add"><h5 class="note-subtitle">Add</h5></button>
             </form>
         </div>
 
         <div class="current-notes">
             {% if day.note_set.all.count %}
-                    <h1>Notes:</h1>
+                <div class="notes-list">
+
                     {% for note in day.note_set.all %}
-                        <p>{{note.note}}</p>
-                        <p>{{note.created}}</p>
-                        <a href="{% url "note-delete" day.id note.id %}" class="btn danger">Ⓧ</a>
+                        <div class="note-card">
+                            <h5 class="note-text">{{note.note}}</h5>
+
+                            <div class="notes-meta">
+                                <h5 class="notes-meta-text">{{note.created}}</h5>
+                                <a href="{% url "note-delete" day.id note.id %}" ><img src="{% static "/images/trash.svg" %}" alt="trash icon" class="small-icon secondary-icon"></a>
+                            </div>
+                        </div>
+                        
+                        
                     {% endfor %}
+                </div>
             {% else %}
-            <p>No notes added</p>
+            <h5 class="notes-empty">No Notes Added</h5>
             {% endif %}
         </div>
 
     </div>
 
-   
     </div>
 </div>
 

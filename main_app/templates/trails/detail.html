@@ -21,8 +21,8 @@
 
         <div class="details-container top">
             <h4>Trail Details:</h4>
-            {% if trail.location %}
-            <h5>Starting Location: {{trail.location}}</h5>
+            {% if trail.location_name %}
+            <h5>Starting Location: {{trail.location_name}}</h5>
             {% endif %}
 
             {% if trail.distance %}
@@ -65,7 +65,7 @@
 
                 const marker = new mapboxgl.Marker()
                         .setLngLat([ {{trail.long}}, {{trail.lat}} ])
-                        .setPopup(new mapboxgl.Popup().setHTML('<p> {{trail.location}} </p>'))
+                        .setPopup(new mapboxgl.Popup().setHTML('<h5> {{trail.location}} </h5>'))
                         .addTo(map);
 
                 const nav = new mapboxgl.NavigationControl();

@@ -1,18 +1,29 @@
+/* ROW 2 COL 2 - TABLE */
+
 .subsection-table {
     width: 100%;
     border-collapse: collapse;
     margin: 25px 0;
-    
-    
 }
 
-.subsection-table tr {
+.table-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-btn {
+    width: auto;
+}
+
+.subsection-table thead tr{
     background-color: var(--CoolGray-60);
     text-align: left;
     border-radius: var(--card-border-radius);
 }
 
-.subsection-table tr h5 {
+.subsection-table thead h5 {
     color: var(--color-creamson-light);
 }
 
@@ -26,10 +37,73 @@
 }
 
 .subsection-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: rgba(243, 243, 243, 0.5);
 }
 
 .subsection-table tbody tr:last-of-type {
-    border-bottom: 2px solid ;
+    border-bottom: 3px solid var(--primary-light);
 }
 
+/* ROW 2 COL 3 - NOTES */
+
+.notes-form {
+    background-color: var(--CoolGray-60);
+    border-radius: var(--card-border-radius);
+    margin-bottom: .5rem;
+    padding: .8rem;
+
+}
+
+.subsection-form {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: .7rem
+}
+.notes-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: .8rem;
+    border-radius: .5rem;
+    font-family: inherit;
+}
+
+.login-btn {
+    
+    padding: .05rem 0.5rem;
+}
+
+.login-btn h5 {
+    color: var(--color-creamson-light);
+}
+
+.notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+}
+
+.note-card {
+    border-radius: var(--card-border-radius);
+    background-color: var(--CoolGray-60);
+    padding: .8rem .8rem .4rem .8rem;
+}
+
+.note-text {
+    background-color: #fff;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: var(--card-border-radius);
+    margin-bottom: .4rem;
+}
+
+.notes-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notes-meta-text {
+    font-size: .7rem;
+    font-style: italic;
+}

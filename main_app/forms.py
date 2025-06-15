@@ -6,7 +6,7 @@ from .models import Trail, Note, User
 class TrailForm(forms.ModelForm):
     class Meta:
         model = Trail
-        fields = ['name', 'start_date', 'end_date', 'location', 'distance', 'elevation', 'image']
+        fields = ['name', 'start_date', 'end_date', 'location_name', 'location', 'distance', 'elevation', 'image']
         widgets = {
             'start_date' : forms.DateInput(
                 format=('%Y-%m-%d'),

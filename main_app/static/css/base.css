@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+
 /*  CSS variables  */
 :root {
     /* fonts */
@@ -185,6 +186,7 @@ ul {
 }
 
 .secondary {
+    color: var(--color-creamson-light);
     background-color: var(--CoolGray-60);
     transition: all .3s;
 }
@@ -196,12 +198,26 @@ ul {
 .icon-img {
     width: 24px;
     aspect-ratio: 1/1;
+    transition: all .5s;
 }
 
-.icon-img:hover {
+.small-icon {
+    width: 18px;
+    aspect-ratio: 1/1;
+    transition: all .5s;
+}
+
+.warning-icon:hover {
     background-color: rgba(201, 60, 0, 0.8);
     border-radius: 6px;
 }
+
+.secondary-icon:hover {
+    background-color: var(--CoolGray-70);
+    border-radius: 6px;
+}
+
+
 /* ----------- NAV ----------- */
 .nav-header {
     position: fixed;
@@ -264,6 +280,7 @@ ul {
     align-items: center;
     border: 2px solid var(--Primary, #2C3930);
     border-radius: 0.5rem;
+    background: transparent;
 
     color: var(--Primary, #2C3930);
     font-size: 1rem;
@@ -271,7 +288,7 @@ ul {
     font-weight: 500;
     line-height: 100%; /* 1rem */
     letter-spacing: 0.03125rem;
-
+    cursor: pointer;
     transition: all .2s
 }
 

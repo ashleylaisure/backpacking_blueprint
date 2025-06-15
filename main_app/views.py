@@ -131,7 +131,7 @@ def day_detail(request, day_id):
 
 class DayUpdate(LoginRequiredMixin, UpdateView):
     model = Day
-    fields = ['start_location', 'finish_location', 'distance', 'elevation']
+    fields = ['start_campsite', 'finish_campsite', 'start_location', 'finish_location', 'distance', 'elevation']
     
 # --------------------------------- GEAR
 @login_required

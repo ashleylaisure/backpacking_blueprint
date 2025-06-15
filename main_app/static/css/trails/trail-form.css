@@ -79,6 +79,18 @@ input {
     padding: 0 1rem;
 }
 
+.empty-input {
+    width: 20rem;
+    height: 3rem;
+    box-sizing: border-box;
+}
+
+.section-divider {
+    height: 1px;
+    background-color: var(--primary-light);
+    margin: .5rem 0;
+    width: 80%
+}
 .form-links {
     margin-top: 1rem;
     width: 100%;

@@ -82,7 +82,8 @@ class Trail(models.Model):
     name = models.CharField(('Adventure Name'),max_length=200)
     start_date = models.DateField('Start Date')
     end_date = models.DateField('End Date')
-    location = models.CharField(('Starting Location'), max_length=200, blank=True, null=True)
+    location_name = models.CharField(('Name'), max_length=200, blank=True, null=True)
+    location = models.CharField(('Address'), max_length=200, blank=True, null=True)
     distance = models.DecimalField( ('Distance(mi)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(('Elevation Gain(ft)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
@@ -150,9 +151,10 @@ class Food(models.Model):
 class Day(models.Model): 
     day = models.IntegerField()
     date = models.DateField()
-    
-    start_location = models.CharField(max_length=200, blank=True, null=True)
-    finish_location = models.CharField(max_length=200, blank=True, null=True)
+    start_campsite = models.CharField(('Starting Campsite Name'),max_length=200, blank=True, null=True)
+    finish_campsite = models.CharField(('Finishing Campsite Name'),max_length=200, blank=True, null=True)
+    start_location = models.CharField(('Campsite Address'), max_length=200, blank=True, null=True)
+    finish_location = models.CharField(('Campsite Address'), max_length=200, blank=True, null=True)
     distance = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(max_digits=10, decimal_places=2,  blank=True, null=True)
     # notes = models.TextField(max_length=250, blank=True, null=True)
@@ -196,7 +198,7 @@ class Day(models.Model):
         return reverse("day-detail", kwargs={"day_id": self.id})
     
 class Note(models.Model):
-    note = models.CharField(max_length=250)
+    note = models.TextField(max_length=250)
     created = models.DateField(auto_now_add=True)
     
     # Trail Foreign Key

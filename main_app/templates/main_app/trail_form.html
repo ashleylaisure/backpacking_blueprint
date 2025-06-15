@@ -55,11 +55,25 @@
             
             <div class="field-input">{{form.end_date}}</div>
         </div>
+
+        <div class="section-divider"></div>
             
+        <div class="form-input">
+            <div class="field-label"><h5>Starting Location</h5></div>
+            <div class="field-input empty-input"></div>
+        </div>
+
+        <div class="form-input">
+            <div class="field-label"><h5>{{form.location_name.label}}</h5></div>
+            <div class="field-input">{{form.location_name}}</div>
+        </div>
+
         <div class="form-input">
             <div class="field-label"><h5>{{form.location.label}}</h5></div>
             <div class="field-input">{{form.location}}</div>
         </div>
+
+        <div class="section-divider"></div>
 
         <div class="form-input">
             <div class="field-label"><h5>{{form.distance.label}}</h5></div>
@@ -70,6 +84,8 @@
             <div class="field-label"><h5>{{form.elevation.label}}</h5></div>
             <div class="field-input">{{form.elevation}}</div>
         </div>
+
+        <div class="section-divider"></div>
 
         <div class="form-input img">
             <div class="field-label"><h5>{{form.image.label}}</h5></div>
