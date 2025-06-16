@@ -1,20 +1,25 @@
 {% extends "base.html" %} {% load static %}
 
 {% block head %}
-
+    <link rel="stylesheet" href="{% static "css/delete.css" %}">
 {% endblock head %}
 
 {% block content %}
-<div class="page-header">
-    <h1>Delete Food?</h1>
-    <img src="" alt="">
+<div class="container">
+    <div class="modal-container">
+        <div class="page-header">
+            <h2>Delete Food?</h2>
+        </div>
+
+        <h3>Are you sure you want to delete {{food.name}}? This action will remove it from all records, including your pantry.</h3>
+
+        <form action="" method="post" class="modal-form">
+            {% csrf_token %}
+            <a href="{% url "food-index" %}" class="btn-warning secondary">Cancel</a>
+            <button type="submit" class="btn-warning primary">Yes, Delete!</button>
+        </form>
+    </div>
+
+
 </div>
-
-<h2>Are you sure you want to delete {{food.name}}, Doing so will remove this item from all records including Your pantry?</h2>
-
-<form action="" method="post" class="form">
-    {% csrf_token %}
-    <a href="{% url "food-index" %}" class="btn secondary">Cancel</a>
-    <button type="submit" class="btn danger">Yes, Delete!</button>
-</form>
 {% endblock content %}

@@ -18,6 +18,7 @@ body::before {
     justify-content: center;
 }
 
+
 .nav-header {
     opacity: 1;
 }
@@ -51,6 +52,10 @@ body::before {
     align-items: center;
     justify-content: center;
     gap: 2rem;
+}
+
+.modal-container h3 {
+    text-align: center;
 }
 
 .modal-form {
