@@ -5,48 +5,75 @@
 {% endblock head %}
 
 {% block content %}
-<section class="page-header">
-    <h1>GEAR for <a href="{% url "trail-detail" trail.id%}">{{trail.name}}</a> </h1>
-    <img src="{% static "images/c8c7378bc23e53ac10b54fb9453999d2.jpg" %}" alt="Gear Wall">
-    <img src="" alt="">
-    <img src="" alt="">
-    <li><a href="{% url "gear-create" %}">Add New Gear</a></li>
-
-</section>
-
-<section>
-    <a href="{% url "gear-index" %}"><h1>Go to Gear Storage</h1></a>
-    <a href="{% url "available-gear-index" trail.id%}"><h3>Available Gear To Add</h3></a>
-</section>
-
-<section>
-    <div class="gear-info">
-        <p>A typical base weight for a non-ultrlight backpacker is around 26-27 pounds, with ultralight hikers aming for around 10-15 pounds.
-            Food and water typically accounts for an additional 30 pounds. 
-        </p>
+<div class="container">
+    <div class="header">
+        <h1 class="header-text">Gear for</h1>
+        <h1 class="header-text">
+            <a href="{% url "trail-detail" trail.id%}" class="link">
+                {{trail.name}}</a>
+        </h1>
     </div>
 
-    <div class="gear-total">
-        {% for gear in totals %}{% endfor %}
+    <div class="subsection-title">
+        <h4>Base Weight 20% Rule <span class="subtext">(before food and water)</span></h4>
+        <h5>Your pack weight should not exceed 20% of your body weight. A typical base weight for a non-ultrlight backpacker is <span class="">around 26-27 pounds</span>, 
+            with ultralight hikers aming for around 10-15 pounds.
+        </h5>
     </div>
-</section>
 
-<section class="gear-section">
-    {% for key, value in categories %}
-    <h3> {{value}}</h3>
-    
-        <table>
+    <div class="section-header">
+        <div class="section-totals-container">
+            <table class="subsection-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total Weight (lb)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for category, total in category_total.items %}
+                    <tr>
+                        <td><h5>{{category}}</h5></td>
+                            {% if total == 0.0 %}
+                                <td><h5>0.00</h5></td>
+                            {% else %}
+                                <td><h5>{{total|floatformat:2}}</h5></td>
+                            {% endif %}
+
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td class="row-totals-title"><h5>Total</h5></td>
+                        <td><h5>{{trail.total_weight|floatformat:2}}</h5></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="page-header-links">
+            <a href="{% url "available-gear-index" trail.id%}" class="page-links add"><h5>Add Gear to {{trail.name}}</h5></a>
+        </div>
+
+    </div>
+
+    <div class="feature-container">
+
+        {% for key, value in categories %}
+
+        <table class="subsection-table">
+            <caption><h4>{{value}}</h4></caption>
             <thead>
                 <tr>
-                    <th>packed</th>
-                    <th>name</th>
-                    <th>brand</th>
-                    <th>link</th>
-                    <th>price</th>
-                    <th>own</th>
-                    <th colspan="2" >weight</th>
-                    <th colspan="2"></th>
-                    <th></th>
+                    <th><h5>Item</h5></th>
+                    <th><h5>Brand</h5></th>
+                    <th><h5>Link</h5></th>
+                    <th><h5>Price</h5></th>
+                    <th><h5>Own?</h5></th>
+                    <th><h5>Packed?</h5></th>
+                    <th><h5>Weight</h5></th>
+                    <th><h5>Remove from List</h5></th>
                 </tr>
             </thead>
 
@@ -54,49 +81,57 @@
                 {% for gear in trail.gear.all %}
                     {% if gear.category == key %}
                         <tr>
-                            <td>
-                                {% if gear.packed %}
-                                <p>☑</p>
-                                {% else %}
-                                <p>➖</p>
-                                {% endif %}
-                            </td>
-                            <td>{{gear.name}}</td>
-                            <td>{{gear.brand}}</td>
+                            <td><h5>{{gear.name}}</h5></td>
+                            <td><h5>{{gear.brand}}</h5></td>
                             <td>
                                 {% if gear.link %}
-                                <a href="">🔗</a>
+                                <a href="{{gear.link}}" class="">
+                                    <img src="{% static "/images/brand-svelte.svg" %}" alt="link icon" class="small-icon secondary-icon">
+                                </a>
                                 {% endif %}
-
                             </td>
-                            <td>{{gear.price}}</td>
+                            <td>
+                                {% if gear.price %}
+                                <h5>${{gear.price}}</h5>
+                                {% endif %}
+                            </td>
                             <td>
                                 {% if gear.own %}
-                                <p>☑</p>
-                                {% else %}
-                                <p>➖</p>
+                                <img src="{% static "/images/checkbox.svg" %}" alt="checkbox icon" class="small-icon">
                                 {% endif %}
                             </td>
-                            <td>{{gear.weight}}</td>
-                            <td>{{gear.weight_m}}</td>
-                            <td><a href="{% url "gear-update" gear.id %}" class="btn warn">✎</a></td>
-                            <td><a href="{% url "gear-delete" gear.id %}" class="btn danger">Ⓧ</a></td>
                             <td>
+                                {% if gear.packed %}
+                                <img src="{% static "/images/checkbox.svg" %}" alt="checkbox icon" class="small-icon">
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if gear.weight %}
+                                <h5>{{gear.weight}} ({{gear.weight_m}})</h5>
+                                {% endif %}
+                            </td>
+
+                            <td class="td-btn-container">
+                                <a href="{% url "gear-update" gear.id %}" class="">
+                                    <img src="{% static "/images/write.svg" %}" alt="write icon" class="small-icon secondary-icon">
+                                </a>
                                 <form action="{% url "remove-gear" trail.id gear.id%}" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger">Remove From Packing List</button>
+                                    <button type="submit" class="btn-clear">
+                                        <img src="{% static "/images/trash.svg" %}" alt="trash icon" class="small-icon secondary-icon">
+                                    </button>
                                 </form>
                             </td>
                             
-                            </td>
                         </tr>
                     {% endif %}
                 
                 {% endfor %}
             </tbody>
         </table>
-{% endfor %}
-</section>
 
+        {% endfor %}
+    </div>
 
+</div>
 {% endblock content %}

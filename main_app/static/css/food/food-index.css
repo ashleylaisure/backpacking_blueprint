@@ -73,6 +73,19 @@ body::before {
     color: var(--warning-color);
 }
 
+.subsection-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: .5rem 0;
+    gap: .3rem;
+}
+
+.subsection-title span {
+    color: var(--warning-color)
+}
+
 /* sub-header and links */
 .section-header {
     width: 100%;
@@ -158,6 +171,10 @@ body::before {
 
 .subsection-table tbody tr{
     text-align: center;
+}
+
+.row-totals-title {
+    text-align: right;
 }
 
 .subsection-table thead h5 {

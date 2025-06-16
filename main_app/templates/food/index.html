@@ -6,6 +6,7 @@
 
 {% block content %}
 
+
 <div class="container">
     
     <div class="header" >
@@ -54,7 +55,7 @@
                             <td><h5>{{food.weight}}</h5></td>
                             <td class="td-btn-container">
                                 <a href="{% url "food-update" food.id %}" class="btn warn">
-                                    <img src="{% static "/images/write.svg" %}" alt="trash icon" class="small-icon secondary-icon">
+                                    <img src="{% static "/images/write.svg" %}" alt="write icon" class="small-icon secondary-icon">
                                 </a>
                                 <a href="{% url "food-delete" food.id %}" class="btn danger">
                                     <img src="{% static "/images/trash.svg" %}" alt="trash icon" class="small-icon secondary-icon">

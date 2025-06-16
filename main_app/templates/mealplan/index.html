@@ -7,6 +7,7 @@
 {% block content %}
 <div class="container">
 
+
   <div class="header mealplan">
     <h1 class="header-text">Meal Plan for</h1>
     <h1 class="header-text">
@@ -16,6 +17,10 @@
   </div>
 
   <div class="subsection-title">
+    <h4>How Much Food Should You Bring?</h4>
+    <h5>This depends on many factors but a good rule of thumb is to pack around 
+    <span class="">1.5 to 2.5 lbs of food</span>, or, <span> 2,500 to 4,500 Calories </span>
+      per day.</h5>
   </div>
 
   
@@ -26,18 +31,18 @@
       <h3 class="link"><a href="{% url "day-detail" day.id%}" class="link">
         Day: {{day.day}} - {{day.date}}</a>
       </h3>
-      <h5>Daily Total Calories: {{day.total_calories}}</h5>
-      <a href="{% url "available-food" day.id %}" class="login-btn"><h5>Add More Food</h5></a>
+      
+      <a href="{% url "available-food" day.id %}" class="login-btn"><h5>Add Food</h5></a>
     </div>
 
   
-    <table class=subsection-table>
+    <table class='subsection-table'>
       <thead>
         <tr>
             <th><h5>Name</h5></th>
             <th><h5>Calories</h5></th>
             <th><h5>Weight (grams)</h5></th>
-            <th></th>
+            <th><h5>Remove From Day</h5></th>
         </tr>
       </thead>
 
@@ -61,10 +66,24 @@
             </tr>
 
           {% endfor %}
+        
+            <tr>
+              <td colspan='3' class="row-totals-title"><h5>Total Calories:</h5></td>
+              <td class=""><h5>{{day.total_calories}}</h5></td>
+            </tr>
+
+            <tr>
+              <td colspan='3'class="row-totals-title"><h5>Total Weight (pounds):</h5></td>
+              <td class=""><h5>{{day.total_weight_lb | floatformat:4}}</h5></td>
+              
+              
+            </tr>
+
+            
 
         {% else %}
           <tr>
-            <td colspan='5'><h5>No Meals Planned for this Day</h5></td>
+            <td colspan='4'><h5>No Meals Planned for this Day</h5></td>
           </tr>
           
         {% endif %}

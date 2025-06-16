@@ -187,14 +187,15 @@ def available_gear(request, trail_id):
 def trail_gear_details(request, trail_id):
     trail = Trail.objects.get(id=trail_id)
     gear = Gear.objects.all()
+    category_totals = trail.weight_by_category()
     
-    category_totals = Gear.objects.filter().values('category').aggregate(total_amount=Sum('weight_lb'))
+    # category_totals = Gear.objects.filter().values('category').aggregate(total_amount=Sum('weight_lb'))
 
     return render(request, 'gear/trail_gear_details.html', {
         'trail' : trail,
         'gear': gear,
         'categories' : category_choices,
-        'totals' : category_totals,
+        'category_total' : category_totals,
         })
 
 @login_required
@@ -210,7 +211,7 @@ def remove_gear(request, trail_id, gear_id):
 # --------------------------------- FOOD
 class FoodCreate(LoginRequiredMixin, CreateView):
     model = Food
-    fields = ['name', 'calories', 'weight', 'category']
+    fields = ['name', 'calories', 'weight']
     success_url = '/food/'
     
     # assing to the logged in user

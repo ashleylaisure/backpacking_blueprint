@@ -4,37 +4,53 @@
 <link rel="stylesheet" href="{% static "css/gear/gear-index.css" %}">
 {% endblock head %}
 
+
 {% block content %}
-<section class="page-header">
-    <h1>All Your Gear</h1>
-    <img src="{% static "images/2d90c03a0000bdda8d6e5f8df8c18c36.jpg" %}" alt="Gear Storage Inspo">
-    <img src="" alt="">
-    <img src="" alt="">
-    <li><a href="{% url "gear-create" %}">Add Gear For Storgae</a></li>
-    {% comment %} <li><a href="{% url "gear-create" %}">Select Gear from Suggested list</a></li> {% endcomment %}
-</section>
+<div class="container">
+    <div class="header" >
+        <h1 class="header-text">Your Gear</h1>
+    </div>
 
-<section>
-    <h1>View Gear for:</h1>
-    {% for trail in trails %}
-    <a href="{% url "trail-gear-details" trail.id %}">{{trail.name}}</a>
-    {% endfor %}
-</section>
+    <div class="section-header">
 
-<section class="gear-section">
-    {% for key, value in categories %}
-    <h3> {{value}}</h3>
+        <div class="page-header-container">
+        
+            {% for trail in trails %}
+            <div class="btn-header-btn">
+                <a href="{% url "trail-gear-details" trail.id %}">
+                    <h5 class="btn-warning primary">
+                        Gear Details </br> {{trail.name}}
+                    </h5>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+        
+        <div class="page-header-links">
+            <a href="{% url "gear-create" %}" class="page-links add"><h5>Add Gear</h5></a>
+        </div>
+
+    </div>
+
+    <div class="feature-container">
+        <div class="subsection-title">
+                <h2>Gear Inventory</h2>
+        </div>
+
+        {% for key, value in categories %}
     
-        <table>
+        <table class="subsection-table">
+            <caption><h4>{{value}}</h4></caption>
             <thead>
                 <tr>
-                    <th>name</th>
-                    <th>brand</th>
-                    <th>link</th>
-                    <th>price</th>
-                    <th>own</th>
-                    <th colspan="2" >weight</th>
-                    <th colspan="2"></th>
+                    <th><h5>Item</h5></th>
+                    <th><h5>Brand</h5></th>
+                    <th><h5>Link</h5></th>
+                    <th><h5>Price</h5></th>
+                    <th><h5>Own?</h5></th>
+                    <th><h5>Weight</h5></th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -42,33 +58,49 @@
                 {% for gear in gear %}
                     {% if gear.category == key %}
                         <tr>
-                            <td>{{gear.name}}</td>
-                            <td>{{gear.brand}}</td>
+                            <td><h5>{{gear.name}}</h5></td>
+                            <td><h5>{{gear.brand}}</h5></td>
                             <td>
                                 {% if gear.link %}
-                                <a href="">🔗</a>
+                                <a href="{{gear.link}}" class="">
+                                    <img src="{% static "/images/brand-svelte.svg" %}" alt="link icon" class="small-icon secondary-icon">
+                                </a>
                                 {% endif %}
                             </td>
-                            <td>{{gear.price}}</td>
+                            <td>
+                                {% if gear.price %}
+                                <h5>${{gear.price}}</h5>
+                                {% endif %}
+                            </td>
+
                             <td>
                                 {% if gear.own %}
-                                <p>☑</p>
-                                {% else %}
-                                <p>➖</p>
+                                <img src="{% static "/images/checkbox.svg" %}" alt="checkbox icon" class="small-icon">
                                 {% endif %}
                             </td>
-                            <td>{{gear.weight}}</td>
-                            <td>{{gear.weight_m}}</td>
-                            <td><a href="{% url "gear-update" gear.id %}" class="btn warn">✎</a></td>
-                            <td><a href="{% url "gear-delete" gear.id %}" class="btn danger">Ⓧ</a></td>
+                            <td>
+                                {% if gear.weight %}
+                                <h5>{{gear.weight}} ({{gear.weight_m}})</h5>
+                                {% endif %}
+                            </td>
+                            
+                            <td class="td-btn-container">
+                                <a href="{% url "gear-update" gear.id %}" class="">
+                                    <img src="{% static "/images/write.svg" %}" alt="write icon" class="small-icon secondary-icon">
+                                </a>
+        
+                            <a href="{% url "gear-delete" gear.id %}" class="">
+                                    <img src="{% static "/images/trash.svg" %}" alt="trash icon" class="small-icon secondary-icon">
+                                </a>
+                            </td>
                         </tr>
                     {% endif %}
                 
                 {% endfor %}
             </tbody>
         </table>
-{% endfor %}
-</section>
+        {% endfor %}
+    </div>
 
-
+</div>
 {% endblock content %}
