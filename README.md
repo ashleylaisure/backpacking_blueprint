@@ -4,9 +4,9 @@
 
 Backpacking Blueprint is a comprehensive app designed for thru-hikers of all levels. Whether you're preparing for your first long-distance trek or your tenth, Backpacking Blueprint helps you simplify and streamline every part of the planning process.
 
-![HomePage]static/images/readme/Screenshot 2025-06-16 171029.png)
-![Trail Details](static/images/readme/Screenshot 2025-06-16 171057.png)
-![Gear Brea](static/images/readme/Screenshot 2025-06-16 171117.png)
+![HomePage](static/images/readme/Screenshot_2025-06-16_171029.png)
+![Trail Details](static/images/readme/Screenshot_2025-06-16_171057.png)
+![Gear Brea](static/images/readme/Screenshot_2025-06-16_171117.png)
 
 ## Description
 
@@ -52,11 +52,11 @@ My hope is that this app empowers people to design their own adventures and fina
 
 ## Wireframe Images
 
-![WireFrames](static/images/readme/image (2).png)
+![WireFrames](static/images/readme/image_(2).png)
 
 ## ERD
 
-![dbStructure](static/images/readme/image (1).png)
+![dbStructure](static/images/readme/image_(1).png)
 
 
 ## Notion Planning
