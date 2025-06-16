@@ -13,25 +13,25 @@
         <div class="header">
             <h2 class="header-text">Available Gear For</h2>
             <h2 class="header-text">
-                <a href="{% url "trail-detail" trail.id%}" class="link">
+                <a href="{% url "trail-gear-details" trail.id%}" class="link">
                     {{trail.name}}</a>
             </h2>
         </div>
 
         <div class="section-header">
-            <div class="page-header-container">
+            {% comment %} <div class="page-header-container">
             
                 <div class="btn-header-btn">
-                    <a href="{% url "trail-gear-details" trail.id %}">
+                    <a href="{% url "trail-detail" trail.id %}">
                         <h5 class="btn-warning primary">
                             Gear Details </br> {{trail.name}}
                         </h5>
                     </a>
                 </div>
 
-            </div>
+            </div> {% endcomment %}
             <div class="page-header-links">
-                <a href="{% url "gear-create" %}" class="page-links add"><h5>Add Gear</h5></a>
+                <a href="{% url "gear-create" %}" class="page-links add"><h5>Add New Gear</h5></a>
             </div>
         </div>
 
@@ -42,6 +42,10 @@
                     <div class="item-card">
                         <div class="card-content">
                             <h5>{{gear.name|capfirst}}</h5>
+                            {% if gear.brand %}
+                                <h6>{{gear.brand|capfirst}}</h6>
+                            {% endif %}
+                            
 
                             <form action="{% url "associate-gear" trail.id gear.id%}" method="post">
                                 {% csrf_token %}

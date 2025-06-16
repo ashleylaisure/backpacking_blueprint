@@ -82,7 +82,7 @@ body::before {
 .section-header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -127,7 +127,7 @@ body::before {
 }
 
 .item-card {
-    width: 100px;
+    width: 150px;
     aspect-ratio: 1/1;
     border-radius: var(--card-border-radius);
     background: var(--color-creamson-light);
@@ -152,6 +152,7 @@ body::before {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: .3rem;
 }
 
 .card-content h5{

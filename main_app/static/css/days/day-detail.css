@@ -48,10 +48,10 @@
 }
 
 .subsection-table tbody tr:nth-of-type(even) {
-    background-color: rgba(243, 243, 243, 0.7);
+    background-color: var(--background-color-table-even);
 }
 .subsection-table tbody tr:nth-of-type(odd) {
-    background-color: rgba(243, 243, 243, 0.4);
+    background-color: var(--background-color-table-odd);
 }
 
 .subsection-table tbody tr:last-of-type td:first-child{

@@ -5,6 +5,7 @@
 {% endblock head %}
 
 
+
 {% block content %}
 <div class="container">
     <div class="header" >
@@ -13,18 +14,22 @@
 
     <div class="section-header">
 
-        <div class="page-header-container">
-        
-            {% for trail in trails %}
-            <div class="btn-header-btn">
-                <a href="{% url "trail-gear-details" trail.id %}">
-                    <h5 class="btn-warning primary">
-                        Gear Details </br> {{trail.name}}
-                    </h5>
-                </a>
-            </div>
-            {% endfor %}
+        <div class="page-header-links">
+            <h5>Gear Details For:</h5>
+            <div class="links-container">
+                
+                <div class="links-container-btn">
+                    {% for trail in trails %}
+                    
+                        <a href="{% url "trail-gear-details" trail.id %}" class="page-links add">
+                            <h5>{{trail.name}} </h5>
+                        </a>
+                    
+                    {% endfor %}
+                </div>
 
+            </div>
+            
         </div>
         
         <div class="page-header-links">

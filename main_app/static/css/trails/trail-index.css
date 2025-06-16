@@ -5,12 +5,7 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    /* background-image: url('/static/images/cover_image_3.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top;
-    filter: blur(1.2px); */
-    background-color: #e4eeee;
+    background-color: var(--background-color);
     z-index: -1;
 
     display:flex;
@@ -85,7 +80,7 @@ body::before {
     gap: .5rem;
 
     border-radius: 2.5rem;
-    background: var(--color-creamson-light);
+    background: var(--background-color-links);
     height: 3rem;
     padding: 0 1rem;
 }
@@ -115,7 +110,7 @@ body::before {
     width: 280px;
     aspect-ratio: 1/1;
     border-radius: var(--card-border-radius);
-    background: var(--color-creamson-light);
+    /* background: var(--background-color-links); */
     padding: .3rem;
     z-index: 0;
     position: relative;

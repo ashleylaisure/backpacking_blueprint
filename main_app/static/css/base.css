@@ -11,6 +11,7 @@
     --plus-jakarta-sans: "Plus Jakarta Sans", sans-serif;
     --roboto: "Roboto", sans-serif;
 
+
     /* colors */
     --primary-color: #2C3930;
     --primary-light: #4C554D; 
@@ -18,6 +19,12 @@
     --secondary-light: #fff5e9;
     --gray-pink: #F2E8E9;
     --dark-pink: #eaced1; 
+
+    --background-color: rgb(250, 253, 253);
+    --background-color-links: #eee;
+    --background-color-links-lt: #f3f3f3;
+    --background-color-table-even: rgba(234, 243, 243, 0.7);
+    --background-color-table-odd: rgba(243, 243, 243, 0.4);
 
     --black-200: #020202;
     --black-300: #333333;
@@ -164,7 +171,7 @@ ul {
     font-weight: 500;
     line-height: 1.5rem; /* 150% */
     letter-spacing:0.00938rem; 
-    color: var(--secondary-light);
+    color: var(--color-creamson-light);
 
     cursor: pointer;
     
@@ -256,7 +263,7 @@ ul {
     gap: 1.2rem;
 
     border-radius: 2.5rem;
-    background: #EEE;
+    background: var(--background-color-links);
     height: 3rem;
     width: 40%;
     min-width: 218px;

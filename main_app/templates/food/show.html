@@ -12,25 +12,24 @@
         <div class="header">
             <h2 class="header-text">Available Food for</h2>
             <h2 class="header-text">
-                <a href="{% url "trail-detail" day.trail.id %}" class="link">
-                    Day : {{day.day}} on {{day.trail.name}}</a>
+                <a href="{% url "meal-plan" day.trail.id %}" class="link">
+                    Day: {{day.day}} on the {{day.trail.name}}
+                </a>
             </h2>
         </div>
 
         <div class="section-header">
-            <div class="page-header-container">
+            {% comment %} <div class="page-header-container">
                 <div class="btn-header-btn">
-                    <a href="{% url "meal-plan" day.trail.id %}">
+                    <a href="{% url "trail-detail" day.trail.id %}" >
                         <h5 class="btn-warning primary">
                             Meal Plan </br> {{day.trail.name}}
-
                         </h5>
                     </a>
                 </div>
-                
-            </div>
+            </div> {% endcomment %}
             <div class="page-header-links">
-                <a href="{% url "food-create" %}" class="page-links add"><h5>Add Food</h5></a>
+                <a href="{% url "food-create" %}" class="page-links add"><h5>Add Food To Pantry</h5></a>
             </div>
         </div>
 

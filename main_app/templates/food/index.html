@@ -7,6 +7,7 @@
 {% block content %}
 
 
+
 <div class="container">
     
     <div class="header" >
@@ -15,18 +16,22 @@
 
     <div class="section-header">
 
-        <div class="page-header-container">
-            
-            {% for trail in trails %}
-            <div class="btn-header-btn">
-                <a href="{% url "meal-plan" trail.id %}" >
-                    <h5 class="btn-warning primary">
-                        Meal Plan</br> {{trail.name}}</h5>
-                </a>
+        <div class="page-header-links">
+            <h5>Meal Plans For:</h5>
+            <div class="links-container">
+                <div class="links-container-btn">
+                    {% for trail in trails %}
+
+                    <a href="{% url "meal-plan" trail.id %}" class="page-links add">
+                        <h5>{{trail.name}}</h5>
+                    </a>
+
+                    {% endfor %}
+                </div>
             </div>
             
-            {% endfor %}
         </div>
+        
         <div class="page-header-links">
             <a href="{% url "food-create" %}" class="page-links add"><h5>Add Food</h5></a>
         </div>
