@@ -4,9 +4,9 @@
 
 Backpacking Blueprint is a comprehensive app designed for thru-hikers of all levels. Whether you're preparing for your first long-distance trek or your tenth, Backpacking Blueprint helps you simplify and streamline every part of the planning process.
 
-![HomePage](static/images/readme/Screenshot_2025-06-16_171029.png)
-![Trail Details](static/images/readme/Screenshot_2025-06-16_171057.png)
-![Gear Brea](static/images/readme/Screenshot_2025-06-16_171117.png)
+![HomePage](https://file.notion.so/f/f/3b8dbac4-16cd-4f00-aab2-bad15b564ddb/c03f5cea-a55d-4b5a-b49b-36e4f72acdce/Screenshot_2025-06-16_171029.png?table=block&id=21413342-6c96-80ef-b060-e3cdd9bc431b&spaceId=3b8dbac4-16cd-4f00-aab2-bad15b564ddb&expirationTimestamp=1750132800000&signature=gCBXPQzDvXbmJKBeQi_mYYBBSlUqrKnbBje431KDib0&downloadName=Screenshot+2025-06-16+171029.png)
+![Trail Details](https://file.notion.so/f/f/3b8dbac4-16cd-4f00-aab2-bad15b564ddb/0971e03b-61c7-47a0-b199-76326763c850/Screenshot_2025-06-16_171057.png?table=block&id=21413342-6c96-8014-b4f8-efbc4d6f7860&spaceId=3b8dbac4-16cd-4f00-aab2-bad15b564ddb&expirationTimestamp=1750132800000&signature=JRyBvZi_YBW0tmjshy71Mjdk_oPioAWkC2aY5FXuq6s&downloadName=Screenshot+2025-06-16+171057.png)
+![Gear Breakdown](https://file.notion.so/f/f/3b8dbac4-16cd-4f00-aab2-bad15b564ddb/06be6d2a-cb4e-4cb0-a2b6-9f208a1fbcd4/Screenshot_2025-06-16_171117.png?table=block&id=21413342-6c96-801f-8ebd-ffa0dd543d94&spaceId=3b8dbac4-16cd-4f00-aab2-bad15b564ddb&expirationTimestamp=1750132800000&signature=bnxIovIhZHrt5wgXPMMhP3TZvyUeLUTUyXMj9ciH9oc&downloadName=Screenshot+2025-06-16+171117.png)
 
 ## Description
 
@@ -52,11 +52,11 @@ My hope is that this app empowers people to design their own adventures and fina
 
 ## Wireframe Images
 
-![WireFrames](static/images/readme/image_(2).png)
+![WireFrames](https://file.notion.so/f/f/3b8dbac4-16cd-4f00-aab2-bad15b564ddb/58af2af8-161e-432d-8a24-545cc8261183/image.png?table=block&id=20813342-6c96-80f8-a587-d15eff90261e&spaceId=3b8dbac4-16cd-4f00-aab2-bad15b564ddb&expirationTimestamp=1750132800000&signature=e5olcIRBBzvsL_1AIPNST6nk4ONTFdV1qrW2Diufgag&downloadName=image.png)
 
 ## ERD
 
-![dbStructure](static/images/readme/image_(1).png)
+![dbStructure](https://file.notion.so/f/f/3b8dbac4-16cd-4f00-aab2-bad15b564ddb/0190afb5-4922-4dbd-844c-7baa716c1b67/image.png?table=block&id=21113342-6c96-801d-a090-d2fbf633f576&spaceId=3b8dbac4-16cd-4f00-aab2-bad15b564ddb&expirationTimestamp=1750132800000&signature=1_DIdW5zmtrtC_WYqkPuFk9CKlXnv6aoW3mewu7RMwM&downloadName=image.png)
 
 
 ## Notion Planning
