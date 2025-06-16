@@ -34,12 +34,8 @@
                 <tbody>
                     {% for category, total in category_total.items %}
                     <tr>
-                        <td><h5>{{category}}</h5></td>
-                            {% if total == 0.0 %}
-                                <td><h5>0.00</h5></td>
-                            {% else %}
-                                <td><h5>{{total|floatformat:2}}</h5></td>
-                            {% endif %}
+                        <td><h5>{{category|capfirst}}</h5></td>
+                        <td><h5>{{total|floatformat:2}}</h5></td>
 
                     </tr>
                     {% endfor %}
@@ -73,7 +69,7 @@
                     <th><h5>Own?</h5></th>
                     <th><h5>Packed?</h5></th>
                     <th><h5>Weight</h5></th>
-                    <th><h5>Remove from List</h5></th>
+                    <th><h5>Edit/Remove</h5></th>
                 </tr>
             </thead>
 

@@ -1,32 +1,64 @@
 {% extends "base.html" %} {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static "css/gear/gear-show.css" %}">
+<link rel="stylesheet" href="{% static "css/show.css" %}">
 {% endblock head %}
 
+
 {% block content %}
-<section>
-    <div class="subsection-content">
-        <h2>Available Food for <a href="{% url "meal-plan" day.trail.id %}">{{day.date}}</a></h2>
-        {% if food.count %}
-        
-            {% for food in food %}
-                <div class="food-container">
-                    <p>{{food.name}}</p>
 
-                    <form action="{% url "add-food" day.id food.id%}" method="post">
-                        {% csrf_token %}
-                        {% comment %} {{mealplan_form.as_p}} {% endcomment %}
-                        <button type="submit" class="btn submit">Add to Meal Plan</button>
-                    </form>
-            {% endfor %}
+<div class="container">
+    <div class="modal-container">
+        <div class="header">
+            <h2 class="header-text">Available Food for</h2>
+            <h2 class="header-text">
+                <a href="{% url "trail-detail" day.trail.id %}" class="link">
+                    Day : {{day.day}} on {{day.trail.name}}</a>
+            </h2>
+        </div>
 
-        {% else %}
-            <p>No more food left in your Pantry <a href="{% url "food-create" %}">Add More Food</a></p>
+        <div class="section-header">
+            <div class="page-header-container">
+                <div class="btn-header-btn">
+                    <a href="{% url "meal-plan" day.trail.id %}">
+                        <h5 class="btn-warning primary">
+                            Meal Plan </br> {{day.trail.name}}
 
-        {% endif %}
+                        </h5>
+                    </a>
+                </div>
+                
+            </div>
+            <div class="page-header-links">
+                <a href="{% url "food-create" %}" class="page-links add"><h5>Add Food</h5></a>
+            </div>
+        </div>
 
+        <div class="feature-container">
+
+            {% if food.count %}
+                {% for food in food %}
+                    <div class="item-card">
+                        <div class="card-content">
+                            <h5>{{food.name|capfirst}}</h5>
+
+                            <form action="{% url "add-food" day.id food.id%}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-clear radio">
+                                    <img src="{% static "/images/plus-circle.svg" %}" alt="trash icon" class="small-icon secondary-icon">
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+            <h3>No more food left in your Pantry </h3>
+            {% endif %}
+        </div>
     </div>
-</section>
 
+
+</div>
 {% endblock content %}

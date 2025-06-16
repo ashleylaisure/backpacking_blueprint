@@ -1,29 +1,63 @@
 {% extends "base.html" %} {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static "css/gear/gear-show.css" %}">
+<link rel="stylesheet" href="{% static "css/show.css" %}">
 {% endblock head %}
 
+
 {% block content %}
-<section>
-    <div class="subsection-content">
-        <h2>Available Gear for <a href="{% url "trail-detail" trail.id %}">{{trail.name}}</a></h2>
-        {% if gear.count %}
-            {% for gear in gear %}
-                <div class="gear-container">
-                    <p>{{gear.name}}</p>
-                    <form action="{% url "associate-gear" trail.id gear.id%}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn submit">+ Add to packing list</button>
-                    </form>
+
+<div class="container">
+    <div class="modal-container">
+
+        <div class="header">
+            <h2 class="header-text">Available Gear For</h2>
+            <h2 class="header-text">
+                <a href="{% url "trail-detail" trail.id%}" class="link">
+                    {{trail.name}}</a>
+            </h2>
+        </div>
+
+        <div class="section-header">
+            <div class="page-header-container">
+            
+                <div class="btn-header-btn">
+                    <a href="{% url "trail-gear-details" trail.id %}">
+                        <h5 class="btn-warning primary">
+                            Gear Details </br> {{trail.name}}
+                        </h5>
+                    </a>
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>already assigned available gear <a href="{% url "gear-create" %}">Add New Gear</a></p>
-        {% endif %}
-        
 
+            </div>
+            <div class="page-header-links">
+                <a href="{% url "gear-create" %}" class="page-links add"><h5>Add Gear</h5></a>
+            </div>
+        </div>
+
+
+        <div class="feature-container">
+            {% if gear.count %}
+                {% for gear in gear %}
+                    <div class="item-card">
+                        <div class="card-content">
+                            <h5>{{gear.name|capfirst}}</h5>
+
+                            <form action="{% url "associate-gear" trail.id gear.id%}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-clear radio">
+                                    <img src="{% static "/images/plus-circle.svg" %}" alt="trash icon" class="small-icon secondary-icon">
+                                </button>
+                            </form>
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3>You have added All Available Gear</h3>
+            {% endif %}
+                
+        </div>
     </div>
-</section>
-
+</div>
 {% endblock content %}

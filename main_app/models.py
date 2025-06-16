@@ -50,8 +50,8 @@ cover_image_choices = (
 
 # Create your models here.
 class Gear(models.Model):
-    category = models.CharField(max_length=20, choices=category_choices)
-    name = models.CharField(("Item name"), max_length=200)
+    category = models.CharField(('Category* '), max_length=20, choices=category_choices)
+    name = models.CharField(("Item name* "), max_length=200)
     brand = models.CharField(max_length=200, blank=True, null=True)
     link = models.URLField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -83,16 +83,16 @@ class Gear(models.Model):
         
 
 class Trail(models.Model):
-    name = models.CharField(('Adventure Name'),max_length=200)
-    start_date = models.DateField('Start Date')
-    end_date = models.DateField('End Date')
+    name = models.CharField(('Adventure Name* '),max_length=200)
+    start_date = models.DateField('Start Date* ')
+    end_date = models.DateField('End Date* ')
     location_name = models.CharField(('Name'), max_length=200, blank=True, null=True)
     location = models.CharField(('Address'), max_length=200, blank=True, null=True)
     distance = models.DecimalField( ('Distance (mi)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     elevation = models.DecimalField(('Elevation Gain (ft)'), max_digits=10, decimal_places=2,  blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
     # image = models.ImageField(('Cover Image'), upload_to='cover_image/', default='cover_image_1.jpg', blank=True, null=True)
-    image = models.CharField(('Cover Image'), max_length=100, choices=cover_image_choices)
+    image = models.CharField(('Cover Image* '), max_length=100, choices=cover_image_choices)
     
     # foreign key linking to a user instance
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -149,9 +149,9 @@ class Trail(models.Model):
         return reverse("trail-detail", kwargs={"trail_id": self.id})
 
 class Food(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(('Name* '),max_length=200)
     calories = models.IntegerField(blank=True, null=True)
-    weight = models.DecimalField(("Weight (g)"), max_digits=10, decimal_places=2, default=Decimal('0.00'), blank=True, null=True)
+    weight = models.DecimalField(("Weight (grams)"), max_digits=10, decimal_places=2, default=Decimal('0.00'), blank=True, null=True)
     # category = models.CharField(max_length=20, choices=meal_category, blank=True, null=True)
     
     def __str__(self):

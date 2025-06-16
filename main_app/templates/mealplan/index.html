@@ -42,7 +42,7 @@
             <th><h5>Name</h5></th>
             <th><h5>Calories</h5></th>
             <th><h5>Weight (grams)</h5></th>
-            <th><h5>Remove From Day</h5></th>
+            <th><h5>Edit/Remove</h5></th>
         </tr>
       </thead>
 
@@ -54,7 +54,11 @@
               <td><h5>{{food.name}}</h5></td>
               <td><h5>{{food.calories}}</h5></td>
               <td><h5>{{food.weight}}</h5></td>
-              <td class="td-btn-remove">
+              <td class="td-btn-container">
+                <a href="{% url "food-update" food.id %}" class="btn warn">
+                  <img src="{% static "/images/write.svg" %}" alt="write icon" class="small-icon secondary-icon">
+                </a>
+
                 <form action="{% url "remove-food" day.id food.id%}" method="post" >
                   {% csrf_token %}
                   <button type="submit" class="btn-clear">
