@@ -232,7 +232,7 @@ def food_index(request):
     
 class FoodUpdate(LoginRequiredMixin, UpdateView):
     model = Food
-    fields = ['name', 'calories', 'weight', 'category']
+    fields = ['name', 'calories', 'weight']
     success_url = '/food/'
     
 class FoodDelete(LoginRequiredMixin, DeleteView):
