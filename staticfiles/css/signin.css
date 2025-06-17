@@ -1,0 +1,128 @@
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/static/images/nathan-dumlao-pLoMDKtl-JY-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    filter: blur(1.2px);
+    z-index: -1;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.container {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+/* Form */
+.form-container {
+    width: 37.6875rem;
+    height: 33.5rem;
+    border-radius: 0.9375rem;
+    background: #f3ebeb;
+    box-shadow: 2px 6px 35.8px 0px #626262;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Header */
+.form-text {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    margin-bottom: 2.19rem;
+}
+
+.form-text .error {
+    color: var(--warning-color)
+}
+
+/* Input */
+input {
+    width: 32.5rem;
+    height: 3.25rem;
+    background: #Fff;
+    margin-bottom: 1.25rem;
+    padding: 0 1rem;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+input::placeholder {
+    font-family: inherit;
+    color: #818181;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 1.4rem */
+}
+
+/* Form Button & subheader */
+.lower-container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.submit {
+    width: 14.875rem;
+    height: 3.4375rem;
+}
+
+.lower-text {
+    display: flex;
+}
+
+.lower-text h6 {
+    margin-right: 5px;
+}
+
+.links h5:hover {
+    color: var(--warning-color);
+    text-decoration: underline;
+}
+
+.btn {
+    border: none;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5rem; /* 150% */
+    letter-spacing:0.00938rem; 
+    color: var(--black-300);
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.btn:hover {
+    background: var(--primary-light);
+    color: var(--color-creamson);
+    font-size: 1.15rem;
+}

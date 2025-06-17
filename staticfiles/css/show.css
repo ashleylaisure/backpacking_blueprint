@@ -1,0 +1,171 @@
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/static/images/muhammad-masood-4bGPldCL4I8-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* filter: blur(1.2px); */
+    /* background-color: var(--secondary-light); */
+    z-index: -1;
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-header {
+    opacity: 1;
+}
+
+.container {
+    position: relative;
+    top: 70px;
+    width: 100vw;
+    min-height: 100vh;
+
+    padding: 1rem 5rem;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container {
+    width: 70%;
+    min-height: 60%;
+    border-radius: 0.9375rem;
+    background: rgba(243, 235, 235, .3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 2px 6px 35.8px 0px #626262;
+
+    padding: 5rem;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* .modal-form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+} */
+
+/* header photo and text */
+.header {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.header-text {
+    color: var(--color-creamson-light);
+    transition: all 2s;
+}
+
+.header-text .link:hover{
+    color: var(--warning-color);
+}
+
+/* sub-header and links */
+.section-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.page-header-container {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.btn-header-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.page-header-links {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
+    border-radius: 2.5rem;
+    background: var(--color-creamson-light);
+    height: 3rem;
+    padding: 0 1rem;
+}
+
+.page-links h5 {
+    transition: all .2s
+}
+
+.page-links h5:hover {
+    color: var(--warning-color)
+}
+
+.feature-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.item-card {
+    width: 150px;
+    aspect-ratio: 1/1;
+    border-radius: var(--card-border-radius);
+    background: var(--color-creamson-light);
+    padding: .3rem;
+    z-index: 0;
+    position: relative;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+
+.item-card:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.card-content {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .3rem;
+}
+
+.card-content h5{
+    text-align: center;
+}
+
+.radio {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    z-index: 2;
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--primary-light);
+
+}
