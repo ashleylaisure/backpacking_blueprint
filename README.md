@@ -31,6 +31,7 @@ My hope is that this app empowers people to design their own adventures and fina
 
 - **PostgreSQL** - A powerful, open-source object-relational database system used to store and manage application data efficiently and securely.
 
+- **Python3** - 
 - **JavaScript** - Adds interactivity to the frontend—for example, dynamic forms, animations, and responsive UI behavior.
 - **CSS** - Used to style the application’s UI, ensuring a clean and responsive design across devices.
 - **HTML5** - The standard markup language used to structure the web pages and content of the application.
@@ -40,15 +41,46 @@ My hope is that this app empowers people to design their own adventures and fina
 
 ## Features
 
-- **User Authentication**
-
+ **User Authentication**
+  - Django built in user authentication system
+  - Django CSRF
   - Sign up as a new user
   - Log in with an existing account
 
-- **Thru-Hiking Planning Tool**
-  - Plan gear: Create and manage a gear checklist customized to your hike, with weight tracking and category organization.
-  - Organize food : Build a detailed food plan and calculate calorie needs per day.
-  - Build your itinerary: Set hiking goals, track mileage, and estimate daily progress.
+**Hiking Adventure Management**
+  - Create a new Adventure
+    - Input: Name, start & end date.
+    - Optional: Start location, total distance, elevation gain
+    - Choose a cover image from a preset list (future: upload or Unsplash integration).
+  - After creation, users are redirected to the Adventure Dashboard with:
+    -Trip details
+    -Interactive trailhead map
+    -Auto-generated itinerary
+    -Packing list
+    -Navigation overview
+  - Full CRUD functionality for each trip (Create, Read, Update, Delete).
+
+**Main Features**
+🗓 Itinerary
+  - Add daily details: start/finish location, distance, elevation gain.
+  - Notes section per day.
+  - Locations auto-update on the main trail map.
+
+🎒 Gear
+  - Catalog and manage gear inventory.
+  - Track brand, purchase link, price, ownership, and weight
+  - Full CRUD on each item.
+  - Assign/remove gear per trip (many-to-many relationship).
+  - Backend converts all weights to pounds and calculates total gear weight.
+  - Packing list reflects added gear with checkboxes for tracking.
+
+🥾 Meal Plan (Pantry)
+  - Store and manage favorite hiking foods.
+  - Full CRUD for food items.
+  - Auto-generated daily meal plan per adventure.
+  - Add meals per day; automatic calorie & weight (lbs) calculations.
+  - Helps balance nutritional needs with manageable carry weight.
+
 
 ## Wireframe Images
 
@@ -65,20 +97,30 @@ My hope is that this app empowers people to design their own adventures and fina
 
 ## <a name="nextsteps"></a>Project Next Steps
 
-#### List of Future Features
+#### Planned Features
 
-- **Expenses/Budget**
-
-
+- **User Profile & Dashboard**
+  - View all upcoming tasks and trip overviews.
+  - Bucket List & Countdown
+  - Track future adventures.
 - **Documents & Reservations**
-
+  - Document Organizer
+  - Store permits, reservations, etc.
+  - Manage logistics to/from trailheads.
+- **Trip Budgeting**
+  - Expense and cost tracking per trip.
 - **Sync & Share**
-
   - Collaborate with fellow travelers by sharing your trip plans
   - Let friends and family at home view your itinerary and preparations
+  
+****
+#### Hiking API Integration
 
-- **User Dashboard**
-  - Access a user dashboard to view and manage all your trip plans in one place
+- **Search by campsite, trailhead, or location**
+- **Add a new Adventure from search results**
+- **Auto Sync location with itinerary**
+- **topographic maps and offline sync**
+
 
 ## <a name="deployment"></a>Deployed Link
 
